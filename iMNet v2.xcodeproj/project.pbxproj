@@ -33,6 +33,13 @@
 		9F03C9FD157615FE00554DCE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F03C9FC157615FD00554DCE /* QuartzCore.framework */; };
 		9F03C9FF1576161600554DCE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F03C9FE1576161600554DCE /* libsqlite3.dylib */; };
 		9F03CA001576162100554DCE /* libMapView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F03C9F11576158600554DCE /* libMapView.a */; };
+		9F4F7D4015761A780040496D /* control-room-0.2.0.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3815761A780040496D /* control-room-0.2.0.mbtiles */; };
+		9F4F7D4115761A780040496D /* geography-class_f9f8b8.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3915761A780040496D /* geography-class_f9f8b8.mbtiles */; };
+		9F4F7D4215761A780040496D /* ConvertLocationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3B15761A780040496D /* ConvertLocationData.m */; };
+		9F4F7D4315761A780040496D /* DataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3D15761A780040496D /* DataClass.m */; };
+		9F4F7D4415761A780040496D /* MyCLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3F15761A780040496D /* MyCLController.m */; };
+		9F4F7D4715761B0E0040496D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F7D4615761B0E0040496D /* MapViewController.m */; };
+		9F4F7D4D15762EF50040496D /* iMNet icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F7D4C15762EF50040496D /* iMNet icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +71,7 @@
 			remoteGlobalIDString = 2BF3078F0F8AC5C0007014EE;
 			remoteInfo = "Unit Tests";
 		};
-		9F03C9F8157615CD00554DCE /* PBXContainerItemProxy */ = {
+		9F4F7D4A157623DD0040496D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9F03C9E01576158500554DCE /* MapView.xcodeproj */;
 			proxyType = 1;
@@ -110,6 +117,17 @@
 		9F03C9FA157615E800554DCE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9F03C9FC157615FD00554DCE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9F03C9FE1576161600554DCE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		9F4F7D3815761A780040496D /* control-room-0.2.0.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "control-room-0.2.0.mbtiles"; sourceTree = "<group>"; };
+		9F4F7D3915761A780040496D /* geography-class_f9f8b8.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "geography-class_f9f8b8.mbtiles"; sourceTree = "<group>"; };
+		9F4F7D3A15761A780040496D /* ConvertLocationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertLocationData.h; sourceTree = "<group>"; };
+		9F4F7D3B15761A780040496D /* ConvertLocationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertLocationData.m; sourceTree = "<group>"; };
+		9F4F7D3C15761A780040496D /* DataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataClass.h; sourceTree = "<group>"; };
+		9F4F7D3D15761A780040496D /* DataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataClass.m; sourceTree = "<group>"; };
+		9F4F7D3E15761A780040496D /* MyCLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCLController.h; sourceTree = "<group>"; };
+		9F4F7D3F15761A780040496D /* MyCLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCLController.m; sourceTree = "<group>"; };
+		9F4F7D4515761B0E0040496D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		9F4F7D4615761B0E0040496D /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		9F4F7D4C15762EF50040496D /* iMNet icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iMNet icon.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,8 +135,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F03CA001576162100554DCE /* libMapView.a in Frameworks */,
 				9F03C9FF1576161600554DCE /* libsqlite3.dylib in Frameworks */,
+				9F03CA001576162100554DCE /* libMapView.a in Frameworks */,
 				9F03C9FD157615FE00554DCE /* QuartzCore.framework in Frameworks */,
 				9F03C9FB157615E800554DCE /* CoreLocation.framework in Frameworks */,
 				930F07321575962100F39890 /* UIKit.framework in Frameworks */,
@@ -155,11 +173,13 @@
 		930F07221575962100F39890 = {
 			isa = PBXGroup;
 			children = (
+				9F4F7D4C15762EF50040496D /* iMNet icon.png */,
 				9F03C9FE1576161600554DCE /* libsqlite3.dylib */,
 				9F03C9FC157615FD00554DCE /* QuartzCore.framework */,
 				9F03C9FA157615E800554DCE /* CoreLocation.framework */,
 				9F03C9E01576158500554DCE /* MapView.xcodeproj */,
 				9301FB481575BA6000D20688 /* icons */,
+				9F4F7D3715761A2E0040496D /* Map */,
 				93E7171B15759F650089A3D8 /* View Controllers */,
 				930F07371575962100F39890 /* iMNet v2 */,
 				930F07631575962100F39890 /* iMNet v2Tests */,
@@ -243,6 +263,8 @@
 				9318A32E1575B400000E877A /* SettingsViewController.m */,
 				93E717281575ABF00089A3D8 /* PersonalInfoViewController.h */,
 				93E717291575ABF00089A3D8 /* PersonalInfoViewController.m */,
+				9F4F7D4515761B0E0040496D /* MapViewController.h */,
+				9F4F7D4615761B0E0040496D /* MapViewController.m */,
 			);
 			name = "View Controllers";
 			path = "iMNet v2";
@@ -256,6 +278,22 @@
 				9F03C9F51576158600554DCE /* RM Unit Tests.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9F4F7D3715761A2E0040496D /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				9F4F7D3815761A780040496D /* control-room-0.2.0.mbtiles */,
+				9F4F7D3915761A780040496D /* geography-class_f9f8b8.mbtiles */,
+				9F4F7D3A15761A780040496D /* ConvertLocationData.h */,
+				9F4F7D3B15761A780040496D /* ConvertLocationData.m */,
+				9F4F7D3C15761A780040496D /* DataClass.h */,
+				9F4F7D3D15761A780040496D /* DataClass.m */,
+				9F4F7D3E15761A780040496D /* MyCLController.h */,
+				9F4F7D3F15761A780040496D /* MyCLController.m */,
+			);
+			name = Map;
+			path = "iMNet v2";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,7 +310,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				9F03C9F9157615CD00554DCE /* PBXTargetDependency */,
+				9F4F7D4B157623DD0040496D /* PBXTargetDependency */,
 			);
 			name = "iMNet v2";
 			productName = "iMNet v2";
@@ -366,6 +404,9 @@
 				9301FB4E1575BA6000D20688 /* MapViewIcon.png in Resources */,
 				9301FB4F1575BA6000D20688 /* MessageIcon.png in Resources */,
 				9301FB501575BA6000D20688 /* SettingsIcon.png in Resources */,
+				9F4F7D4015761A780040496D /* control-room-0.2.0.mbtiles in Resources */,
+				9F4F7D4115761A780040496D /* geography-class_f9f8b8.mbtiles in Resources */,
+				9F4F7D4D15762EF50040496D /* iMNet icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +448,10 @@
 				93E717271575A8720089A3D8 /* ContactDetailsViewController.m in Sources */,
 				93E7172A1575ABF00089A3D8 /* PersonalInfoViewController.m in Sources */,
 				9318A32F1575B401000E877A /* SettingsViewController.m in Sources */,
+				9F4F7D4215761A780040496D /* ConvertLocationData.m in Sources */,
+				9F4F7D4315761A780040496D /* DataClass.m in Sources */,
+				9F4F7D4415761A780040496D /* MyCLController.m in Sources */,
+				9F4F7D4715761B0E0040496D /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,10 +471,10 @@
 			target = 930F072C1575962100F39890 /* iMNet v2 */;
 			targetProxy = 930F07611575962100F39890 /* PBXContainerItemProxy */;
 		};
-		9F03C9F9157615CD00554DCE /* PBXTargetDependency */ = {
+		9F4F7D4B157623DD0040496D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MapView;
-			targetProxy = 9F03C9F8157615CD00554DCE /* PBXContainerItemProxy */;
+			targetProxy = 9F4F7D4A157623DD0040496D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -519,16 +564,16 @@
 		930F076F1575962100F39890 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iMNet v2/iMNet v2-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					/Users/Kenneth/Desktop/ipad,
-					"programming/iMNet-v2/route-me/MapView/**",
+					"\"/Users/Kenneth/Desktop/ipad programming/iMNet-v2/route-me/MapView\"/**",
 				);
 				INFOPLIST_FILE = "iMNet v2/iMNet v2-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					/Users/Kenneth/Desktop/ipad,
-					"programming/iMNet-v2/route-me/MapView/**",
+					"\"$(SRCROOT)/iMNet v2\"",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -538,16 +583,16 @@
 		930F07701575962100F39890 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iMNet v2/iMNet v2-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					/Users/Kenneth/Desktop/ipad,
-					"programming/iMNet-v2/route-me/MapView/**",
+					"\"/Users/Kenneth/Desktop/ipad programming/iMNet-v2/route-me/MapView\"/**",
 				);
 				INFOPLIST_FILE = "iMNet v2/iMNet v2-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					/Users/Kenneth/Desktop/ipad,
-					"programming/iMNet-v2/route-me/MapView/**",
+					"\"$(SRCROOT)/iMNet v2\"",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
