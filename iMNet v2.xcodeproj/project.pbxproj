@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9301FB3D1575B67700D20688 /* ContactsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9301FB3C1575B67700D20688 /* ContactsIcon.png */; };
 		930F07321575962100F39890 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930F07311575962100F39890 /* UIKit.framework */; };
 		930F07341575962100F39890 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930F07331575962100F39890 /* Foundation.framework */; };
 		930F07361575962100F39890 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930F07351575962100F39890 /* CoreGraphics.framework */; };
@@ -15,17 +16,19 @@
 		930F07421575962100F39890 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 930F07411575962100F39890 /* AppDelegate.m */; };
 		930F07451575962100F39890 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 930F07431575962100F39890 /* MainStoryboard_iPhone.storyboard */; };
 		930F07481575962100F39890 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 930F07461575962100F39890 /* MainStoryboard_iPad.storyboard */; };
-		930F074B1575962100F39890 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 930F074A1575962100F39890 /* FirstViewController.m */; };
-		930F074D1575962100F39890 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 930F074C1575962100F39890 /* first.png */; };
-		930F074F1575962100F39890 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 930F074E1575962100F39890 /* first@2x.png */; };
-		930F07521575962100F39890 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 930F07511575962100F39890 /* SecondViewController.m */; };
-		930F07541575962100F39890 /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 930F07531575962100F39890 /* second.png */; };
-		930F07561575962100F39890 /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 930F07551575962100F39890 /* second@2x.png */; };
 		930F075E1575962100F39890 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930F075D1575962100F39890 /* SenTestingKit.framework */; };
 		930F075F1575962100F39890 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930F07311575962100F39890 /* UIKit.framework */; };
 		930F07601575962100F39890 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930F07331575962100F39890 /* Foundation.framework */; };
 		930F07681575962100F39890 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 930F07661575962100F39890 /* InfoPlist.strings */; };
 		930F076B1575962100F39890 /* iMNet_v2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 930F076A1575962100F39890 /* iMNet_v2Tests.m */; };
+		9318A32A1575B3D4000E877A /* MapViewIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9318A3271575B3D4000E877A /* MapViewIcon.png */; };
+		9318A32B1575B3D4000E877A /* MessageIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9318A3281575B3D4000E877A /* MessageIcon.png */; };
+		9318A32C1575B3D4000E877A /* SettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9318A3291575B3D4000E877A /* SettingsIcon.png */; };
+		9318A32F1575B401000E877A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9318A32E1575B400000E877A /* SettingsViewController.m */; };
+		93E7171E1575A0120089A3D8 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7171D1575A0120089A3D8 /* MessageViewController.m */; };
+		93E717211575A0D50089A3D8 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E717201575A0D50089A3D8 /* ContactsViewController.m */; };
+		93E717271575A8720089A3D8 /* ContactDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E717261575A8720089A3D8 /* ContactDetailsViewController.m */; };
+		93E7172A1575ABF00089A3D8 /* PersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E717291575ABF00089A3D8 /* PersonalInfoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9301FB3C1575B67700D20688 /* ContactsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ContactsIcon.png; path = icons/ContactsIcon.png; sourceTree = "<group>"; };
 		930F072D1575962100F39890 /* iMNet v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iMNet v2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		930F07311575962100F39890 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		930F07331575962100F39890 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -51,20 +55,25 @@
 		930F07411575962100F39890 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		930F07441575962100F39890 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		930F07471575962100F39890 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		930F07491575962100F39890 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		930F074A1575962100F39890 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		930F074C1575962100F39890 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
-		930F074E1575962100F39890 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		930F07501575962100F39890 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		930F07511575962100F39890 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
-		930F07531575962100F39890 /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
-		930F07551575962100F39890 /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
 		930F075C1575962100F39890 /* iMNet v2Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iMNet v2Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		930F075D1575962100F39890 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		930F07651575962100F39890 /* iMNet v2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iMNet v2Tests-Info.plist"; sourceTree = "<group>"; };
 		930F07671575962100F39890 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		930F07691575962100F39890 /* iMNet_v2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iMNet_v2Tests.h; sourceTree = "<group>"; };
 		930F076A1575962100F39890 /* iMNet_v2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iMNet_v2Tests.m; sourceTree = "<group>"; };
+		9318A3271575B3D4000E877A /* MapViewIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapViewIcon.png; sourceTree = "<group>"; };
+		9318A3281575B3D4000E877A /* MessageIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MessageIcon.png; sourceTree = "<group>"; };
+		9318A3291575B3D4000E877A /* SettingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsIcon.png; sourceTree = "<group>"; };
+		9318A32D1575B400000E877A /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ../SettingsViewController.h; sourceTree = "<group>"; };
+		9318A32E1575B400000E877A /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ../SettingsViewController.m; sourceTree = "<group>"; };
+		93E7171C1575A0120089A3D8 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewController.h; path = ../MessageViewController.h; sourceTree = "<group>"; };
+		93E7171D1575A0120089A3D8 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewController.m; path = ../MessageViewController.m; sourceTree = "<group>"; };
+		93E7171F1575A0D50089A3D8 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
+		93E717201575A0D50089A3D8 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
+		93E717251575A8720089A3D8 /* ContactDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailsViewController.h; sourceTree = "<group>"; };
+		93E717261575A8720089A3D8 /* ContactDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailsViewController.m; sourceTree = "<group>"; };
+		93E717281575ABF00089A3D8 /* PersonalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoViewController.h; sourceTree = "<group>"; };
+		93E717291575ABF00089A3D8 /* PersonalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +103,9 @@
 		930F07221575962100F39890 = {
 			isa = PBXGroup;
 			children = (
+				9301FB3C1575B67700D20688 /* ContactsIcon.png */,
+				9318A3261575B3D4000E877A /* icons */,
+				93E7171B15759F650089A3D8 /* View Controllers */,
 				930F07371575962100F39890 /* iMNet v2 */,
 				930F07631575962100F39890 /* iMNet v2Tests */,
 				930F07301575962100F39890 /* Frameworks */,
@@ -128,14 +140,6 @@
 				930F07411575962100F39890 /* AppDelegate.m */,
 				930F07431575962100F39890 /* MainStoryboard_iPhone.storyboard */,
 				930F07461575962100F39890 /* MainStoryboard_iPad.storyboard */,
-				930F07491575962100F39890 /* FirstViewController.h */,
-				930F074A1575962100F39890 /* FirstViewController.m */,
-				930F074C1575962100F39890 /* first.png */,
-				930F074E1575962100F39890 /* first@2x.png */,
-				930F07501575962100F39890 /* SecondViewController.h */,
-				930F07511575962100F39890 /* SecondViewController.m */,
-				930F07531575962100F39890 /* second.png */,
-				930F07551575962100F39890 /* second@2x.png */,
 				930F07381575962100F39890 /* Supporting Files */,
 			);
 			path = "iMNet v2";
@@ -169,6 +173,34 @@
 				930F07661575962100F39890 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9318A3261575B3D4000E877A /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				9318A3271575B3D4000E877A /* MapViewIcon.png */,
+				9318A3281575B3D4000E877A /* MessageIcon.png */,
+				9318A3291575B3D4000E877A /* SettingsIcon.png */,
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
+		93E7171B15759F650089A3D8 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				93E7171F1575A0D50089A3D8 /* ContactsViewController.h */,
+				93E717201575A0D50089A3D8 /* ContactsViewController.m */,
+				93E717251575A8720089A3D8 /* ContactDetailsViewController.h */,
+				93E717261575A8720089A3D8 /* ContactDetailsViewController.m */,
+				93E7171C1575A0120089A3D8 /* MessageViewController.h */,
+				93E7171D1575A0120089A3D8 /* MessageViewController.m */,
+				9318A32D1575B400000E877A /* SettingsViewController.h */,
+				9318A32E1575B400000E877A /* SettingsViewController.m */,
+				93E717281575ABF00089A3D8 /* PersonalInfoViewController.h */,
+				93E717291575ABF00089A3D8 /* PersonalInfoViewController.m */,
+			);
+			name = "View Controllers";
+			path = "iMNet v2";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,10 +276,10 @@
 				930F073C1575962100F39890 /* InfoPlist.strings in Resources */,
 				930F07451575962100F39890 /* MainStoryboard_iPhone.storyboard in Resources */,
 				930F07481575962100F39890 /* MainStoryboard_iPad.storyboard in Resources */,
-				930F074D1575962100F39890 /* first.png in Resources */,
-				930F074F1575962100F39890 /* first@2x.png in Resources */,
-				930F07541575962100F39890 /* second.png in Resources */,
-				930F07561575962100F39890 /* second@2x.png in Resources */,
+				9318A32A1575B3D4000E877A /* MapViewIcon.png in Resources */,
+				9318A32B1575B3D4000E877A /* MessageIcon.png in Resources */,
+				9318A32C1575B3D4000E877A /* SettingsIcon.png in Resources */,
+				9301FB3D1575B67700D20688 /* ContactsIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,8 +316,11 @@
 			files = (
 				930F073E1575962100F39890 /* main.m in Sources */,
 				930F07421575962100F39890 /* AppDelegate.m in Sources */,
-				930F074B1575962100F39890 /* FirstViewController.m in Sources */,
-				930F07521575962100F39890 /* SecondViewController.m in Sources */,
+				93E7171E1575A0120089A3D8 /* MessageViewController.m in Sources */,
+				93E717211575A0D50089A3D8 /* ContactsViewController.m in Sources */,
+				93E717271575A8720089A3D8 /* ContactDetailsViewController.m in Sources */,
+				93E7172A1575ABF00089A3D8 /* PersonalInfoViewController.m in Sources */,
+				9318A32F1575B401000E877A /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
