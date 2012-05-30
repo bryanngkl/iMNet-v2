@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9301FB3D1575B67700D20688 /* ContactsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9301FB3C1575B67700D20688 /* ContactsIcon.png */; };
+		9301FB431575B7A500D20688 /* ContactsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9301FB3F1575B7A500D20688 /* ContactsIcon.png */; };
+		9301FB441575B7A500D20688 /* MapViewIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9301FB401575B7A500D20688 /* MapViewIcon.png */; };
+		9301FB451575B7A500D20688 /* MessageIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9301FB411575B7A500D20688 /* MessageIcon.png */; };
+		9301FB461575B7A500D20688 /* SettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9301FB421575B7A500D20688 /* SettingsIcon.png */; };
 		930F07321575962100F39890 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930F07311575962100F39890 /* UIKit.framework */; };
 		930F07341575962100F39890 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930F07331575962100F39890 /* Foundation.framework */; };
 		930F07361575962100F39890 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930F07351575962100F39890 /* CoreGraphics.framework */; };
@@ -21,9 +24,6 @@
 		930F07601575962100F39890 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930F07331575962100F39890 /* Foundation.framework */; };
 		930F07681575962100F39890 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 930F07661575962100F39890 /* InfoPlist.strings */; };
 		930F076B1575962100F39890 /* iMNet_v2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 930F076A1575962100F39890 /* iMNet_v2Tests.m */; };
-		9318A32A1575B3D4000E877A /* MapViewIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9318A3271575B3D4000E877A /* MapViewIcon.png */; };
-		9318A32B1575B3D4000E877A /* MessageIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9318A3281575B3D4000E877A /* MessageIcon.png */; };
-		9318A32C1575B3D4000E877A /* SettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9318A3291575B3D4000E877A /* SettingsIcon.png */; };
 		9318A32F1575B401000E877A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9318A32E1575B400000E877A /* SettingsViewController.m */; };
 		93E7171E1575A0120089A3D8 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7171D1575A0120089A3D8 /* MessageViewController.m */; };
 		93E717211575A0D50089A3D8 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E717201575A0D50089A3D8 /* ContactsViewController.m */; };
@@ -42,7 +42,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9301FB3C1575B67700D20688 /* ContactsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ContactsIcon.png; path = icons/ContactsIcon.png; sourceTree = "<group>"; };
+		9301FB3F1575B7A500D20688 /* ContactsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ContactsIcon.png; sourceTree = "<group>"; };
+		9301FB401575B7A500D20688 /* MapViewIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapViewIcon.png; sourceTree = "<group>"; };
+		9301FB411575B7A500D20688 /* MessageIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MessageIcon.png; sourceTree = "<group>"; };
+		9301FB421575B7A500D20688 /* SettingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsIcon.png; sourceTree = "<group>"; };
 		930F072D1575962100F39890 /* iMNet v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iMNet v2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		930F07311575962100F39890 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		930F07331575962100F39890 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -61,9 +64,6 @@
 		930F07671575962100F39890 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		930F07691575962100F39890 /* iMNet_v2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iMNet_v2Tests.h; sourceTree = "<group>"; };
 		930F076A1575962100F39890 /* iMNet_v2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iMNet_v2Tests.m; sourceTree = "<group>"; };
-		9318A3271575B3D4000E877A /* MapViewIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapViewIcon.png; sourceTree = "<group>"; };
-		9318A3281575B3D4000E877A /* MessageIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MessageIcon.png; sourceTree = "<group>"; };
-		9318A3291575B3D4000E877A /* SettingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsIcon.png; sourceTree = "<group>"; };
 		9318A32D1575B400000E877A /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ../SettingsViewController.h; sourceTree = "<group>"; };
 		9318A32E1575B400000E877A /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ../SettingsViewController.m; sourceTree = "<group>"; };
 		93E7171C1575A0120089A3D8 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewController.h; path = ../MessageViewController.h; sourceTree = "<group>"; };
@@ -100,11 +100,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9301FB3E1575B7A500D20688 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				9301FB3F1575B7A500D20688 /* ContactsIcon.png */,
+				9301FB401575B7A500D20688 /* MapViewIcon.png */,
+				9301FB411575B7A500D20688 /* MessageIcon.png */,
+				9301FB421575B7A500D20688 /* SettingsIcon.png */,
+			);
+			name = icons;
+			path = "iMNet v2/icons";
+			sourceTree = "<group>";
+		};
 		930F07221575962100F39890 = {
 			isa = PBXGroup;
 			children = (
-				9301FB3C1575B67700D20688 /* ContactsIcon.png */,
-				9318A3261575B3D4000E877A /* icons */,
+				9301FB3E1575B7A500D20688 /* icons */,
 				93E7171B15759F650089A3D8 /* View Controllers */,
 				930F07371575962100F39890 /* iMNet v2 */,
 				930F07631575962100F39890 /* iMNet v2Tests */,
@@ -173,16 +184,6 @@
 				930F07661575962100F39890 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		9318A3261575B3D4000E877A /* icons */ = {
-			isa = PBXGroup;
-			children = (
-				9318A3271575B3D4000E877A /* MapViewIcon.png */,
-				9318A3281575B3D4000E877A /* MessageIcon.png */,
-				9318A3291575B3D4000E877A /* SettingsIcon.png */,
-			);
-			path = icons;
 			sourceTree = "<group>";
 		};
 		93E7171B15759F650089A3D8 /* View Controllers */ = {
@@ -276,10 +277,10 @@
 				930F073C1575962100F39890 /* InfoPlist.strings in Resources */,
 				930F07451575962100F39890 /* MainStoryboard_iPhone.storyboard in Resources */,
 				930F07481575962100F39890 /* MainStoryboard_iPad.storyboard in Resources */,
-				9318A32A1575B3D4000E877A /* MapViewIcon.png in Resources */,
-				9318A32B1575B3D4000E877A /* MessageIcon.png in Resources */,
-				9318A32C1575B3D4000E877A /* SettingsIcon.png in Resources */,
-				9301FB3D1575B67700D20688 /* ContactsIcon.png in Resources */,
+				9301FB431575B7A500D20688 /* ContactsIcon.png in Resources */,
+				9301FB441575B7A500D20688 /* MapViewIcon.png in Resources */,
+				9301FB451575B7A500D20688 /* MessageIcon.png in Resources */,
+				9301FB461575B7A500D20688 /* SettingsIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
