@@ -108,14 +108,12 @@
 				9301FB411575B7A500D20688 /* MessageIcon.png */,
 				9301FB421575B7A500D20688 /* SettingsIcon.png */,
 			);
-			name = icons;
-			path = "iMNet v2/icons";
+			path = icons;
 			sourceTree = "<group>";
 		};
 		930F07221575962100F39890 = {
 			isa = PBXGroup;
 			children = (
-				9301FB3E1575B7A500D20688 /* icons */,
 				93E7171B15759F650089A3D8 /* View Controllers */,
 				930F07371575962100F39890 /* iMNet v2 */,
 				930F07631575962100F39890 /* iMNet v2Tests */,
@@ -147,6 +145,7 @@
 		930F07371575962100F39890 /* iMNet v2 */ = {
 			isa = PBXGroup;
 			children = (
+				9301FB3E1575B7A500D20688 /* icons */,
 				930F07401575962100F39890 /* AppDelegate.h */,
 				930F07411575962100F39890 /* AppDelegate.m */,
 				930F07431575962100F39890 /* MainStoryboard_iPhone.storyboard */,
