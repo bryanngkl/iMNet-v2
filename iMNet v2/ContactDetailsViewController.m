@@ -11,6 +11,11 @@
 
 @implementation ContactDetailsViewController
 
+@synthesize managedObjectContext;
+@synthesize currentContact;
+@synthesize userName,userData,userOrganisation;
+
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -39,10 +44,16 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.userName.text = currentContact.username;
+    self.userOrganisation.text = currentContact.userOrg;
+    self.userData.text = currentContact.userData;
 }
 
 - (void)viewDidUnload
 {
+    userName = nil;
+    userOrganisation = nil;
+    userData = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

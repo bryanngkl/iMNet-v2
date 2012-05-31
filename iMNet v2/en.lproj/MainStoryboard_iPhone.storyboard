@@ -34,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="CjZ-Q1-4mw" detailTextLabel="DW3-lw-sze" style="IBUITableViewCellStyleValue1" id="1Et-4w-sim">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="CjZ-Q1-4mw" detailTextLabel="DW3-lw-sze" style="IBUITableViewCellStyleValue1" id="1Et-4w-sim">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -58,6 +58,9 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <segue destination="KFa-H0-Eir" kind="push" identifier="ContactDetailsSegue" id="ipU-uD-Yoo"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -66,11 +69,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Contacts" id="3By-dC-eq4">
-                        <barButtonItem key="rightBarButtonItem" title="Update" id="3yA-Be-mpJ">
-                            <connections>
-                                <segue destination="KFa-H0-Eir" kind="push" id="kKv-X4-HYS"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Update" id="3yA-Be-mpJ"/>
                     </navigationItem>
                 </tableViewController>
             </objects>
@@ -179,6 +178,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="3MP-ZS-XAq"/>
+                    <connections>
+                        <outlet property="userData" destination="G1N-Db-buF" id="KIn-kE-84X"/>
+                        <outlet property="userName" destination="fTJ-z2-Yfq" id="Vl5-X1-1XO"/>
+                        <outlet property="userOrganisation" destination="Vgj-X5-61d" id="sNx-1j-1Vi"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1158" y="435"/>

@@ -25,6 +25,13 @@
 		930F07681575962100F39890 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 930F07661575962100F39890 /* InfoPlist.strings */; };
 		930F076B1575962100F39890 /* iMNet_v2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 930F076A1575962100F39890 /* iMNet_v2Tests.m */; };
 		9318A32F1575B401000E877A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9318A32E1575B400000E877A /* SettingsViewController.m */; };
+		9326B5B21576F12B00026875 /* iMNetData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9326B5B01576F12B00026875 /* iMNetData.xcdatamodeld */; };
+		936AED55157703A300B441B2 /* Contacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 936AED54157703A300B441B2 /* Contacts.m */; };
+		93828DFF1576F50600213EA8 /* Images.m in Sources */ = {isa = PBXBuildFile; fileRef = 93828DFE1576F50600213EA8 /* Images.m */; };
+		93828E021576F51C00213EA8 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 93828E011576F51C00213EA8 /* Location.m */; };
+		93828E051576F52800213EA8 /* Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = 93828E041576F52800213EA8 /* Messages.m */; };
+		93828E081576F53500213EA8 /* OwnSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 93828E071576F53500213EA8 /* OwnSettings.m */; };
+		93828E0D1576F61900213EA8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93828E0C1576F61900213EA8 /* CoreData.framework */; };
 		93E7171E1575A0120089A3D8 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7171D1575A0120089A3D8 /* MessageViewController.m */; };
 		93E717211575A0D50089A3D8 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E717201575A0D50089A3D8 /* ContactsViewController.m */; };
 		93E717271575A8720089A3D8 /* ContactDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E717261575A8720089A3D8 /* ContactDetailsViewController.m */; };
@@ -122,6 +129,18 @@
 		930F076A1575962100F39890 /* iMNet_v2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iMNet_v2Tests.m; sourceTree = "<group>"; };
 		9318A32D1575B400000E877A /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ../SettingsViewController.h; sourceTree = "<group>"; };
 		9318A32E1575B400000E877A /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ../SettingsViewController.m; sourceTree = "<group>"; };
+		9326B5B11576F12B00026875 /* iMNetData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMNetData.xcdatamodel; sourceTree = "<group>"; };
+		936AED53157703A300B441B2 /* Contacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contacts.h; sourceTree = "<group>"; };
+		936AED54157703A300B441B2 /* Contacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contacts.m; sourceTree = "<group>"; };
+		93828DFD1576F50600213EA8 /* Images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Images.h; sourceTree = "<group>"; };
+		93828DFE1576F50600213EA8 /* Images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Images.m; sourceTree = "<group>"; };
+		93828E001576F51C00213EA8 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		93828E011576F51C00213EA8 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		93828E031576F52800213EA8 /* Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messages.h; sourceTree = "<group>"; };
+		93828E041576F52800213EA8 /* Messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Messages.m; sourceTree = "<group>"; };
+		93828E061576F53500213EA8 /* OwnSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnSettings.h; sourceTree = "<group>"; };
+		93828E071576F53500213EA8 /* OwnSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnSettings.m; sourceTree = "<group>"; };
+		93828E0C1576F61900213EA8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		93E7171C1575A0120089A3D8 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewController.h; path = ../MessageViewController.h; sourceTree = "<group>"; };
 		93E7171D1575A0120089A3D8 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewController.m; path = ../MessageViewController.m; sourceTree = "<group>"; };
 		93E7171F1575A0D50089A3D8 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
@@ -299,6 +318,24 @@
 				930F07661575962100F39890 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9326B5B41576F13200026875 /* Data Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9326B5B01576F12B00026875 /* iMNetData.xcdatamodeld */,
+				936AED53157703A300B441B2 /* Contacts.h */,
+				936AED54157703A300B441B2 /* Contacts.m */,
+				93828E061576F53500213EA8 /* OwnSettings.h */,
+				93828E071576F53500213EA8 /* OwnSettings.m */,
+				93828E031576F52800213EA8 /* Messages.h */,
+				93828E041576F52800213EA8 /* Messages.m */,
+				93828E001576F51C00213EA8 /* Location.h */,
+				93828E011576F51C00213EA8 /* Location.m */,
+				93828DFD1576F50600213EA8 /* Images.h */,
+				93828DFE1576F50600213EA8 /* Images.m */,
+			);
+			name = "Data Classes";
 			sourceTree = "<group>";
 		};
 		93E7171B15759F650089A3D8 /* View Controllers */ = {
@@ -736,6 +773,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9326B5B01576F12B00026875 /* iMNetData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9326B5B11576F12B00026875 /* iMNetData.xcdatamodel */,
+			);
+			currentVersion = 9326B5B11576F12B00026875 /* iMNetData.xcdatamodel */;
+			name = iMNetData.xcdatamodeld;
+			path = "iMNet v2/iMNetData.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 930F07241575962100F39890 /* Project object */;
 }
