@@ -11,8 +11,6 @@
 
 @implementation ContactsViewController
 
-@synthesize managedObjectContext;
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -80,26 +78,16 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 1;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    NSFetchRequest *fetchContacts = [[NSFetchRequest alloc] init];
-    NSEntityDescription *contactsEntity = [NSEntityDescription entityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
-    [fetchContacts setEntity:contactsEntity];
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"username" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-    [fetchContacts setSortDescriptors:sortDescriptors];
-    
-    NSError *error = nil;
-    NSMutableArray *fetchedResultArray = [[managedObjectContext executeFetchRequest:fetchContacts error:&error] mutableCopy];
-    fetchedContactsArray = fetchedResultArray;
-    
-    return [fetchedContactsArray count];
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -112,18 +100,6 @@
     }
     
     // Configure the cell...
-    if ([[[fetchedContactsArray objectAtIndex:indexPath.row] isAvailable] boolValue]) {
-        [[cell textLabel] setTextColor:[UIColor blackColor]];
-        [[cell detailTextLabel] setTextColor:[UIColor blackColor]];
-    }
-    else{
-        [[cell textLabel] setTextColor:[UIColor lightGrayColor]];
-        [[cell detailTextLabel] setTextColor:[UIColor lightGrayColor]];
-    }
-    
-    cell.textLabel.text = [[fetchedContactsArray objectAtIndex:indexPath.row] username];
-    cell.detailTextLabel.text = [[fetchedContactsArray objectAtIndex:indexPath.row] userOrg];
-    
     
     return cell;
 }
@@ -179,47 +155,5 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	if (editingStyle == UITableViewCellEditingStyleDelete)
-	{
-        Contacts *contactToDelete = [fetchedContactsArray objectAtIndex:indexPath.row];
-        [managedObjectContext deleteObject:contactToDelete];
-        NSError *error1 = nil;
-        if (![managedObjectContext save:&error1]) {
-            // Handle the error.
-        }
-		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-	}
-}
-
-
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-	if ([segue.identifier isEqualToString:@"ContactDetailsSegue"])
-	{
-        NSInteger selectedIndex = [[self.tableView indexPathForSelectedRow] row];
-
-		ContactDetailsViewController *contactDetailsViewController = segue.destinationViewController;
-        contactDetailsViewController.currentContact = [fetchedContactsArray objectAtIndex:selectedIndex];
-        contactDetailsViewController.managedObjectContext = managedObjectContext;
-        
-        
-        //set navigation bar title
-        if ([[[fetchedContactsArray objectAtIndex:selectedIndex] isAvailable] boolValue]) {
-            contactDetailsViewController.navigationItem.title = [NSString stringWithFormat:@"%@%@",[[fetchedContactsArray objectAtIndex:selectedIndex] username], @" (Online)"];
-        }
-        else{
-            contactDetailsViewController.navigationItem.title = [NSString stringWithFormat:@"%@%@",[[fetchedContactsArray objectAtIndex:selectedIndex] username], @" (Offline)"];
-        }
-        
-
-//      contactDetailsViewController.rscMgr = rscMgr;
-	}
-}
-
-
 
 @end
