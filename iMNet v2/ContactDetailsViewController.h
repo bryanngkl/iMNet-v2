@@ -7,7 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Contacts.h"
 
-@interface ContactDetailsViewController : UITableViewController
+
+@interface ContactDetailsViewController : UITableViewController{
+    NSManagedObjectContext *managedObjectContext;   
+    Contacts *currentContact;
+    IBOutlet UILabel *userName;
+    IBOutlet UILabel *userOrganisation;
+    IBOutlet UITextView *userData;
+}
+
+@property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
+@property (nonatomic,retain) Contacts *currentContact;  
+
+@property (nonatomic,retain) UILabel *userName;
+@property (nonatomic,retain) UILabel *userOrganisation;
+@property (nonatomic,retain) UITextView *userData;
+
 
 @end
