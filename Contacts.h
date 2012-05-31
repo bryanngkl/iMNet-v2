@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSNumber * isAvailable;
 @property (nonatomic, retain) NSString * userData;
 @property (nonatomic, retain) NSString * username;
+@property (nonatomic, retain) NSString * userOrg;
 @property (nonatomic, retain) Location *contactLocation;
 @property (nonatomic, retain) NSSet *contactMessages;
 @property (nonatomic, retain) NSSet *contactSentImage;

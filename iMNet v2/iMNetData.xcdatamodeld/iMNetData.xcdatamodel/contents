@@ -6,6 +6,7 @@
         <attribute name="isAvailable" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="userData" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userOrg" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="contactLocation" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="locationContact" inverseEntity="Location" syncable="YES"/>
         <relationship name="contactMessages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Messages" inverseName="messageFromContacts" inverseEntity="Messages" syncable="YES"/>
         <relationship name="contactSentImage" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Images" inverseName="imageFromContacts" inverseEntity="Images" syncable="YES"/>
@@ -33,7 +34,7 @@
         <attribute name="atSetting" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Contacts" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="Contacts" positionX="160" positionY="192" width="128" height="180"/>
         <element name="Images" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Location" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Messages" positionX="160" positionY="192" width="128" height="105"/>

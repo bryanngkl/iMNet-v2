@@ -10,6 +10,8 @@
 #import "ContactsViewController.h"
 #import "MessageViewController.h"
 #import "SettingsViewController.h"
+#import "Contacts.h"
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
 

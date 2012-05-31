@@ -19,6 +19,7 @@
 @dynamic isAvailable;
 @dynamic userData;
 @dynamic username;
+@dynamic userOrg;
 @dynamic contactLocation;
 @dynamic contactMessages;
 @dynamic contactSentImage;

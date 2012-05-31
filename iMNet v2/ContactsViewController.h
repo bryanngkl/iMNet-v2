@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Contacts.h"
+#import "ContactDetailsViewController.h"
+
 
 @interface ContactsViewController : UITableViewController{
 
     //core data instance variables
     NSManagedObjectContext *managedObjectContext;   
-
+    
+    NSMutableArray *fetchedContactsArray;
 }
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
