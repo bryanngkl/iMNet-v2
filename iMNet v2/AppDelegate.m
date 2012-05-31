@@ -11,10 +11,34 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize managedObjectContext,managedObjectModel,persistentStoreCoordinator;
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    
+    NSManagedObjectContext *context = [self managedObjectContext];
+    if (!context) {
+        // Handle the error.
+    }
+    
+    //pass managed object context to view controllers
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    UINavigationController *naviController0 = [[tabBarController viewControllers] objectAtIndex:0];
+    UINavigationController *naviController1 = [[tabBarController viewControllers] objectAtIndex:1];
+    UINavigationController *naviController2 = [[tabBarController viewControllers] objectAtIndex:2];
+    
+    MessageViewController *messageViewController = [[naviController0 viewControllers] objectAtIndex:0];
+    ContactsViewController *contactsViewController = [[naviController1 viewControllers] objectAtIndex:0];
+    SettingsViewController *settingsViewController = [[naviController2 viewControllers] objectAtIndex:0];
+    
+    messageViewController.managedObjectContext = context;
+    contactsViewController.managedObjectContext = context;
+    settingsViewController.managedObjectContext = context;
+    
+    
     return YES;
 }
 							

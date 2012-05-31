@@ -7,9 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ContactsViewController.h"
+#import "MessageViewController.h"
+#import "SettingsViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+
+
+    //core data objects
+    NSPersistentStoreCoordinator *persistentStoreCoordinator;
+    NSManagedObjectModel *managedObjectModel;
+    NSManagedObjectContext *managedObjectContext;   
+
+}
+
+
 
 @property (strong, nonatomic) UIWindow *window;
+    //core data methods
+- (NSURL *)applicationDocumentsDirectory;
+- (void)saveContext;
+@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+
 
 @end

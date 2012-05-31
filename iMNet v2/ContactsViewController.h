@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ContactsViewController : UITableViewController
+@interface ContactsViewController : UITableViewController{
+
+    //core data instance variables
+    NSManagedObjectContext *managedObjectContext;   
+
+}
+
+@property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 
 @end
