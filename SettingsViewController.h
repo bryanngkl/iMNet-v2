@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewController : UITableViewController
+@interface SettingsViewController : UITableViewController{
+    
+    //core data instance variables
+    NSManagedObjectContext *managedObjectContext;   
+    
+}
+
+@property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 
 @end
