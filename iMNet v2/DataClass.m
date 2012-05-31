@@ -9,7 +9,7 @@
 #import "DataClass.h"
 
 @implementation DataClass
-@synthesize location, title,description;
+@synthesize location, title,description,map;
 
 static DataClass *instance =nil;    
 +(DataClass *)getInstance    

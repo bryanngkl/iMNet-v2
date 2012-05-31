@@ -11,10 +11,13 @@
 #import <Foundation/Foundation.h>
 #import "ConvertLocationData.h"
 #import "RMMapView.h"
+#import "AddPinInfoViewController.h"
 
 
-
-
+@protocol AddPinInfoViewControllerDelegate
+- (void) infoAddedWithTitle: (NSString *) title andDescription: (NSString*) description;
+- (void) didReceiveMessage:(NSString *)message;
+@end 
 
 @interface MapViewController : UIViewController <MyCLControllerDelegate> 
 
@@ -32,20 +35,37 @@
     int count;
     
     IBOutlet UILabel *locationLabel;
+    
+    NSString *mapInUse;
+    
 }
 
-@property (strong, nonatomic) IBOutlet RMMapView *mapView;
-@property (strong, nonatomic) IBOutlet UIButton *addInfo;
+
 
 -(void) locationUpdate:(CLLocation *)location;
 -(void) locationError:(NSError *)error;
+
+//Add Pin
 - (IBAction)dropPin:(id)sender;
+
+//Refresh Button: Locate me + getNearbyInfo
 - (IBAction)locateMe:(id)sender;
-@property (strong, nonatomic) IBOutlet UIButton *unhideButton;
-- (IBAction)sendLocation:(id)sender;
-- (IBAction)deleteCurrentPin:(id)sender;
 - (IBAction)getNearbyInfo:(id)sender;
+
+//Delete Pin
+- (IBAction)deleteCurrentPin:(id)sender;
+
+
+@property (strong, nonatomic) IBOutlet RMMapView *mapView;
 @property (strong, nonatomic) IBOutlet UIButton *deletePin;
+@property (strong, nonatomic) IBOutlet UIButton *addInfo;
+@property (nonatomic,retain) NSString *mapInUse;
+
+
+//- (IBAction)sendLocation:(id)sender;
+
+
+
 
 
 @end

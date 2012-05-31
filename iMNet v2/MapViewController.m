@@ -17,9 +17,9 @@
 
 @implementation MapViewController
 @synthesize deletePin;
-@synthesize unhideButton;
 @synthesize mapView;
 @synthesize addInfo;
+@synthesize mapInUse;
 
 
 
@@ -125,18 +125,18 @@
     
     
     if (marker != currentLocationMarker) {
-        [unhideButton setEnabled:YES];
-        [unhideButton setHidden:NO];
         [addInfo setHidden:NO];
         [deletePin setHidden:NO];
     }
 }
 
-
-
-- (void)viewDidLoad
-{
-    count =1;
+-(void)viewWillAppear:(BOOL)animated{
+    //hide navigationbar
+    [self.navigationController setNavigationBarHidden:YES];
+    
+    DataClass *obj = [DataClass getInstance];
+    if (mapInUse !=obj.map) {
+    
     
     locationController = [[MyCLController alloc] init];
     locationController.delegate = self;
@@ -156,9 +156,10 @@
     NSString *test = [convertManager createStringFromLocation:startingPoint];
     NSLog(@"This is the string that we will see %@",test);
     
+    //get the filename of the chosen map
+    DataClass *obj = [DataClass getInstance];
     
-    
-    NSURL *tilesURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"control-room-0.2.0" ofType:@"mbtiles"]];
+    NSURL *tilesURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:obj.map ofType:@"mbtiles"]];
     
     //NSURL *tilesURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"geography-class_f9f8b8" ofType:@"mbtiles"]];
     
@@ -194,7 +195,89 @@
 	[markerManager addMarker:currentLocationMarker AtLatLong:startingPoint];
     
     //updating data class
+    //DataClass *obj = [DataClass getInstance];
+    obj.title = labelText;
+    obj.description = @"add description";
+    obj.location = [convertManager createStringFromLocation:startingPoint];
+    NSLog(@"The data class currently has title = %@, description = %@, and location = %@", obj.title,obj.description,obj.location);
+    NSArray *CLMdata = [[NSArray alloc] initWithObjects:labelText, @"Person", nil];
+    
+    currentLocationMarker.data = CLMdata;
+    currentlyTappedMarker = currentLocationMarker;
+    currentlyTappedMarker.data = CLMdata;
+    
+    //Plot the previous pins    
+    
+        mapInUse = obj.map;
+    }
+
+    
+}
+
+
+- (void)viewDidLoad
+{
+    count =1;
+    
+    locationController = [[MyCLController alloc] init];
+    locationController.delegate = self;
+    [locationController.locationManager startUpdatingLocation];
+    
+    
+	NSLog(@"Center: Lat: %lf Lon: %lf", mapView.contents.mapCenter.latitude, mapView.contents.mapCenter.longitude);
+    
+    CLLocationCoordinate2D startingPoint;
+    
+    
+    startingPoint.latitude  = locationController.locationManager.location.coordinate.latitude;
+    startingPoint.longitude = locationController.locationManager.location.coordinate.longitude;
+    
+    //test
+    ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
+    NSString *test = [convertManager createStringFromLocation:startingPoint];
+    NSLog(@"This is the string that we will see %@",test);
+    
+    //get the filename of the chosen map
     DataClass *obj = [DataClass getInstance];
+    mapInUse = obj.map;
+
+    NSURL *tilesURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:obj.map ofType:@"mbtiles"]];
+    
+    //NSURL *tilesURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"geography-class_f9f8b8" ofType:@"mbtiles"]];
+    
+    RMMBTilesTileSource *source = [[RMMBTilesTileSource alloc] initWithTileSetURL:tilesURL];
+    
+    [[RMMapContents alloc] initWithView:self.mapView tilesource:source centerLatLon:startingPoint zoomLevel:kStartingZoom maxZoomLevel:5.45 minZoomLevel:[source minZoom] backgroundImage:nil screenScale:1];
+    
+    //[[RMMapContents alloc] initWithView:self.mapView tilesource:source centerLatLon:startingPoint zoomLevel:kStartingZoom maxZoomLevel:5.45 minZoomLevel:[source minZoom] backgroundImage:nil];
+    
+    //[[RMMapContents alloc] initWithView:self.mapView tilesource:source centerLatLon:startingPoint zoomLevel:kStartingZoom maxZoomLevel:[source maxZoom] minZoomLevel:[source minZoom] backgroundImage:nil];
+    
+    mapView.enableRotate = NO;
+    mapView.deceleration = NO;
+    
+    mapView.backgroundColor = [UIColor blackColor];
+    
+    mapView.contents.zoom = kStartingZoom;
+    
+    //set marker
+    RMMarkerManager *markerManager = [mapView markerManager];
+	[mapView setDelegate:self];
+    currentLocationMarker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue.png"]
+                                                 anchorPoint:CGPointMake(0.5, 1.0)];
+	//[currentLocationMarker setTextForegroundColor:[UIColor blueColor]];
+	//[currentLocationMarker changeLabelUsingText:@"Hello"];
+    
+    UIFont *labelFont = [UIFont fontWithName:@"Courier" size:10];
+    NSString *labelText =@"iMNet";
+    UIColor *foregroundColor = [UIColor blueColor];
+    UIColor *backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+    
+    [currentLocationMarker changeLabelUsingText:labelText font:labelFont foregroundColor:foregroundColor backgroundColor:backgroundColor];
+	[markerManager addMarker:currentLocationMarker AtLatLong:startingPoint];
+    
+    //updating data class
+    //DataClass *obj = [DataClass getInstance];
     obj.title = labelText;
     obj.description = @"add description";
     obj.location = [convertManager createStringFromLocation:startingPoint];
@@ -220,7 +303,6 @@
 
 
 - (void) afterMapMove: (RMMapView*) map{
-    [unhideButton setHidden:YES];
     [addInfo setHidden:YES];
     [deletePin setHidden:YES];
 }
@@ -228,7 +310,6 @@
 
 - (void) singleTapOnMap: (RMMapView*) map At: (CGPoint) point{
     
-    [unhideButton setHidden:YES];
     [addInfo setHidden:YES];
     [deletePin setHidden:YES];
     [currentlyTappedMarker hideLabel];
@@ -339,7 +420,6 @@
 }
 
 - (void)viewDidUnload {
-    [self setUnhideButton:nil];
     [self setAddInfo:nil];
     [self setDeletePin:nil];
     mapView = nil;
@@ -361,6 +441,10 @@
     
     currentlyTappedMarker = NULL;
     currentlyTappedMarker.data = NULL;
+    
+    [deletePin setHidden:YES];
+    [addInfo setHidden:YES];
+    
 }
 
 - (IBAction)getNearbyInfo:(id)sender {
@@ -368,7 +452,18 @@
 
 
 - (void) infoAddedWithTitle: (NSString *) title andDescription: (NSString*) description{
+    //NSString *mymessage = [[NSString alloc] initWithString:message];
+    NSLog(@"%@, %@", title, description);
     
+    DataClass *obj = [DataClass getInstance];
+    //updating currently tapped marker
+    NSArray *CLMdata = [[NSArray alloc] initWithObjects:title, [(NSArray*)currentlyTappedMarker.data objectAtIndex:1], nil];
+    currentlyTappedMarker.data = CLMdata;
+    //update data class
+    obj.title= title;
+    obj.description =description;
+    
+    [currentlyTappedMarker changeLabelUsingText:title font:[UIFont fontWithName:@"Courier" size:10] foregroundColor:[UIColor blueColor] backgroundColor:[UIColor colorWithWhite:0.8 alpha:1.0]];
 
 }
 
