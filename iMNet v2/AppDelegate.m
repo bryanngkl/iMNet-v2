@@ -46,7 +46,7 @@
     [newContact setUsername:@"qwerty"];
     [newContact setUserData:@"asdfghjklzxcvbnm qwertyui"];
     [newContact setUserOrg:@"Oxfam"];
-    [newContact setIsAvailable:[NSNumber numberWithBool:FALSE]];
+    [newContact setIsAvailable:[NSNumber numberWithBool:TRUE]];
     NSError *error = nil;
     if (![managedObjectContext save:&error]) {
         // Handle the error.
@@ -98,6 +98,101 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+}
+
+
+
+#pragma mark -
+#pragma mark Core Data stack
+
+
+/*
+ Returns the managed object context for the application.
+ If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
+ */
+
+
+
+- (NSManagedObjectContext *) managedObjectContext {
+    
+    if (managedObjectContext != nil) {
+        return managedObjectContext;
+    }
+    
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [managedObjectContext setPersistentStoreCoordinator: coordinator];
+    }
+    return managedObjectContext;
+}
+
+
+/*
+ Returns the managed object model for the application.
+ If the model doesn't already exist, it is created by merging all of the models found in the application bundle.
+ */
+
+
+- (NSManagedObjectModel *)managedObjectModel {
+    
+    if (managedObjectModel != nil) {
+        return managedObjectModel;
+    }
+    managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];    
+    return managedObjectModel;
+}
+
+
+/*
+ Returns the persistent store coordinator for the application.
+ If the coordinator doesn't already exist, it is created and the application's store added to it.
+ */
+
+
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+    
+    if (persistentStoreCoordinator != nil) {
+        return persistentStoreCoordinator;
+    }
+    
+    NSURL *storeUrl = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"iMNet-v2.sqlite"];
+    
+    NSError *error;
+    persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
+    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
+        // Handle the error.
+    }    
+    
+    return persistentStoreCoordinator;
+}
+
+#pragma mark Application's documents directory
+
+/*
+ Returns the path to the application's documents directory.
+ */
+
+
+- (NSURL *)applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (void)saveContext
+{
+    
+    NSError *error = nil;
+    NSManagedObjectContext *objectContext = self.managedObjectContext;
+    if (objectContext != nil)
+    {
+        if ([objectContext hasChanges] && ![objectContext save:&error])
+        {
+            // add error handling here
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
 }
 
 @end

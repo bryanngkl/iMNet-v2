@@ -2,7 +2,7 @@
 //  Contacts.m
 //  iMNet v2
 //
-//  Created by Bryan on 31/5/12.
+//  Created by Kenneth on 5/31/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 

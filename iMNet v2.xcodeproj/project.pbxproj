@@ -11,7 +11,6 @@
 		9301FB4E1575BA6000D20688 /* MapViewIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9301FB4A1575BA6000D20688 /* MapViewIcon.png */; };
 		9301FB4F1575BA6000D20688 /* MessageIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9301FB4B1575BA6000D20688 /* MessageIcon.png */; };
 		9301FB501575BA6000D20688 /* SettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9301FB4C1575BA6000D20688 /* SettingsIcon.png */; };
-		9302F3051577E36300DA6648 /* Contacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 9302F3021577E36300DA6648 /* Contacts.m */; };
 		9302F3061577E36300DA6648 /* Images.m in Sources */ = {isa = PBXBuildFile; fileRef = 9302F3041577E36300DA6648 /* Images.m */; };
 		9302F30F1577E39800DA6648 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 9302F30A1577E39800DA6648 /* Location.m */; };
 		9302F3101577E39800DA6648 /* Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = 9302F30C1577E39800DA6648 /* Messages.m */; };
@@ -54,8 +53,10 @@
 		9F03C9FD157615FE00554DCE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F03C9FC157615FD00554DCE /* QuartzCore.framework */; };
 		9F03C9FF1576161600554DCE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F03C9FE1576161600554DCE /* libsqlite3.dylib */; };
 		9F03CA001576162100554DCE /* libMapView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F03C9F11576158600554DCE /* libMapView.a */; };
+		9F100E421577E513008E3015 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F100E411577E513008E3015 /* CoreData.framework */; };
 		9F20B46915767441004315B1 /* AddPinInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F20B46815767441004315B1 /* AddPinInfoViewController.m */; };
 		9F20B47E15768680004315B1 /* MapChoseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F20B47D15768680004315B1 /* MapChoseTableViewController.m */; };
+		9F2442821577EBDD001D3876 /* Contacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2442811577EBDD001D3876 /* Contacts.m */; };
 		9F4F7D4015761A780040496D /* control-room-0.2.0.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3815761A780040496D /* control-room-0.2.0.mbtiles */; };
 		9F4F7D4115761A780040496D /* geography-class_f9f8b8.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3915761A780040496D /* geography-class_f9f8b8.mbtiles */; };
 		9F4F7D4215761A780040496D /* ConvertLocationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3B15761A780040496D /* ConvertLocationData.m */; };
@@ -64,6 +65,7 @@
 		9F4F7D4715761B0E0040496D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F7D4615761B0E0040496D /* MapViewController.m */; };
 		9F4F7D4D15762EF50040496D /* iMNet icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F7D4C15762EF50040496D /* iMNet icon.png */; };
 		9F68F1A51577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = 9F68F1A41577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles */; };
+		9FBA7AC51577E6A6003C3F14 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 930F07431575962100F39890 /* MainStoryboard_iPhone.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,8 +111,6 @@
 		9301FB4A1575BA6000D20688 /* MapViewIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapViewIcon.png; sourceTree = "<group>"; };
 		9301FB4B1575BA6000D20688 /* MessageIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MessageIcon.png; sourceTree = "<group>"; };
 		9301FB4C1575BA6000D20688 /* SettingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsIcon.png; sourceTree = "<group>"; };
-		9302F3011577E36200DA6648 /* Contacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contacts.h; sourceTree = SOURCE_ROOT; };
-		9302F3021577E36300DA6648 /* Contacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contacts.m; sourceTree = SOURCE_ROOT; };
 		9302F3031577E36300DA6648 /* Images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Images.h; sourceTree = SOURCE_ROOT; };
 		9302F3041577E36300DA6648 /* Images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Images.m; sourceTree = SOURCE_ROOT; };
 		9302F3091577E39800DA6648 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
@@ -167,10 +167,13 @@
 		9F03C9FA157615E800554DCE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9F03C9FC157615FD00554DCE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9F03C9FE1576161600554DCE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		9F100E411577E513008E3015 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		9F20B46715767441004315B1 /* AddPinInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPinInfoViewController.h; sourceTree = "<group>"; };
 		9F20B46815767441004315B1 /* AddPinInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPinInfoViewController.m; sourceTree = "<group>"; };
 		9F20B47C15768680004315B1 /* MapChoseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapChoseTableViewController.h; sourceTree = "<group>"; };
 		9F20B47D15768680004315B1 /* MapChoseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapChoseTableViewController.m; sourceTree = "<group>"; };
+		9F2442801577EBDD001D3876 /* Contacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contacts.h; sourceTree = "<group>"; };
+		9F2442811577EBDD001D3876 /* Contacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contacts.m; sourceTree = "<group>"; };
 		9F4F7D3815761A780040496D /* control-room-0.2.0.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "control-room-0.2.0.mbtiles"; sourceTree = "<group>"; };
 		9F4F7D3915761A780040496D /* geography-class_f9f8b8.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "geography-class_f9f8b8.mbtiles"; sourceTree = "<group>"; };
 		9F4F7D3A15761A780040496D /* ConvertLocationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertLocationData.h; sourceTree = "<group>"; };
@@ -190,6 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F100E421577E513008E3015 /* CoreData.framework in Frameworks */,
 				9F03C9FF1576161600554DCE /* libsqlite3.dylib in Frameworks */,
 				9F03CA001576162100554DCE /* libMapView.a in Frameworks */,
 				9F03C9FD157615FE00554DCE /* QuartzCore.framework in Frameworks */,
@@ -245,14 +249,14 @@
 			isa = PBXGroup;
 			children = (
 				9302F3121577E3A700DA6648 /* iMNetData.xcdatamodeld */,
+				9F2442801577EBDD001D3876 /* Contacts.h */,
+				9F2442811577EBDD001D3876 /* Contacts.m */,
 				9302F3091577E39800DA6648 /* Location.h */,
 				9302F30A1577E39800DA6648 /* Location.m */,
 				9302F30B1577E39800DA6648 /* Messages.h */,
 				9302F30C1577E39800DA6648 /* Messages.m */,
 				9302F30D1577E39800DA6648 /* OwnSettings.h */,
 				9302F30E1577E39800DA6648 /* OwnSettings.m */,
-				9302F3011577E36200DA6648 /* Contacts.h */,
-				9302F3021577E36300DA6648 /* Contacts.m */,
 				9302F3031577E36300DA6648 /* Images.h */,
 				9302F3041577E36300DA6648 /* Images.m */,
 			);
@@ -262,6 +266,7 @@
 		930F07221575962100F39890 = {
 			isa = PBXGroup;
 			children = (
+				9F100E411577E513008E3015 /* CoreData.framework */,
 				9302F3081577E36E00DA6648 /* Data Classes */,
 				9F03C9E01576158500554DCE /* MapView.xcodeproj */,
 				9301FB481575BA6000D20688 /* icons */,
@@ -517,6 +522,7 @@
 				9F02493C1576669C008DDD6B /* delete_24.png in Resources */,
 				9F02493E157666FC008DDD6B /* information_24.png in Resources */,
 				9F68F1A51577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles in Resources */,
+				9FBA7AC51577E6A6003C3F14 /* MainStoryboard_iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,12 +570,12 @@
 				9F4F7D4715761B0E0040496D /* MapViewController.m in Sources */,
 				9F20B46915767441004315B1 /* AddPinInfoViewController.m in Sources */,
 				9F20B47E15768680004315B1 /* MapChoseTableViewController.m in Sources */,
-				9302F3051577E36300DA6648 /* Contacts.m in Sources */,
 				9302F3061577E36300DA6648 /* Images.m in Sources */,
 				9302F30F1577E39800DA6648 /* Location.m in Sources */,
 				9302F3101577E39800DA6648 /* Messages.m in Sources */,
 				9302F3111577E39800DA6648 /* OwnSettings.m in Sources */,
 				9302F3141577E3A700DA6648 /* iMNetData.xcdatamodeld in Sources */,
+				9F2442821577EBDD001D3876 /* Contacts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
