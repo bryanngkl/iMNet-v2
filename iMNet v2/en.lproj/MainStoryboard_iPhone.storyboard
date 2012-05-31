@@ -579,7 +579,13 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Info" id="ZYe-2B-xEt"/>
+                    <navigationItem key="navigationItem" title="Info" id="ZYe-2B-xEt">
+                        <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="iZ0-k9-4YU">
+                            <connections>
+                                <action selector="Back:" destination="8Ee-tv-08S" id="Qa9-ti-C9e"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="coordinates" destination="Age-uV-ajr" id="NSn-gq-nEr"/>
                         <outlet property="description" destination="fOP-p7-zCh" id="SiO-GU-ulA"/>
@@ -822,7 +828,7 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <segue destination="8Ee-tv-08S" kind="push" id="DSn-ok-8R4"/>
+                                                <segue destination="8Ee-tv-08S" kind="push" identifier="AddInfoSegue" id="DSn-ok-8R4"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -861,6 +867,7 @@
         <class className="AddPinInfoViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddPinInfoViewController.h"/>
             <relationships>
+                <relationship kind="action" name="Back:"/>
                 <relationship kind="outlet" name="coordinates" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="description" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="title" candidateClass="UITextField"/>

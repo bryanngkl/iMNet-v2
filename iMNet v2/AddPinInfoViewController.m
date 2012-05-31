@@ -12,7 +12,7 @@
 @implementation AddPinInfoViewController
 @synthesize coordinates;
 @synthesize title,description;
-
+@synthesize delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,6 +58,8 @@
     coordinates.text = [coordinates.text stringByAppendingString:obj.location];
     [super viewDidLoad];
 }
+
+
 
 
 - (void)viewDidUnload
@@ -125,4 +127,19 @@
     }
 }
 
+
+
+
+- (IBAction)Back:(id)sender {
+    
+    //update data class
+    DataClass *obj = [DataClass getInstance];
+    obj.title = title.text;
+    obj.description = title.description;
+    
+    [self.delegate infoAddedWithTitle:title.text andDescription:description.text];
+    [self.delegate didReceiveMessage:@"SONG BOOOOO"];
+    [self.navigationController popViewControllerAnimated:NO];
+
+}
 @end

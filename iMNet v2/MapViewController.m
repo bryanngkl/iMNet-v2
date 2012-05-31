@@ -142,7 +142,7 @@
     locationController.delegate = self;
     [locationController.locationManager startUpdatingLocation];
     
-    
+
 	NSLog(@"Center: Lat: %lf Lon: %lf", mapView.contents.mapCenter.latitude, mapView.contents.mapCenter.longitude);
     
     CLLocationCoordinate2D startingPoint;
@@ -210,8 +210,13 @@
     
         mapInUse = obj.map;
     }
-
     
+    
+    //update currently tapped marker
+    NSArray *CLMdata = [[NSArray alloc] initWithObjects:obj.title, [(NSArray*)currentlyTappedMarker.data objectAtIndex:1], nil];
+    currentlyTappedMarker.data = CLMdata;
+    //update data class    
+    [currentlyTappedMarker changeLabelUsingText:obj.title font:[UIFont fontWithName:@"Courier" size:10] foregroundColor:[UIColor blueColor] backgroundColor:[UIColor colorWithWhite:0.8 alpha:1.0]];
 }
 
 

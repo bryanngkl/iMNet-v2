@@ -19,7 +19,7 @@
 - (void) didReceiveMessage:(NSString *)message;
 @end 
 
-@interface MapViewController : UIViewController <MyCLControllerDelegate> 
+@interface MapViewController : UIViewController <MyCLControllerDelegate, AddPinInfoViewControllerDelegate> 
 
 {   
     
