@@ -8,13 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MessageViewController : UITableViewController{
-    
-    //core data instance variables
-    NSManagedObjectContext *managedObjectContext;   
-    
-}
-
-@property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
+@interface MessageViewController : UITableViewController
 
 @end
