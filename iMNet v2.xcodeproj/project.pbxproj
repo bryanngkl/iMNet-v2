@@ -57,6 +57,7 @@
 		9F4F7D4415761A780040496D /* MyCLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3F15761A780040496D /* MyCLController.m */; };
 		9F4F7D4715761B0E0040496D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F7D4615761B0E0040496D /* MapViewController.m */; };
 		9F4F7D4D15762EF50040496D /* iMNet icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F7D4C15762EF50040496D /* iMNet icon.png */; };
+		9F68F1A51577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = 9F68F1A41577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +165,7 @@
 		9F4F7D4515761B0E0040496D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		9F4F7D4615761B0E0040496D /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		9F4F7D4C15762EF50040496D /* iMNet icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iMNet icon.png"; path = "../../iMNet icon.png"; sourceTree = "<group>"; };
+		9F68F1A41577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = london_hyde_park_72f42f.mbtiles; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +341,7 @@
 			isa = PBXGroup;
 			children = (
 				9F4F7D3815761A780040496D /* control-room-0.2.0.mbtiles */,
+				9F68F1A41577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles */,
 				9F4F7D3915761A780040496D /* geography-class_f9f8b8.mbtiles */,
 				9F4F7D3A15761A780040496D /* ConvertLocationData.h */,
 				9F4F7D3B15761A780040496D /* ConvertLocationData.m */,
@@ -477,6 +480,7 @@
 				9F02493615765C9C008DDD6B /* 193-location-arrow.png in Resources */,
 				9F02493C1576669C008DDD6B /* delete_24.png in Resources */,
 				9F02493E157666FC008DDD6B /* information_24.png in Resources */,
+				9F68F1A51577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
