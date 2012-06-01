@@ -80,16 +80,43 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    NSFetchRequest *fetchContacts = [[NSFetchRequest alloc] init];
+    NSEntityDescription *contactsEntity = [NSEntityDescription entityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+    [fetchContacts setEntity:contactsEntity];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"username" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    [fetchContacts setSortDescriptors:sortDescriptors];
+    
+    NSError *error = nil;
+    NSMutableArray *fetchedResultArray = [[managedObjectContext executeFetchRequest:fetchContacts error:&error] mutableCopy];
+    fetchedContactsArray = fetchedResultArray;
+
+    NSMutableArray *messagesArray = [[NSMutableArray alloc] initWithCapacity:0];
+    NSArray *sortedMessages = [NSArray alloc];
+    NSSortDescriptor *sortDescriptor1 = [[NSSortDescriptor alloc] initWithKey:@"messageDate" ascending:FALSE];
+    NSArray *sortDescriptors1 = [[NSArray alloc] initWithObjects:sortDescriptor1, nil];
+    
+    
+    for (int i=0; i<[fetchedContactsArray count]; i++) {
+        if ([[[fetchedContactsArray objectAtIndex:i] contactMessages] count] > 0) {
+            sortedMessages = [[[fetchedContactsArray objectAtIndex:i] contactMessages] sortedArrayUsingDescriptors:sortDescriptors1];
+            [messagesArray addObject:[sortedMessages objectAtIndex:0]];
+        }
+    }
+    
+    [messagesArray sortUsingDescriptors:sortDescriptors1];
+    
+    fetchedMessagesArray = messagesArray;
+    
+    return [messagesArray count];    // Return the number of rows in the section.
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -102,6 +129,17 @@
     }
     
     // Configure the cell...
+    
+    UILabel *usernameLabel = (UILabel *)[cell viewWithTag:100];
+    usernameLabel.text = [[[fetchedMessagesArray objectAtIndex:indexPath.row] messageFromContacts] username];
+    UILabel *messageLabel = (UILabel *)[cell viewWithTag:101];
+    messageLabel.text = [[fetchedMessagesArray objectAtIndex:indexPath.row] messageContents];
+    UILabel *dateLabel = (UILabel *)[cell viewWithTag:102];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd/MM/yy',' HH:mm"];
+    
+    dateLabel.text = [dateFormatter stringFromDate:[[fetchedMessagesArray objectAtIndex:indexPath.row] messageDate]]; 
+    
     
     return cell;
 }
@@ -146,6 +184,20 @@
 */
 
 #pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (editingStyle == UITableViewCellEditingStyleDelete)
+	{
+        Contacts *contactToDelete = [fetchedContactsArray objectAtIndex:indexPath.row];
+        [managedObjectContext deleteObject:contactToDelete];
+        NSError *error1 = nil;
+        if (![managedObjectContext save:&error1]) {
+            // Handle the error.
+        }
+		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	}
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

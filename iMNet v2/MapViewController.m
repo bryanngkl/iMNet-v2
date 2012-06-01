@@ -20,7 +20,43 @@
 @synthesize mapView;
 @synthesize addInfo;
 @synthesize mapInUse;
+@synthesize managedObjectContext;
 
+//core data functions. Use these functions to manipulate core data accordingly
+
+//Update COREDATA. Use this function to update the coordinate values of a pin in the core data database. This might occur when someone drags the marker or someone saves a new description of the pin.
+/*
+NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
+NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+[fetchLocation setEntity:locationEntity];
+
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"locationTitle == %@", [(NSArray*)marker.data objectAtIndex:0]];
+[fetchLocation setPredicate:predicate];
+
+NSError *error = nil;
+Location *fetchedResult = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] lastObject];
+
+ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
+NSString * locationstr = [convertManager createStringFromLocation:[markerManager latitudeLongitudeForMarker:marker]];
+
+if (!fetchedResult) {
+    //create new Location if nothing is found in the database
+    Location *newLocation = (Location *) [NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:managedObjectContext];
+    newLocation.locationTitle = [(NSArray*)marker.data objectAtIndex:0];
+    newLocation.locationDescription = NULL;
+    newLocation.locationLatitude = locationstr;
+    if (![managedObjectContext save:&error]) {
+        // Handle the error.
+    }
+}
+else{
+    //if the database entry has been found, update it accordingly
+    fetchedResult.locationLatitude = locationstr;
+    NSLog(@"New location stored in locationtitle = %@ is %@", fetchedResult.locationTitle, locationstr);
+    if (![managedObjectContext save:&error]) {
+        // Handle the error.
+    }
+}*/
 
 
 - (void)testMarkers
@@ -62,8 +98,6 @@
 	
 	[markerManager hideAllMarkers];
 	[markerManager unhideAllMarkers];
-	
-    
     ;}
 
 

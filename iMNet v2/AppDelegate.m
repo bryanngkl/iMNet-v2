@@ -29,15 +29,18 @@
     UINavigationController *naviController0 = [[tabBarController viewControllers] objectAtIndex:0];
     UINavigationController *naviController1 = [[tabBarController viewControllers] objectAtIndex:1];
     UINavigationController *naviController2 = [[tabBarController viewControllers] objectAtIndex:2];
+    UINavigationController *naviController3 = [[tabBarController viewControllers] objectAtIndex:3];
     
     MessageViewController *messageViewController = [[naviController0 viewControllers] objectAtIndex:0];
     ContactsViewController *contactsViewController = [[naviController1 viewControllers] objectAtIndex:0];
     SettingsViewController *settingsViewController = [[naviController2 viewControllers] objectAtIndex:0];
+    MapViewController *mapViewController = [[naviController3 viewControllers] objectAtIndex:0];
     
     messageViewController.managedObjectContext = context;
     contactsViewController.managedObjectContext = context;
     settingsViewController.managedObjectContext = context;
-   
+    mapViewController.managedObjectContext = context;
+    
     //create new sample contact
     Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
     
@@ -51,10 +54,61 @@
     if (![managedObjectContext save:&error]) {
         // Handle the error.
     }
-    
     //end of sample contact
     
     
+    //create new sample contact2
+    Contacts *newContact2 = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+    
+    [newContact2 setAddress16:@"1234"];
+    [newContact2 setAddress64:@"1234567890"];
+    [newContact2 setUsername:@"richard"];
+    [newContact2 setUserData:@"asdfghjklzxcvbnm qwertyui"];
+    [newContact2 setUserOrg:@"Red Cross"];
+    [newContact2 setIsAvailable:[NSNumber numberWithBool:FALSE]];
+    NSError *error1 = nil;
+    if (![managedObjectContext save:&error1]) {
+        // Handle the error.
+    }
+    //end of sample contact2
+    
+    
+    
+    //create new sample message
+    Messages *newMessage = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
+    newMessage.messageContents = [NSString stringWithFormat:@"%@", @"firstfirst"];
+    newMessage.messageReceived = [NSNumber numberWithBool:TRUE];
+    newMessage.messageDate = [NSDate date];
+    newMessage.messageFromContacts = newContact;
+    NSError *error2 = nil;
+    if (![managedObjectContext save:&error2]) {
+        // Handle the error.
+    }
+    //end of sample message 1
+    
+    //create new sample message
+    Messages *newMessage2 = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
+    newMessage2.messageContents = [NSString stringWithFormat:@"%@", @"firstsecond"];
+    newMessage2.messageReceived = [NSNumber numberWithBool:TRUE];
+    newMessage2.messageDate = [NSDate date];
+    newMessage2.messageFromContacts = newContact2;
+    NSError *error3 = nil;
+    if (![managedObjectContext save:&error3]) {
+        // Handle the error.
+    }
+    //end of sample message 2
+    
+    //create new sample message
+    Messages *newMessage3 = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
+    newMessage3.messageContents = [NSString stringWithFormat:@"%@", @"secondfirst"];
+    newMessage3.messageReceived = [NSNumber numberWithBool:TRUE];
+    newMessage3.messageDate = [NSDate date];
+    newMessage3.messageFromContacts = newContact2;
+    NSError *error4 = nil;
+    if (![managedObjectContext save:&error4]) {
+        // Handle the error.
+    }
+    //end of sample message 2
     
     
     

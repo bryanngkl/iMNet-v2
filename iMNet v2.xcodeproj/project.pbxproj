@@ -692,7 +692,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iMNet v2/iMNet v2-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"\"/Users/Kenneth/Desktop/ipad programming/iMNet-v2/route-me/MapView\"/**",
+					"\"/Users/Bryan/Documents/Coding Projects/iMNet v2/iMNet-v2/route-me/MapView\"/**",
 				);
 				INFOPLIST_FILE = "iMNet v2/iMNet v2-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -711,7 +711,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iMNet v2/iMNet v2-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"\"/Users/Kenneth/Desktop/ipad programming/iMNet-v2/route-me/MapView\"/**",
+					"\"/Users/Bryan/Documents/Coding Projects/iMNet v2/iMNet-v2/route-me/MapView\"/**",
 				);
 				INFOPLIST_FILE = "iMNet v2/iMNet v2-Info.plist";
 				LIBRARY_SEARCH_PATHS = (

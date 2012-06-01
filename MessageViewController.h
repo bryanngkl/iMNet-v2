@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Contacts.h"
+#import "Messages.h"
+
 
 @interface MessageViewController : UITableViewController{
     
     //core data instance variables
     NSManagedObjectContext *managedObjectContext;   
+    NSMutableArray *fetchedContactsArray;
+    NSMutableArray *fetchedMessagesArray;
     
 }
 
