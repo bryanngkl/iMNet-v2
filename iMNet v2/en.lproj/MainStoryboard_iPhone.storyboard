@@ -216,12 +216,15 @@
                                             <rect key="frame" x="208" y="6" width="92" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <segue destination="EdJ-x9-1GG" kind="push" identifier="MessageLogSegue" id="667-6m-lxe"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -233,6 +236,101 @@
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="748" y="-162"/>
+        </scene>
+        <scene sceneID="i4I-HX-HYG">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OHH-ok-evU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="3Rp-mU-e7h" customClass="MessageLogViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4sh-ni-2b3">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ObX-xv-dSv">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="QiD-q5-Y6h">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Qs5-M9-ZwP">
+                                <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" id="0rX-iG-p22">
+                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Xeo-uM-wuk">
+                                            <rect key="frame" x="12" y="7" width="240" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </barButtonItem>
+                                    <barButtonItem title="Send" id="mFw-hz-gCf">
+                                        <color key="tintColor" red="0.0" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="add:" destination="3Rp-mU-e7h" id="iSO-7i-rHw"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="pJA-LO-ycZ" customClass="mess"/>
+                    <connections>
+                        <outlet property="field" destination="Xeo-uM-wuk" id="6RL-PP-Bqu"/>
+                        <outlet property="tbl" destination="ObX-xv-dSv" id="ZDj-a7-LBT"/>
+                        <outlet property="toolbar" destination="Qs5-M9-ZwP" id="w9Q-fQ-aoN"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1636" y="-142"/>
+        </scene>
+        <scene sceneID="Sl1-bi-u2X">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ujz-DE-XeH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="EdJ-x9-1GG" customClass="MessageLogViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Beu-km-YUM">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="fTd-Qx-USd">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="EdJ-x9-1GG" id="bwc-8r-kk6"/>
+                            <outlet property="delegate" destination="EdJ-x9-1GG" id="UWu-k8-nuE"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="vr8-md-z3a">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="FaP-gQ-9Dc">
+                            <connections>
+                                <action selector="goBack:" destination="EdJ-x9-1GG" id="qiB-SH-s0q"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tbl" destination="Beu-km-YUM" id="hRa-of-LGH"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1188" y="-162"/>
         </scene>
         <scene sceneID="o55-2m-iyS">
             <objects>
@@ -601,7 +699,13 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Info" id="ZYe-2B-xEt"/>
+                    <navigationItem key="navigationItem" title="Info" id="ZYe-2B-xEt">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="nNd-AY-1QK">
+                            <connections>
+                                <action selector="Back:" destination="8Ee-tv-08S" id="6ec-ap-W5E"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="coordinates" destination="Age-uV-ajr" id="NSn-gq-nEr"/>
                         <outlet property="description" destination="fOP-p7-zCh" id="SiO-GU-ulA"/>
@@ -844,7 +948,7 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <segue destination="8Ee-tv-08S" kind="push" id="DSn-ok-8R4"/>
+                                                <segue destination="8Ee-tv-08S" kind="push" identifier="GetPinInfoSegue" id="DSn-ok-8R4"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -879,6 +983,67 @@
         <image name="delete_24.png" width="24" height="24"/>
         <image name="information_24.png" width="24" height="24"/>
     </resources>
+    <classes>
+        <class className="AddPinInfoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddPinInfoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="Back:"/>
+                <relationship kind="outlet" name="coordinates" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="description" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="title" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ContactDetailsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="userData" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="userName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userOrganisation" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ContactsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactsViewController.h"/>
+        </class>
+        <class className="MapChoseTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapChoseTableViewController.h"/>
+        </class>
+        <class className="MapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteCurrentPin:"/>
+                <relationship kind="action" name="dropPin:"/>
+                <relationship kind="action" name="getNearbyInfo:"/>
+                <relationship kind="action" name="locateMe:"/>
+                <relationship kind="outlet" name="addInfo" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="deletePin" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapView" candidateClass="RMMapView"/>
+            </relationships>
+        </class>
+        <class className="MessageLogViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MessageLogViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="add:"/>
+                <relationship kind="action" name="goBack:"/>
+                <relationship kind="outlet" name="field" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="sendbutton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tbl" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="MessageViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MessageViewController.h"/>
+        </class>
+        <class className="PersonalInfoViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PersonalInfoViewController.h"/>
+        </class>
+        <class className="RMMapView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RMMapView.h"/>
+        </class>
+        <class className="SettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -10,6 +10,9 @@
 #import "DataClass.h"
 #import "MapViewController.h"
 
+//Coredata
+#import "Location.h"
+
 @protocol AddPinInfoViewControllerDelegate;
 
 @interface AddPinInfoViewController : UIViewController {
@@ -17,12 +20,17 @@
     id<AddPinInfoViewControllerDelegate>delegate;
     UITextField *title;
     UITextView *description;
+    
+    //core data instance variables
+    NSManagedObjectContext *managedObjectContext; 
 }
 - (IBAction)Back:(id)sender;
 
 @property (nonatomic,retain) IBOutlet UITextField *title;
 @property (nonatomic,retain) IBOutlet UITextView *description;
 @property (nonatomic, retain) IBOutlet UILabel *coordinates;
+
+@property (nonatomic,retain) NSManagedObjectContext *managedObjectContext; 
 
 
 @property (nonatomic, unsafe_unretained) id<AddPinInfoViewControllerDelegate> delegate;

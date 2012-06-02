@@ -11,7 +11,7 @@
 
 @implementation AddPinInfoViewController
 @synthesize coordinates;
-@synthesize title,description;
+@synthesize title,description,managedObjectContext;
 @synthesize delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,11 +34,11 @@
 #pragma mark - View lifecycle
 
 /*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
+ // Implement loadView to create a view hierarchy programmatically, without using a nib.
+ - (void)loadView
+ {
+ }
+ */
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -50,9 +50,11 @@
     NSLog(@"This is the data that we see in the modal view at first key=title=%@, description=%@, location=%@",obj.title,obj.description,obj.location);
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    //for UItextview placeholder
-    description.text = @"Description";
-    description.textColor = [UIColor lightGrayColor];
+    if(description.text.length == 0) {
+        //for UItextview placeholder
+        description.text = @"Description";
+        description.textColor = [UIColor lightGrayColor];
+    }
     
     //set Coordinates
     coordinates.text = [coordinates.text stringByAppendingString:obj.location];
@@ -129,17 +131,52 @@
 
 
 
-
 - (IBAction)Back:(id)sender {
     
     //update data class
     DataClass *obj = [DataClass getInstance];
-    obj.title = title.text;
-    obj.description = title.description;
     
-    [self.delegate infoAddedWithTitle:title.text andDescription:description.text];
-    [self.delegate didReceiveMessage:@"SONG BOOOOO"];
+    //UPDATING CORE DATA
+    NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
+    NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+    [fetchLocation setEntity:locationEntity];
+    
+    //SHould find the object with the same location?
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"locationTitle == %@", obj.title];
+    [fetchLocation setPredicate:predicate];
+    
+    NSError *error = nil;
+    Location *fetchedResult = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] lastObject];
+    
+    if (!fetchedResult) {
+        //create new Location
+        Location *newLocation = (Location *) [NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:managedObjectContext];
+        newLocation.locationTitle = title.text;
+        newLocation.locationDescription =description.text;
+        newLocation.locationLatitude = obj.location;
+        NSLog(@"SHOULDNT COME HERE! The location title was changed, we saved in COREDATA title = %@, location =%@ and description = %@", obj.title, obj.location, obj.description);
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    else{
+        fetchedResult.locationTitle = title.text;
+        fetchedResult.locationDescription =description.text;
+        fetchedResult.locationLatitude = obj.location;
+        NSLog(@"The location title was UPDATED, we saved in COREDATA title = %@, location =%@ and description = %@", obj.title, obj.location, obj.description);
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    
+    obj.title = title.text;
+    obj.description = description.text;
+    obj.newpininformationadded = @"YES";
+    
+    //working now!
+    //[self.delegate infoAddedWithTitle:title.text andDescription:description.text];
+    //[self.delegate didReceiveMessage:@"SONG BOOOOO"];
     [self.navigationController popViewControllerAnimated:NO];
-
+    
 }
 @end

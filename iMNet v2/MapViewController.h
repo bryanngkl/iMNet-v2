@@ -12,7 +12,10 @@
 #import "ConvertLocationData.h"
 #import "RMMapView.h"
 #import "AddPinInfoViewController.h"
+
+//CoreData
 #import "Location.h"
+
 
 
 @protocol AddPinInfoViewControllerDelegate
@@ -23,10 +26,8 @@
 @interface MapViewController : UIViewController <MyCLControllerDelegate, AddPinInfoViewControllerDelegate> 
 
 {   
-    //core data instance variables
-    NSManagedObjectContext *managedObjectContext;    
     
-     
+    
     //MapView
     IBOutlet RMMapView *mapView;
     MyCLController *locationController;
@@ -40,6 +41,9 @@
     IBOutlet UILabel *locationLabel;
     
     NSString *mapInUse;
+    
+    //CoreData 
+    NSManagedObjectContext *managedObjectContext;
     
 }
 
@@ -64,10 +68,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *addInfo;
 @property (nonatomic,retain) NSString *mapInUse;
 
-
-//core data methods
-@property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
-
+@property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;
 
 //- (IBAction)sendLocation:(id)sender;
 

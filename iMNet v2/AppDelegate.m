@@ -79,7 +79,7 @@
     newMessage.messageContents = [NSString stringWithFormat:@"%@", @"firstfirst"];
     newMessage.messageReceived = [NSNumber numberWithBool:TRUE];
     newMessage.messageDate = [NSDate date];
-    newMessage.messageFromContacts = newContact;
+    newMessage.messageFromContacts = newContact2;
     NSError *error2 = nil;
     if (![managedObjectContext save:&error2]) {
         // Handle the error.
@@ -91,7 +91,7 @@
     newMessage2.messageContents = [NSString stringWithFormat:@"%@", @"firstsecond"];
     newMessage2.messageReceived = [NSNumber numberWithBool:TRUE];
     newMessage2.messageDate = [NSDate date];
-    newMessage2.messageFromContacts = newContact2;
+    newMessage2.messageFromContacts = newContact;
     NSError *error3 = nil;
     if (![managedObjectContext save:&error3]) {
         // Handle the error.
@@ -103,7 +103,7 @@
     newMessage3.messageContents = [NSString stringWithFormat:@"%@", @"secondfirst"];
     newMessage3.messageReceived = [NSNumber numberWithBool:TRUE];
     newMessage3.messageDate = [NSDate date];
-    newMessage3.messageFromContacts = newContact2;
+    newMessage3.messageFromContacts = newContact;
     NSError *error4 = nil;
     if (![managedObjectContext save:&error4]) {
         // Handle the error.

@@ -208,6 +208,33 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    NSLog(@"a row was selected");
+    
+}
+
+
+
+#pragma mark Transiting to MessageLog
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"MessageLogSegue"]) {
+        MessageLogViewController *mlVC = (MessageLogViewController *)[segue destinationViewController];
+        NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
+        
+        
+    
+        //UITableViewCell *tableviewcell =  [self.tableView cellForRowAtIndexPath:selectedRowIndex];
+        
+        //NSString *username = [[[fetchedMessagesArray objectAtIndex:selectedRowIndex.row] messageFromContacts] username];
+
+        //NSLog(@"%@",username);
+        
+        mlVC.currentContact = [[fetchedMessagesArray objectAtIndex:[selectedRowIndex row]] messageFromContacts];
+           
+        mlVC.managedObjectContext = managedObjectContext;
+        
+        NSLog(@"Passed Managed object context");
+    }
 }
 
 @end

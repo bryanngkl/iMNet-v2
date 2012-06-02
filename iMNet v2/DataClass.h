@@ -13,13 +13,14 @@
     NSString * title;
     NSString * description;
     NSString * map;
+    NSString * newpininformationadded;
 }
 
 @property (nonatomic, strong) NSString * location;
 @property (nonatomic, strong) NSString * title;
 @property (nonatomic, strong) NSString * description;
 @property (nonatomic, strong) NSString * map;
-
+@property (nonatomic, strong) NSString * newpininformationadded;
 +(DataClass*)getInstance;    
 
 

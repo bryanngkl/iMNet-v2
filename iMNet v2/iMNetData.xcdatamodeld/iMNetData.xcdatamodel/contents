@@ -35,9 +35,9 @@
     </entity>
     <elements>
         <element name="Contacts" positionX="160" positionY="192" width="128" height="180"/>
-        <element name="Images" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="Location" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="Messages" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="OwnSettings" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="Images" positionX="-18" positionY="225" width="128" height="105"/>
+        <element name="Location" positionX="358" positionY="387" width="128" height="105"/>
+        <element name="Messages" positionX="268" positionY="27" width="128" height="105"/>
+        <element name="OwnSettings" positionX="421" positionY="213" width="128" height="75"/>
     </elements>
 </model>

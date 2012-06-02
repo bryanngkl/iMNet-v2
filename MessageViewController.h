@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Contacts.h"
 #import "Messages.h"
+#import "MessageLogViewController.h"
 
 
 @interface MessageViewController : UITableViewController{
