@@ -33,6 +33,7 @@
 		9356E2D715792D9100756ED2 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 9356E2D515792D9100756ED2 /* green.png */; };
 		9356E2D815792D9100756ED2 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 9356E2D615792D9100756ED2 /* grey.png */; };
 		9356E2E11579420700756ED2 /* MessageLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356E2E01579420700756ED2 /* MessageLogViewController.m */; };
+		9356E2F8157ACE0F00756ED2 /* libRscMgrUniv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9356E2F5157ACE0F00756ED2 /* libRscMgrUniv.a */; };
 		93E7171E1575A0120089A3D8 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7171D1575A0120089A3D8 /* MessageViewController.m */; };
 		93E717211575A0D50089A3D8 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E717201575A0D50089A3D8 /* ContactsViewController.m */; };
 		93E717271575A8720089A3D8 /* ContactDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E717261575A8720089A3D8 /* ContactDetailsViewController.m */; };
@@ -147,6 +148,9 @@
 		9356E2D615792D9100756ED2 /* grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey.png; sourceTree = "<group>"; };
 		9356E2DF1579420700756ED2 /* MessageLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageLogViewController.h; sourceTree = "<group>"; };
 		9356E2E01579420700756ED2 /* MessageLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageLogViewController.m; sourceTree = "<group>"; };
+		9356E2F5157ACE0F00756ED2 /* libRscMgrUniv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libRscMgrUniv.a; sourceTree = "<group>"; };
+		9356E2F6157ACE0F00756ED2 /* redparkSerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = redparkSerial.h; sourceTree = "<group>"; };
+		9356E2F7157ACE0F00756ED2 /* RscMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RscMgr.h; sourceTree = "<group>"; };
 		93E7171C1575A0120089A3D8 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewController.h; path = ../MessageViewController.h; sourceTree = "<group>"; };
 		93E7171D1575A0120089A3D8 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewController.m; path = ../MessageViewController.m; sourceTree = "<group>"; };
 		93E7171F1575A0D50089A3D8 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 				930F07321575962100F39890 /* UIKit.framework in Frameworks */,
 				930F07341575962100F39890 /* Foundation.framework in Frameworks */,
 				930F07361575962100F39890 /* CoreGraphics.framework in Frameworks */,
+				9356E2F8157ACE0F00756ED2 /* libRscMgrUniv.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +280,7 @@
 		930F07221575962100F39890 = {
 			isa = PBXGroup;
 			children = (
+				9356E2F4157ACE0F00756ED2 /* redpark */,
 				9F100E411577E513008E3015 /* CoreData.framework */,
 				9302F3081577E36E00DA6648 /* Data Classes */,
 				9F03C9E01576158500554DCE /* MapView.xcodeproj */,
@@ -351,6 +357,16 @@
 				930F07661575962100F39890 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9356E2F4157ACE0F00756ED2 /* redpark */ = {
+			isa = PBXGroup;
+			children = (
+				9356E2F5157ACE0F00756ED2 /* libRscMgrUniv.a */,
+				9356E2F6157ACE0F00756ED2 /* redparkSerial.h */,
+				9356E2F7157ACE0F00756ED2 /* RscMgr.h */,
+			);
+			path = redpark;
 			sourceTree = "<group>";
 		};
 		93E7171B15759F650089A3D8 /* View Controllers */ = {
@@ -712,6 +728,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/iMNet v2\"",
 					"$(inherited)",
+					"\"$(SRCROOT)/redpark\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -731,6 +748,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/iMNet v2\"",
 					"$(inherited)",
+					"\"$(SRCROOT)/redpark\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
