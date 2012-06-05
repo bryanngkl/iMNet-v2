@@ -13,6 +13,7 @@
 @synthesize coordinates;
 @synthesize title,description,managedObjectContext;
 @synthesize delegate = _delegate;
+@synthesize rscMgr;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

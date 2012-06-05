@@ -14,6 +14,8 @@
 @synthesize managedObjectContext;
 @synthesize currentContact;
 @synthesize userName,userData,userOrganisation;
+@synthesize rscMgr;
+
 
 
 - (id)initWithStyle:(UITableViewStyle)style

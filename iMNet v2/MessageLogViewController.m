@@ -12,6 +12,7 @@
 @implementation MessageLogViewController
 @synthesize tbl, field, toolbar, messages,messagefromselectedcontact,sortedMessages;
 @synthesize managedObjectContext, currentContact;
+@synthesize rscMgr;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -21,7 +22,6 @@
     }
     return self;
 }
-
 
 
 - (void)didReceiveMemoryWarning

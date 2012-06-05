@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RscMgr.h"
+
 
 @interface SettingsViewController : UITableViewController{
+    
+    RscMgr *rscMgr;
     
     //core data instance variables
     NSManagedObjectContext *managedObjectContext;   
@@ -16,5 +20,6 @@
 }
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
+@property (nonatomic,retain) RscMgr *rscMgr;
 
 @end

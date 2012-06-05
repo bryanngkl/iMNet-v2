@@ -12,6 +12,8 @@
 @implementation MessageViewController
 
 @synthesize managedObjectContext;
+@synthesize rscMgr;
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,6 +43,8 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [rscMgr setDelegate:self];
 }
 
 - (void)viewDidUnload
@@ -232,9 +236,332 @@
         mlVC.currentContact = [[fetchedMessagesArray objectAtIndex:[selectedRowIndex row]] messageFromContacts];
            
         mlVC.managedObjectContext = managedObjectContext;
+        mlVC.rscMgr = rscMgr;
         
         NSLog(@"Passed Managed object context");
     }
 }
 
-@end
+
+#pragma mark - RscMgrDelegate methods
+
+-(void) cableConnected:(NSString *)protocol{
+    [rscMgr setBaud:57600];
+    [rscMgr open];
+}
+
+-(void) cableDisconnected{
+
+}
+
+-(void) portStatusChanged{
+
+}
+
+-(void) readBytesAvailable:(UInt32)numBytes{
+    int bytesRead = [rscMgr read:rxBuffer Length:numBytes]; 
+
+    NSMutableArray *rxPackBuf;
+
+    if ([rxPacketBuffer count] == 0){
+        rxPackBuf = [[NSMutableArray alloc] initWithCapacity:1];    //if empty, initialise array
+    }
+    else{
+        rxPackBuf = [[NSMutableArray alloc] initWithArray:rxPacketBuffer];  //if not empty, initialise array with previous received bytes
+    }
+
+    for (int i = 0; i < numBytes; ++i) {
+        [rxPackBuf addObject:[NSNumber numberWithUnsignedChar:rxBuffer[i]]];
+    }
+
+    int packetLength = [[rxPackBuf objectAtIndex:1] unsignedIntValue] * 256 + [[rxPackBuf objectAtIndex:2] unsignedIntValue] + 4;
+    //calculate length of entire packet
+
+    if ([rxPackBuf count] >= packetLength){
+        NSIndexSet *onePacketIndexes = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, packetLength)]; //location 0, length of packetLength
+        NSMutableArray  *rxOnePacket = [[NSMutableArray alloc] initWithArray:[rxPackBuf objectsAtIndexes:onePacketIndexes]];
+        [rxPackBuf removeObjectsAtIndexes:onePacketIndexes];
+    
+        rxPacketBuffer = rxPackBuf;     //save the remainding bytes of packbuf for the next packet
+
+        XbeeRx *XbeeRxObj = [XbeeRx new];
+        [XbeeRxObj createRxInfo:rxOnePacket];   //load bytes into xbee receive object
+
+        switch ([[XbeeRxObj frametype] unsignedIntValue]) {     //sort out frametypes
+            case 136:    //frame is a zigbee receive AT command packet
+                //if node discover packet received
+                if (([[XbeeRxObj AT1] unsignedIntValue] == 78) && [[XbeeRxObj AT2] unsignedIntValue] == 68 ) {
+                    
+                    NSFetchRequest *fetchContacts = [[NSFetchRequest alloc] init];
+                    NSEntityDescription *contactsEntity = [NSEntityDescription entityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+                    [fetchContacts setEntity:contactsEntity];
+                    
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"address64 == %@",[XbeeRxObj sourceAddr64HexString]];
+                    [fetchContacts setPredicate:predicate];
+                    
+                    NSError *error = nil;
+                    
+                    Contacts *fetchedResult = [[managedObjectContext executeFetchRequest:fetchContacts error:&error] lastObject];
+                    
+                    if (!fetchedResult) {
+                        //This method creates a new contact.
+                        Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+                        
+                        [newContact setAddress16:[XbeeRxObj sourceAddr16HexString]];
+                        [newContact setAddress64:[XbeeRxObj sourceAddr64HexString]];
+                        [newContact setUsername:[XbeeRxObj nodeidentifier]];
+                        [newContact setIsAvailable:[NSNumber numberWithBool:TRUE]];
+                        NSError *error = nil;
+                        if (![managedObjectContext save:&error]) {
+                            // Handle the error.
+                        }
+                    }
+                    else{
+                        [fetchedResult setAddress16:[XbeeRxObj sourceAddr16HexString]];
+                        [fetchedResult setUsername:[XbeeRxObj nodeidentifier]];
+                        [fetchedResult setIsAvailable:[NSNumber numberWithBool:TRUE]];
+                        NSError *error = nil;
+                        if (![managedObjectContext save:&error]) {
+                            // Handle the error.
+                        }
+                    }
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"contactUpdated" object:self];
+                }
+                
+                //if ATNI packet received
+                else if([[XbeeRxObj ATString] isEqualToString:@"NI"]||[[XbeeRxObj ATString] isEqualToString:@"ID"]){                    
+                    
+                    if ([[XbeeRxObj ATCommandResponse] length] > 0) {
+                        
+                        NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+                        NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+                        [fetchOwnSettings setEntity:ownSettingsEntity];
+                        
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"atCommand == %@",[XbeeRxObj ATString]];
+                        [fetchOwnSettings setPredicate:predicate];
+                        
+                        NSError *error = nil;
+                        OwnSettings *fetchedSettings = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+                        
+                        if (!fetchedSettings) {
+                            //This method creates a new setting.
+                            OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+                            
+                            [newSettings setAtCommand:[XbeeRxObj ATString]];
+                            [newSettings setAtSetting:[XbeeRxObj ATCommandResponse]];
+                            
+                            NSError *error = nil;                            if (![managedObjectContext save:&error]) {
+                                // Handle the error.
+                            }
+                        }
+                        else{
+                            fetchedSettings.atCommand = [XbeeRxObj ATString];
+                            fetchedSettings.atSetting = [XbeeRxObj ATCommandResponse];
+                            NSError *error = nil;
+                            if (![managedObjectContext save:&error]) {
+                                // Handle the error.
+                            }
+                        }
+                       
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"optionsTableUpdate" object:self];
+                    
+                }
+                
+                
+                //if ATSL or ATSH or ATMY packet received
+                else if(([[XbeeRxObj ATString] isEqualToString:@"SL"])||([[XbeeRxObj ATString] isEqualToString:@"SH"])||([[XbeeRxObj ATString] isEqualToString:@"MY"])){
+                    
+                    if ([[XbeeRxObj ATCommandResponse] length] > 0) {
+                        
+                        NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+                        NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+                        [fetchOwnSettings setEntity:ownSettingsEntity];
+                        
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"atCommand == %@",[XbeeRxObj ATString]];
+                        [fetchOwnSettings setPredicate:predicate];
+                        
+                        NSError *error = nil;
+                        OwnSettings *fetchedSettings = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+                        
+                        if (!fetchedSettings) {
+                            //This method creates a new setting.
+                            OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+                            
+                            [newSettings setAtCommand:[XbeeRxObj ATString]];
+                            [newSettings setAtSetting:[XbeeRxObj ATCommandResponseHex]];
+                            
+                            NSError *error = nil;
+                            if (![managedObjectContext save:&error]) {
+                                // Handle the error.
+                            }
+                        }
+                        else{
+                            fetchedSettings.atCommand = [XbeeRxObj ATString];
+                            fetchedSettings.atSetting = [XbeeRxObj ATCommandResponseHex];
+                            NSError *error = nil;
+                            if (![managedObjectContext save:&error]) {
+                                // Handle the error.
+                            }
+                        }
+                    }
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"optionsTableUpdate" object:self];
+                
+                }
+                break;
+            
+            case 139:{     //frame is a transmit request acknowledgement. saves result of transmission in Ownsettings in core data. 
+            
+                if ([[XbeeRxObj ack] unsignedIntValue] == 0){
+                    
+ //                   self.receivedMessage.text = [NSString stringWithFormat:@"Message sent to %@ with %d retries",[XbeeRxObj sourceAddr16HexString], [[XbeeRxObj retries] unsignedIntValue]] ;
+                }
+                else {
+   //                 self.receivedMessage.text = [NSString stringWithFormat:@"Message to %@ not successful",[XbeeRxObj sourceAddr16HexString]];
+                }
+                break;}
+    
+            case 144:       //frame is a zigbee receive packet
+            {
+                
+                NSFetchRequest *fetchContacts = [[NSFetchRequest alloc] init];
+                NSEntityDescription *contactsEntity = [NSEntityDescription entityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+                [fetchContacts setEntity:contactsEntity];
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"address64 == %@",[XbeeRxObj sourceAddr64HexString]];
+                [fetchContacts setPredicate:predicate];
+                
+                NSError *error = nil;
+                Contacts *fetchedResult = [[managedObjectContext executeFetchRequest:fetchContacts error:&error] lastObject];
+                
+                if ([XbeeRxObj msgType] == 1) {
+                    
+                    //output received text message into receivemsg.text
+                    NSMutableString *rxMessage = [[NSMutableString alloc] initWithCapacity:2];
+                    for (int i =0; i<[[XbeeRxObj receiveddata] count]; i++) {
+                        [rxMessage appendString:[NSString stringWithFormat:@"%c",[[[XbeeRxObj receiveddata] objectAtIndex:i] unsignedIntValue]]];
+                    }
+                    if (!fetchedResult){
+                        //This method creates a new contact.
+                        Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+                        newContact.address16 = [XbeeRxObj sourceAddr16HexString];
+                        newContact.address64 = [XbeeRxObj sourceAddr64HexString];
+                        newContact.username = @"Unknown";
+                        newContact.isAvailable = [NSNumber numberWithBool:TRUE];
+                        
+                        Messages *newMessage = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];
+                        newMessage.messageContents = rxMessage;
+                        newMessage.messageReceived = [NSNumber numberWithBool:TRUE];
+                        newMessage.messageDate = [NSDate date];
+                        newMessage.messageFromContacts = newContact;
+                    }
+                    else{
+                        fetchedResult.address16 = [XbeeRxObj sourceAddr16HexString];
+                        fetchedResult.isAvailable = [NSNumber numberWithBool:TRUE];
+                        
+                        Messages *newMessage = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];
+                        
+                        [newMessage setMessageContents:[[NSString alloc] initWithString:rxMessage]];
+                        [newMessage setMessageReceived:[NSNumber numberWithBool:TRUE]];
+                        [newMessage setMessageFromContacts:fetchedResult];
+                        [newMessage setMessageDate:[NSDate date]];
+                    }
+                    NSError *error = nil;
+                    if (![managedObjectContext save:&error]) {
+                        // Handle the error.
+                    }
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"messageReceived" object:self];
+                    
+                    
+                }  /*
+                    else if ([XbeeRxObj msgType] == 2) {
+                    //If output is a picture
+                    
+                    NSMutableArray *rxBufArrayTemp = [[NSMutableArray alloc] initWithArray:rxBufferArray];
+                    [rxBufArrayTemp addObject:[XbeeRxObj receiveddata]];    //add received packet to buffer
+                    
+                    
+                    if ([rxBufArrayTemp count]==(1+[XbeeRxObj endID]-[XbeeRxObj startID])) {
+                    int numberOfBytes = 0;
+                    for (int i = 0; i<[rxBufArrayTemp count]; i++) {
+                    numberOfBytes = numberOfBytes + [[rxBufArrayTemp objectAtIndex:i] count];
+                    }
+                    char rxBufferChar[numberOfBytes];
+                    int counter = 0;
+                    for (int i = 0; i < [rxBufArrayTemp count]; i++) {
+                    for (int j = 0; j<[[rxBufArrayTemp objectAtIndex:i] count]; j++) {
+                    rxBufferChar[counter] = [[[rxBufArrayTemp objectAtIndex:i] objectAtIndex:j] unsignedCharValue];
+                    counter = counter + 1;
+                    }
+                    }                        
+                    
+                    NSData *imageData = [[NSData alloc] initWithBytes:rxBufferChar length:numberOfBytes];
+                    UIImage *picture = [[UIImage alloc] initWithData:imageData];     //display picture
+                    
+                    [rxBufArrayTemp removeAllObjects];
+                    rxBufferArray = rxBufArrayTemp;
+                    }
+                    else{
+                    rxBufferArray = rxBufArrayTemp;
+                    }*//*
+                else if ([XbeeRxObj msgType] == 3){
+                    NSMutableString *rxMessage = [[NSMutableString alloc] initWithCapacity:[[XbeeRxObj receiveddata] count]];
+                    for (int i =0; i<[[XbeeRxObj receiveddata] count]; i++) {
+                        [rxMessage appendString:[NSString stringWithFormat:@"%c",[[[XbeeRxObj receiveddata] objectAtIndex:i] unsignedIntValue]]];
+                    }                    
+                    
+                    NSString *separator = @"*";
+                    NSArray *receivedstrings = [rxMessage componentsSeparatedByString:separator];
+                    NSString *title = [receivedstrings objectAtIndex:0];
+                    NSString *description = [receivedstrings objectAtIndex:1];
+                    NSString *location = [receivedstrings objectAtIndex:2];
+                    NSLog(@"The received information are title = %@ with description = %@ and location = %@", title, description, location);
+                    
+                    //USING CORE DATA
+                    NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
+                    NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+                    [fetchLocation setEntity:locationEntity];
+                    
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"locationTitle == %@", title];
+                    [fetchLocation setPredicate:predicate];
+                    
+                    NSError *error = nil;
+                    Location *fetchedResult = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] lastObject];
+                    
+                    if (!fetchedResult) {
+                        //create new Location
+                        Location *newLocation = (Location *) [NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:managedObjectContext];
+                        newLocation.locationTitle = title;
+                        newLocation.locationDescription = description;
+                        newLocation.locationLatitude = location;
+                        // newLocation.locationLongitude = NULL;
+                        NSError *error = nil;
+                        //[managedObjectContext save:&error ];
+                        if (![managedObjectContext save:&error]) {
+                            // Handle the error.
+                        }
+                    }
+                    else{
+                        fetchedResult.locationDescription = description;
+                        fetchedResult.locationLatitude = location;
+                        NSError *error = nil;
+                        if (![managedObjectContext save:&error]) {
+                            // Handle the error.
+                        }
+                    }
+                }*/
+                
+                break;}
+            default:
+                break;
+        }
+        
+    
+    else{
+        rxPacketBuffer = rxPackBuf;
+    }
+    
+        }
+    }
+}
+    @end

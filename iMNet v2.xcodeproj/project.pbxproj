@@ -34,6 +34,10 @@
 		9356E2D815792D9100756ED2 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 9356E2D615792D9100756ED2 /* grey.png */; };
 		9356E2E11579420700756ED2 /* MessageLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356E2E01579420700756ED2 /* MessageLogViewController.m */; };
 		9356E2F8157ACE0F00756ED2 /* libRscMgrUniv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9356E2F5157ACE0F00756ED2 /* libRscMgrUniv.a */; };
+		938E8131157ACFEA00E7DCC7 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 938E8130157ACFEA00E7DCC7 /* ExternalAccessory.framework */; };
+		93B13B3A157AE4FE006F5BA4 /* hexConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B13B35157AE4FE006F5BA4 /* hexConvert.m */; };
+		93B13B3B157AE4FE006F5BA4 /* XbeeRx.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B13B37157AE4FE006F5BA4 /* XbeeRx.m */; };
+		93B13B3C157AE4FE006F5BA4 /* XbeeTx.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B13B39157AE4FE006F5BA4 /* XbeeTx.m */; };
 		93E7171E1575A0120089A3D8 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7171D1575A0120089A3D8 /* MessageViewController.m */; };
 		93E717211575A0D50089A3D8 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E717201575A0D50089A3D8 /* ContactsViewController.m */; };
 		93E717271575A8720089A3D8 /* ContactDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E717261575A8720089A3D8 /* ContactDetailsViewController.m */; };
@@ -151,6 +155,13 @@
 		9356E2F5157ACE0F00756ED2 /* libRscMgrUniv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libRscMgrUniv.a; sourceTree = "<group>"; };
 		9356E2F6157ACE0F00756ED2 /* redparkSerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = redparkSerial.h; sourceTree = "<group>"; };
 		9356E2F7157ACE0F00756ED2 /* RscMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RscMgr.h; sourceTree = "<group>"; };
+		938E8130157ACFEA00E7DCC7 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		93B13B34157AE4FE006F5BA4 /* hexConvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hexConvert.h; sourceTree = SOURCE_ROOT; };
+		93B13B35157AE4FE006F5BA4 /* hexConvert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hexConvert.m; sourceTree = SOURCE_ROOT; };
+		93B13B36157AE4FE006F5BA4 /* XbeeRx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbeeRx.h; sourceTree = SOURCE_ROOT; };
+		93B13B37157AE4FE006F5BA4 /* XbeeRx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbeeRx.m; sourceTree = SOURCE_ROOT; };
+		93B13B38157AE4FE006F5BA4 /* XbeeTx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbeeTx.h; sourceTree = SOURCE_ROOT; };
+		93B13B39157AE4FE006F5BA4 /* XbeeTx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbeeTx.m; sourceTree = SOURCE_ROOT; };
 		93E7171C1575A0120089A3D8 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewController.h; path = ../MessageViewController.h; sourceTree = "<group>"; };
 		93E7171D1575A0120089A3D8 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewController.m; path = ../MessageViewController.m; sourceTree = "<group>"; };
 		93E7171F1575A0D50089A3D8 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
@@ -204,6 +215,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				938E8131157ACFEA00E7DCC7 /* ExternalAccessory.framework in Frameworks */,
 				9F100E421577E513008E3015 /* CoreData.framework in Frameworks */,
 				9F03C9FF1576161600554DCE /* libsqlite3.dylib in Frameworks */,
 				9F03CA001576162100554DCE /* libMapView.a in Frameworks */,
@@ -280,6 +292,8 @@
 		930F07221575962100F39890 = {
 			isa = PBXGroup;
 			children = (
+				93B13B3D157AE504006F5BA4 /* xbee classes */,
+				938E8130157ACFEA00E7DCC7 /* ExternalAccessory.framework */,
 				9356E2F4157ACE0F00756ED2 /* redpark */,
 				9F100E411577E513008E3015 /* CoreData.framework */,
 				9302F3081577E36E00DA6648 /* Data Classes */,
@@ -367,6 +381,20 @@
 				9356E2F7157ACE0F00756ED2 /* RscMgr.h */,
 			);
 			path = redpark;
+			sourceTree = "<group>";
+		};
+		93B13B3D157AE504006F5BA4 /* xbee classes */ = {
+			isa = PBXGroup;
+			children = (
+				93B13B34157AE4FE006F5BA4 /* hexConvert.h */,
+				93B13B35157AE4FE006F5BA4 /* hexConvert.m */,
+				93B13B36157AE4FE006F5BA4 /* XbeeRx.h */,
+				93B13B37157AE4FE006F5BA4 /* XbeeRx.m */,
+				93B13B38157AE4FE006F5BA4 /* XbeeTx.h */,
+				93B13B39157AE4FE006F5BA4 /* XbeeTx.m */,
+			);
+			name = "xbee classes";
+			path = "iMNet v2";
 			sourceTree = "<group>";
 		};
 		93E7171B15759F650089A3D8 /* View Controllers */ = {
@@ -606,6 +634,9 @@
 				9302F3141577E3A700DA6648 /* iMNetData.xcdatamodeld in Sources */,
 				9F2442821577EBDD001D3876 /* Contacts.m in Sources */,
 				9356E2E11579420700756ED2 /* MessageLogViewController.m in Sources */,
+				93B13B3A157AE4FE006F5BA4 /* hexConvert.m in Sources */,
+				93B13B3B157AE4FE006F5BA4 /* XbeeRx.m in Sources */,
+				93B13B3C157AE4FE006F5BA4 /* XbeeTx.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,6 +705,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kin Loong Bryan Ng (58WK73XE5V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -689,6 +721,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PROVISIONING_PROFILE = "E2108272-F2FB-4CA3-80F2-3ED4B1C7FED0";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -700,6 +733,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kin Loong Bryan Ng (58WK73XE5V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -709,6 +743,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "E2108272-F2FB-4CA3-80F2-3ED4B1C7FED0";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

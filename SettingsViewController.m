@@ -12,6 +12,8 @@
 @implementation SettingsViewController
 
 @synthesize managedObjectContext;
+@synthesize rscMgr;
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

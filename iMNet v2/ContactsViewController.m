@@ -12,6 +12,8 @@
 @implementation ContactsViewController
 
 @synthesize managedObjectContext;
+@synthesize rscMgr;
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,6 +43,9 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    FrameID = 1;
+
 }
 
 - (void)viewDidUnload
@@ -52,6 +57,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contactTableUpdate:) name:@"contactUpdated" object:nil];
     [super viewWillAppear:animated];
 }
 
@@ -62,6 +68,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"contactUpdated" object:nil];
     [super viewWillDisappear:animated];
 }
 
@@ -180,6 +187,55 @@
      */
 }
 
+- (void)contactTableUpdate:(NSNotification *)notification
+{
+    [self.tableView reloadData];
+    // Retrieve information about the document and update the panel
+}
+
+- (IBAction)contactDiscovery:(id)sender {
+    //send node discover AT command to xbee
+    
+    //initialise all contacts to unavailable
+    NSFetchRequest *fetchContacts = [[NSFetchRequest alloc] init];
+    NSEntityDescription *contactsEntity = [NSEntityDescription entityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+    [fetchContacts setEntity:contactsEntity];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"username" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    [fetchContacts setSortDescriptors:sortDescriptors];
+    
+    NSError *error = nil;
+    NSMutableArray *fetchedResultArray = [[managedObjectContext executeFetchRequest:fetchContacts error:&error] mutableCopy];
+    
+    if ([fetchedResultArray count] > 0) {
+        for (int i =0; i<[fetchedResultArray count]; i++) {
+            [[fetchedResultArray objectAtIndex:i] setIsAvailable:[NSNumber numberWithBool:FALSE]];
+        }
+        
+        NSError *error1 = nil;
+        if (![managedObjectContext save:&error1]) {
+            // Handle the error.
+        }
+    }
+    
+    [self.tableView reloadData];
+
+    XbeeTx *XbeeObj = [XbeeTx new];
+    [XbeeObj ATCommand:@"ND" withFrameID:FrameID];   //set up ATCommand for node discover
+    
+    NSArray *sendPacket = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacket count]; i++ ) {
+        txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue]; 
+    }
+    int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete)
@@ -205,6 +261,7 @@
 		ContactDetailsViewController *contactDetailsViewController = segue.destinationViewController;
         contactDetailsViewController.currentContact = [fetchedContactsArray objectAtIndex:selectedIndex];
         contactDetailsViewController.managedObjectContext = managedObjectContext;
+        contactDetailsViewController.rscMgr = rscMgr;
         
         
         //set navigation bar title

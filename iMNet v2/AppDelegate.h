@@ -13,10 +13,12 @@
 #import "MapViewController.h"
 #import "Contacts.h"
 #import "Messages.h"
+#import "RscMgr.h"
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
 
+    RscMgr *rscMgr;
 
     //core data objects
     NSPersistentStoreCoordinator *persistentStoreCoordinator;

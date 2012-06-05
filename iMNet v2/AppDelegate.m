@@ -18,6 +18,8 @@
 {
     // Override point for customization after application launch.
     
+    //create rscMgr
+    rscMgr = [[RscMgr alloc] init];
     
     NSManagedObjectContext *context = [self managedObjectContext];
     if (!context) {
@@ -40,6 +42,11 @@
     contactsViewController.managedObjectContext = context;
     settingsViewController.managedObjectContext = context;
     mapViewController.managedObjectContext = context;
+    
+    messageViewController.rscMgr = rscMgr;
+    contactsViewController.rscMgr = rscMgr;
+    settingsViewController.rscMgr = rscMgr;
+    mapViewController.rscMgr = rscMgr;
     
     //create new sample contact
     Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];

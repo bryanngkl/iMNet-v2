@@ -10,6 +10,8 @@
 #import "DataClass.h"
 #import "MapViewController.h"
 
+#import "RscMgr.h"
+
 //Coredata
 #import "Location.h"
 
@@ -21,6 +23,8 @@
     UITextField *title;
     UITextView *description;
     
+    RscMgr *rscMgr;
+    
     //core data instance variables
     NSManagedObjectContext *managedObjectContext; 
 }
@@ -31,6 +35,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *coordinates;
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext; 
+@property (nonatomic,retain) RscMgr *rscMgr;
 
 
 @property (nonatomic, unsafe_unretained) id<AddPinInfoViewControllerDelegate> delegate;

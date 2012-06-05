@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Contacts.h"
+#import "RscMgr.h"
 
 
 @interface ContactDetailsViewController : UITableViewController{
@@ -16,10 +17,16 @@
     IBOutlet UILabel *userName;
     IBOutlet UILabel *userOrganisation;
     IBOutlet UITextView *userData;
+    
+    RscMgr *rscMgr;
+
+    
 }
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) Contacts *currentContact;  
+
+@property (nonatomic,retain) RscMgr *rscMgr;
 
 @property (nonatomic,retain) UILabel *userName;
 @property (nonatomic,retain) UILabel *userOrganisation;

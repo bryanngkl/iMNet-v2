@@ -21,6 +21,7 @@
 @synthesize addInfo;
 @synthesize mapInUse;
 @synthesize managedObjectContext;
+@synthesize rscMgr;
 
 
 - (void)testMarkers
@@ -634,6 +635,7 @@
         
         AddPinInfoViewController *nextViewController = segue.destinationViewController;
         nextViewController.managedObjectContext = managedObjectContext;
+        nextViewController.rscMgr = rscMgr;
         NSLog(@"Passed Managed object context");
     }
     

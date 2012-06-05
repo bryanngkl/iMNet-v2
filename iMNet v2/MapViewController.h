@@ -13,6 +13,8 @@
 #import "RMMapView.h"
 #import "AddPinInfoViewController.h"
 
+#import "RscMgr.h"
+
 //CoreData
 #import "Location.h"
 
@@ -26,7 +28,7 @@
 @interface MapViewController : UIViewController <MyCLControllerDelegate, AddPinInfoViewControllerDelegate> 
 
 {   
-    
+    RscMgr *rscMgr;
     
     //MapView
     IBOutlet RMMapView *mapView;
@@ -69,6 +71,7 @@
 @property (nonatomic,retain) NSString *mapInUse;
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic,retain) RscMgr *rscMgr;
 
 //- (IBAction)sendLocation:(id)sender;
 

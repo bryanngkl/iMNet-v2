@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MessageViewController.h"
+
+#import "RscMgr.h"
+
 //CoreData
 #import "Messages.h"
 
@@ -20,6 +23,8 @@
     NSMutableArray *messagefromselectedcontact;
     NSArray *sortedMessages;
     
+    RscMgr *rscMgr;
+
     //core data instance variables
     NSManagedObjectContext *managedObjectContext; 
     Contacts *currentContact;
@@ -33,7 +38,7 @@
 @property (nonatomic, retain) UIToolbar *toolbar;
 @property (nonatomic, retain) NSMutableArray *messages;
 
-
+@property (nonatomic,retain) RscMgr *rscMgr;
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext; 
 @property (nonatomic,retain) NSMutableArray *messagefromselectedcontact;

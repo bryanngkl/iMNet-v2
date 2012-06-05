@@ -19,7 +19,7 @@
     lengthbyteMSB = [rxBuffer objectAtIndex:1];//(NSString*)[rxstring characterAtIndex:1];
     lengthbyteLSB = [rxBuffer objectAtIndex:2];//(NSString*)[rxstring characterAtIndex:2];
     //Find length of msg
-    length = [lengthbyteMSB unsignedIntValue]*16 + [lengthbyteLSB unsignedIntValue];        
+    length = [lengthbyteMSB unsignedIntValue]*256 + [lengthbyteLSB unsignedIntValue];        
     //Get the frame type
     frametype = [rxBuffer objectAtIndex:3];//(NSString*)[rxstring characterAtIndex:3];
 
@@ -27,20 +27,12 @@
 
     //if this is a normal receive packet, frametype = 0x90
     if ([frametype unsignedIntValue]== 144){ 
-        sourceAddr64 = [[NSMutableArray alloc] initWithCapacity:8];
-        [sourceAddr64 addObject:[rxBuffer objectAtIndex:4]];
-        [sourceAddr64 addObject:[rxBuffer objectAtIndex:5]];
-        [sourceAddr64 addObject:[rxBuffer objectAtIndex:6]];
-        [sourceAddr64 addObject:[rxBuffer objectAtIndex:7]];
-        [sourceAddr64 addObject:[rxBuffer objectAtIndex:8]];
-        [sourceAddr64 addObject:[rxBuffer objectAtIndex:9]];
-        [sourceAddr64 addObject:[rxBuffer objectAtIndex:10]];
-        [sourceAddr64 addObject:[rxBuffer objectAtIndex:11]];
+        NSIndexSet *sourceAddr64Index = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(4,8)];
+
+        sourceAddr64 = [[NSMutableArray alloc] initWithArray:[rxBuffer objectsAtIndexes:sourceAddr64Index]];
         
-        sourceAddr16 = [[NSMutableArray alloc] initWithCapacity:2];//[[NSMutableString alloc] initWithCapacity:1]
-        [sourceAddr16 addObject:[rxBuffer objectAtIndex:12]];
-        [sourceAddr16 addObject:[rxBuffer objectAtIndex:13]];
-        
+        sourceAddr16 = [[NSMutableArray alloc] initWithObjects:[rxBuffer objectAtIndex:12],[rxBuffer objectAtIndex:13], nil];
+
         sourceAddr16HexString = [[hexConvert alloc] convertArrayToString:sourceAddr16];
         sourceAddr64HexString = [[hexConvert alloc] convertArrayToString:sourceAddr64];
 
@@ -54,10 +46,9 @@
         
         
         //rxBuffer data
-        receiveddata= [[NSMutableArray alloc] initWithCapacity:10]; //change the capacity if necessary       
-            for(int i = 0; i < (length - 16);i++){
-            [receiveddata addObject:[rxBuffer objectAtIndex:19+i]]; //insertString:(NSString*)[rxstring characterAtIndex:15+i] atIndex:i];
-            }
+        NSIndexSet *receivedDataIndexes = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(19,(length - 16))];
+        receiveddata = [[NSMutableArray alloc] initWithArray:[rxBuffer objectsAtIndexes:receivedDataIndexes]];
+        
     }
     
     
@@ -65,9 +56,7 @@
     if ([frametype unsignedIntValue]== 139){ 
         frameID = [rxBuffer objectAtIndex:4];
 
-        sourceAddr16 = [[NSMutableArray alloc] initWithCapacity:2];
-        [sourceAddr16 addObject:[rxBuffer objectAtIndex:5]];
-        [sourceAddr16 addObject:[rxBuffer objectAtIndex:6]];
+        sourceAddr16 = [[NSMutableArray alloc] initWithObjects:[rxBuffer objectAtIndex:5],[rxBuffer objectAtIndex:6], nil];
         
         sourceAddr16HexString = [[hexConvert alloc] convertArrayToString:sourceAddr16]; //update 16 bit address field
 
@@ -88,20 +77,10 @@
         
         if (([AT1 unsignedIntValue] == 78)&& ([AT2 unsignedIntValue] == 68)) { //if this is a ND command
             
-            sourceAddr16 = [[NSMutableArray alloc] initWithCapacity:2];
-            [sourceAddr16 addObject:[rxBuffer objectAtIndex:8]];
-            [sourceAddr16 addObject:[rxBuffer objectAtIndex:9]];
+            sourceAddr16 = [[NSMutableArray alloc] initWithObjects:[rxBuffer objectAtIndex:8],[rxBuffer objectAtIndex:9], nil];
             
-            
-            sourceAddr64 = [[NSMutableArray alloc] initWithCapacity:8];
-            [sourceAddr64 addObject:[rxBuffer objectAtIndex:10]];
-            [sourceAddr64 addObject:[rxBuffer objectAtIndex:11]];
-            [sourceAddr64 addObject:[rxBuffer objectAtIndex:12]];
-            [sourceAddr64 addObject:[rxBuffer objectAtIndex:13]];
-            [sourceAddr64 addObject:[rxBuffer objectAtIndex:14]];
-            [sourceAddr64 addObject:[rxBuffer objectAtIndex:15]];
-            [sourceAddr64 addObject:[rxBuffer objectAtIndex:16]];
-            [sourceAddr64 addObject:[rxBuffer objectAtIndex:17]];
+            NSIndexSet *sourceAddr64Index = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(10,8)];
+            sourceAddr64 = [[NSMutableArray alloc] initWithArray:[rxBuffer objectsAtIndexes:sourceAddr64Index]];
             
             sourceAddr16HexString = [[hexConvert alloc] convertArrayToString:sourceAddr16];
             sourceAddr64HexString = [[hexConvert alloc] convertArrayToString:sourceAddr64];
