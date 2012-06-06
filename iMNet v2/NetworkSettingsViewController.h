@@ -9,10 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "RscMgr.h"
 #import "OwnSettings.h"
+#import "XbeeTx.h"
+#import "Contacts.h"
+#define BUFFER_LEN 1024
+
 
 @interface NetworkSettingsViewController : UITableViewController{
 
     RscMgr *rscMgr;
+    int FrameID;
+    UInt8   txBuffer[BUFFER_LEN];
     //core data instance variables
     NSManagedObjectContext *managedObjectContext;   
     IBOutlet UILabel *NetworkIDLabel;
@@ -21,6 +27,9 @@
     IBOutlet UILabel *MACAddressLabel;
     IBOutlet UILabel *UsernameLabel;
 }
+
+- (void)optionsTableUpdate:(NSNotification *)notification;
+- (IBAction)updateNetworkDetails:(id)sender;
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) RscMgr *rscMgr;

@@ -10,6 +10,7 @@
 
 @implementation NetworkSettingsViewController
 
+
 @synthesize managedObjectContext;
 @synthesize rscMgr;
 @synthesize UsernameLabel,NetworkAddressLabel,NetworkIDLabel,MACAddressLabel,DeviceTypeLabel;
@@ -33,7 +34,10 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    FrameID = 1;
+
 }
+
 
 - (void)viewDidUnload
 {
@@ -42,6 +46,7 @@
     MACAddressLabel = nil;
     NetworkAddressLabel = nil;
     DeviceTypeLabel = nil;
+
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -63,17 +68,6 @@
     if (fetchedID) {
         self.NetworkIDLabel.text = [NSString stringWithFormat:@"%@", [fetchedID atSetting]];
     }
-    else {
-        //This method creates a new setting.
-        OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
-        [newSettings setAtCommand:[NSString stringWithFormat:@"%@",@"ID"]];
-        [newSettings setAtSetting:[NSString stringWithFormat:@"%@",@"Unknown"]];
-        self.NetworkIDLabel.text = [NSString stringWithFormat:@"%@",@"Unknown"];
-        NSError *error = nil;                           
-        if (![managedObjectContext save:&error]) {
-            // Handle the error.
-        }
-    }
 
     NSPredicate *predicateNI = [NSPredicate predicateWithFormat:@"atCommand == %@",@"NI"];
     [fetchOwnSettings setPredicate:predicateNI];
@@ -82,20 +76,31 @@
     if (fetchedNI) {
         self.UsernameLabel.text = [NSString stringWithFormat:@"%@", [fetchedNI atSetting]];
     }
-    else {
-        //This method creates a new setting.
-        OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
-        [newSettings setAtCommand:[NSString stringWithFormat:@"%@",@"NI"]];
-        [newSettings setAtSetting:[NSString stringWithFormat:@"%@",@"Unknown"]];
-        self.UsernameLabel.text = [NSString stringWithFormat:@"%@",@"Unknown"];
-        NSError *errorNI = nil;                           
-        if (![managedObjectContext save:&errorNI]) {
-            // Handle the error.
-        }
-    }
+
+    NSPredicate *predicateSH = [NSPredicate predicateWithFormat:@"atCommand == %@",@"SH"];
+    [fetchOwnSettings setPredicate:predicateSH];
+    
+    OwnSettings *fetchedSH = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
 
     
+    NSPredicate *predicateSL = [NSPredicate predicateWithFormat:@"atCommand == %@",@"SL"];
+    [fetchOwnSettings setPredicate:predicateSL];
     
+    OwnSettings *fetchedSL = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    if (fetchedSH && fetchedSL) {
+        self.MACAddressLabel.text = [NSString stringWithFormat:@"%@%@", [fetchedSH atSetting], [fetchedSL atSetting]];    
+    } 
+    
+    NSPredicate *predicateMY = [NSPredicate predicateWithFormat:@"atCommand == %@",@"MY"];
+    [fetchOwnSettings setPredicate:predicateMY];
+    error = nil;
+    OwnSettings *fetchedMY = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    if (fetchedMY) {
+        self.NetworkAddressLabel.text = [NSString stringWithFormat:@"%@", [fetchedMY atSetting]];
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optionsTableUpdate:) name:@"optionsTableUpdate" object:nil];
+
     
     [super viewWillAppear:animated];
 }
@@ -107,6 +112,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"optionsTableUpdate" object:nil];
+
     [super viewWillDisappear:animated];
 }
 
@@ -195,4 +202,126 @@
      */
 }
 
+- (void)optionsTableUpdate:(NSNotification *)notification
+{
+    NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+    NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+    [fetchOwnSettings setEntity:ownSettingsEntity];
+    
+    NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"atCommand == %@",@"ID"];
+    [fetchOwnSettings setPredicate:predicateID];
+    
+    NSError *error = nil;
+    OwnSettings *fetchedID = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    if (fetchedID) {
+         self.NetworkIDLabel.text = [NSString stringWithFormat:@"%@", [fetchedID atSetting]];
+    }
+    
+    NSPredicate *predicateNI = [NSPredicate predicateWithFormat:@"atCommand == %@",@"NI"];
+    [fetchOwnSettings setPredicate:predicateNI];
+    
+    error = nil;
+    OwnSettings *fetchedNI = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedNI) {
+        self.UsernameLabel.text = [fetchedNI atSetting];
+    }
+    
+    
+    NSPredicate *predicateSH = [NSPredicate predicateWithFormat:@"atCommand == %@",@"SH"];
+    [fetchOwnSettings setPredicate:predicateSH];
+    
+    error = nil;
+    OwnSettings *fetchedSH = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    
+    NSPredicate *predicateSL = [NSPredicate predicateWithFormat:@"atCommand == %@",@"SL"];
+    [fetchOwnSettings setPredicate:predicateSL];
+    
+    error = nil;
+    OwnSettings *fetchedSL = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedSH && fetchedSL) {
+        self.MACAddressLabel.text = [NSString stringWithFormat:@"%@%@", [fetchedSH atSetting], [fetchedSL atSetting]];
+    }
+    
+    
+    NSPredicate *predicateMY = [NSPredicate predicateWithFormat:@"atCommand == %@",@"MY"];
+    [fetchOwnSettings setPredicate:predicateMY];
+    error = nil;
+    OwnSettings *fetchedMY = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+
+    if (fetchedMY) {
+        self.NetworkAddressLabel.text = [NSString stringWithFormat:@"%@", [fetchedMY atSetting]];
+    }
+    //  [self.tableView reloadData];
+    
+    // Retrieve information about the document and update the panel
+}
+
+- (IBAction)updateNetworkDetails:(id)sender {
+    
+    XbeeTx *XbeeObj = [XbeeTx new];
+    [XbeeObj ATCommand:@"ID" withFrameID:FrameID];
+    NSArray *sendPacket = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacket count]; i++ ) {
+        txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue]; 
+    }
+    int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+    //set up ATCommand for 16 bit network address
+    [XbeeObj ATCommand:@"MY" withFrameID:FrameID];
+    NSArray *sendPacketMY = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacketMY count]; i++ ) {
+        txBuffer[i] = [[sendPacketMY objectAtIndex:i] unsignedIntValue]; 
+    }
+    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketMY count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+    //set up ATCommand for node identifier
+    [XbeeObj ATCommand:@"NI" withFrameID:FrameID];
+    NSArray *sendPacketNI = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacketNI count]; i++ ) {
+        txBuffer[i] = [[sendPacketNI objectAtIndex:i] unsignedIntValue]; 
+    }
+    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketNI count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+    //set up ATCommand for 64bit serial high MAC address
+    [XbeeObj ATCommand:@"SH" withFrameID:FrameID];
+    NSArray *sendPacketSH = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacketSH count]; i++ ) {
+        txBuffer[i] = [[sendPacketSH objectAtIndex:i] unsignedIntValue]; 
+    }
+    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketSH count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+    //set up ATCommand for 64bit serial low MAC address
+    [XbeeObj ATCommand:@"SL" withFrameID:FrameID];
+    NSArray *sendPacketSL = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacketSL count]; i++ ) {
+        txBuffer[i] = [[sendPacketSL objectAtIndex:i] unsignedIntValue]; 
+    }
+    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketSL count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+
+    
+}
 @end

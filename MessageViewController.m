@@ -288,7 +288,29 @@
         XbeeRx *XbeeRxObj = [XbeeRx new];
         [XbeeRxObj createRxInfo:rxOnePacket];   //load bytes into xbee receive object
         
+        NSString *test = [[NSString alloc] init];
         
+        for (int i = 0; i < [rxOnePacket count]; ++i) {
+            test = [NSString stringWithFormat:@"%@%.2x",test, [[rxOnePacket objectAtIndex:i] unsignedIntValue]];
+        } 
+        /*
+        //create new sample contact
+        Contacts *newContact1 = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+        
+        [newContact1 setAddress16:@"1234"];
+        [newContact1 setAddress64:@"1234567890"];
+        [newContact1 setUsername:@"error"];
+        [newContact1 setUserData:test];
+        [newContact1 setUserOrg:@"error"];
+        [newContact1 setIsAvailable:[NSNumber numberWithBool:TRUE]];
+        NSError *error1 = nil;
+        if (![managedObjectContext save:&error1]) {
+            // Handle the error.
+        }
+         */
+        
+
+        //end of sample contact
         switch ([[XbeeRxObj frametype] unsignedIntValue]) {     //sort out frametypes
             case 136:    //frame is a zigbee receive AT command packet
                 //if node discover packet received
@@ -366,16 +388,31 @@
                                 // Handle the error.
                             }
                         }
-                       
+
+                        
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"optionsTableUpdate" object:self];
                     
                 }
                 
-                
+                }
                 //if ATSL or ATSH or ATMY packet received
                 else if(([[XbeeRxObj ATString] isEqualToString:@"SL"])||([[XbeeRxObj ATString] isEqualToString:@"SH"])||([[XbeeRxObj ATString] isEqualToString:@"MY"])){
                     
-                    if ([[XbeeRxObj ATCommandResponse] length] > 0) {
+                    //create new sample contact
+                    Contacts *newContact1 = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+                    
+                    [newContact1 setAddress16:@"1234"];
+                    [newContact1 setAddress64:@"1234567890"];
+                    [newContact1 setUsername:@"error"];
+                    [newContact1 setUserData:test];
+                    [newContact1 setUserOrg:@"error"];
+                    [newContact1 setIsAvailable:[NSNumber numberWithBool:TRUE]];
+                    NSError *error1 = nil;
+                    if (![managedObjectContext save:&error1]) {
+                        // Handle the error.
+                    }
+
+                    if ([[XbeeRxObj ATCommandResponseHex] length] > 0) {
                         
                         NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
                         NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
@@ -559,7 +596,7 @@
                 break;
         }
         
-        }}
+        }
     else{
         rxPacketBuffer = rxPackBuf;
     }
