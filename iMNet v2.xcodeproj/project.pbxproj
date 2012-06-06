@@ -39,6 +39,7 @@
 		93B13B3A157AE4FE006F5BA4 /* hexConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B13B35157AE4FE006F5BA4 /* hexConvert.m */; };
 		93B13B3B157AE4FE006F5BA4 /* XbeeRx.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B13B37157AE4FE006F5BA4 /* XbeeRx.m */; };
 		93B13B3C157AE4FE006F5BA4 /* XbeeTx.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B13B39157AE4FE006F5BA4 /* XbeeTx.m */; };
+		93BD91371580152500CC8F75 /* NewMsgContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BD91361580152500CC8F75 /* NewMsgContactsViewController.m */; };
 		93E7171E1575A0120089A3D8 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7171D1575A0120089A3D8 /* MessageViewController.m */; };
 		93E717211575A0D50089A3D8 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E717201575A0D50089A3D8 /* ContactsViewController.m */; };
 		93E717271575A8720089A3D8 /* ContactDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E717261575A8720089A3D8 /* ContactDetailsViewController.m */; };
@@ -165,6 +166,8 @@
 		93B13B37157AE4FE006F5BA4 /* XbeeRx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbeeRx.m; sourceTree = SOURCE_ROOT; };
 		93B13B38157AE4FE006F5BA4 /* XbeeTx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbeeTx.h; sourceTree = SOURCE_ROOT; };
 		93B13B39157AE4FE006F5BA4 /* XbeeTx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbeeTx.m; sourceTree = SOURCE_ROOT; };
+		93BD91351580152500CC8F75 /* NewMsgContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMsgContactsViewController.h; sourceTree = "<group>"; };
+		93BD91361580152500CC8F75 /* NewMsgContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMsgContactsViewController.m; sourceTree = "<group>"; };
 		93E7171C1575A0120089A3D8 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewController.h; path = ../MessageViewController.h; sourceTree = "<group>"; };
 		93E7171D1575A0120089A3D8 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewController.m; path = ../MessageViewController.m; sourceTree = "<group>"; };
 		93E7171F1575A0D50089A3D8 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
@@ -409,6 +412,8 @@
 				93E717261575A8720089A3D8 /* ContactDetailsViewController.m */,
 				93E7171C1575A0120089A3D8 /* MessageViewController.h */,
 				93E7171D1575A0120089A3D8 /* MessageViewController.m */,
+				93BD91351580152500CC8F75 /* NewMsgContactsViewController.h */,
+				93BD91361580152500CC8F75 /* NewMsgContactsViewController.m */,
 				9318A32D1575B400000E877A /* SettingsViewController.h */,
 				9318A32E1575B400000E877A /* SettingsViewController.m */,
 				938C43DB157F4569008508DB /* NetworkSettingsViewController.h */,
@@ -643,6 +648,7 @@
 				93B13B3B157AE4FE006F5BA4 /* XbeeRx.m in Sources */,
 				93B13B3C157AE4FE006F5BA4 /* XbeeTx.m in Sources */,
 				938C43DD157F4569008508DB /* NetworkSettingsViewController.m in Sources */,
+				93BD91371580152500CC8F75 /* NewMsgContactsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -41,6 +41,9 @@
     
 }
 
+- (void)messageReceivedUpdate:(NSNotification *)notification;
+
+
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) RscMgr *rscMgr;
 @property (nonatomic,retain) NSString *testString;

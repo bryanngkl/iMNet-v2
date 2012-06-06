@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MessageViewController.h"
+#import "hexConvert.h"
 
 #import "RscMgr.h"
+#define BUFFER_LEN 1024
+
 
 //CoreData
 #import "Messages.h"
@@ -27,12 +30,17 @@
     UITapGestureRecognizer *tapRecognizer;
     
     RscMgr *rscMgr;
+    int FrameID;
+    UInt8   txBuffer[BUFFER_LEN];
+
 
     //core data instance variables
     NSManagedObjectContext *managedObjectContext; 
     Contacts *currentContact;
     
 }
+
+- (void)messageReceivedUpdate:(NSNotification *)notification;
 
 - (IBAction)add:(id)sender;
 - (IBAction)goBack:(id)sender;

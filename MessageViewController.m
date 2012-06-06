@@ -58,6 +58,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [[self tableView] reloadData];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceivedUpdate:) name:@"messageReceived" object:nil];
     [super viewWillAppear:animated];
 }
 
@@ -68,6 +69,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"messageReceived" object:nil];
     [super viewWillDisappear:animated];
 }
 
@@ -244,6 +246,10 @@
     }
 }
 
+- (void)messageReceivedUpdate:(NSNotification *)notification{
+    [self.tableView reloadData];
+    // Retrieve information about the document and update the panel
+}
 
 #pragma mark - RscMgrDelegate methods
 
@@ -397,20 +403,7 @@
                 }
                 //if ATSL or ATSH or ATMY packet received
                 else if(([[XbeeRxObj ATString] isEqualToString:@"SL"])||([[XbeeRxObj ATString] isEqualToString:@"SH"])||([[XbeeRxObj ATString] isEqualToString:@"MY"])){
-                    
-                    //create new sample contact
-                    Contacts *newContact1 = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
-                    
-                    [newContact1 setAddress16:@"1234"];
-                    [newContact1 setAddress64:@"1234567890"];
-                    [newContact1 setUsername:@"error"];
-                    [newContact1 setUserData:test];
-                    [newContact1 setUserOrg:@"error"];
-                    [newContact1 setIsAvailable:[NSNumber numberWithBool:TRUE]];
-                    NSError *error1 = nil;
-                    if (![managedObjectContext save:&error1]) {
-                        // Handle the error.
-                    }
+      
 
                     if ([[XbeeRxObj ATCommandResponseHex] length] > 0) {
                         

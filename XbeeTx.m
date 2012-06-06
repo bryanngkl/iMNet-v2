@@ -55,7 +55,7 @@
     [transmitPacket addObject:[NSNumber numberWithUnsignedInt:startID]]; //startID of packet
     [transmitPacket addObject:[NSNumber numberWithUnsignedInt:(startID + size)]];   //size = 0 corresponds to only one packet, giving startID = endID
     [transmitPacket addObject:[NSNumber numberWithUnsignedInt:packetFrameID]]; //frameID of current packet
-    [transmitPacket addObject:[NSNumber numberWithUnsignedInt:msgType]]; //1 = text message, 2 = picture
+    [transmitPacket addObject:[NSNumber numberWithUnsignedInt:msgType]]; //1 = text message, 2 = picture, 3 = location
     
     [transmitPacket addObjectsFromArray:MessageStr];    //add entire array of bytes to the payload
         

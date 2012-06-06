@@ -40,7 +40,8 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     self.title = @"SMS Bubbles";
-	
+        
+    FrameID = 1;
     //Obtain the messages from CoreData
     
     //NSString *username = [[[fetchedMessagesArray objectAtIndex:selectedRowIndex.row] messageFromContacts] username];
@@ -274,13 +275,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+
+
     [super viewWillAppear:animated];
     //NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     //[nc addObserver:self selector:@selector(keyboardWasShown:) name: UIKeyboardWillShowNotification object:nil];
     //[nc addObserver:self selector:@selector(keyboardWasHidden:) name: UIKeyboardWillHideNotification object:nil];
     NSUInteger index = [messages count] - 1;
     [tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceivedUpdate:) name:@"messageReceived" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) 
 												 name:UIKeyboardWillShowNotification object:self.view.window]; 
@@ -315,13 +318,34 @@
             //NSLog(@"array new: %@", [[sortedMessages objectAtIndex:i] messageReceived]);
         //}
         
+        //send message to xbee
+        //create tx packet
+        XbeeTx *XbeeObj = [XbeeTx new];
+        [XbeeObj TxMessage:field.text ofSize:0 andMessageType:1 withStartID:FrameID withFrameID:FrameID withPacketFrameId:FrameID withDestNode64:[[hexConvert alloc] convertStringToArray:[currentContact address64]] withDestNetworkAddr16:[[hexConvert alloc] convertStringToArray:[currentContact address16]]];
+        
+        NSArray *sendPacket = [XbeeObj txPacket];    
+        for ( int i = 0; i < (int)[sendPacket count]; i++ ) {
+            txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue];
+        }
+        int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
+        
+        FrameID = FrameID + 1;  //increment FrameID
+        if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+            FrameID = 1;
+        }   
+        
 		[tbl reloadData];
 		NSUInteger index = [messages count] - 1;
 		[tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 		
 		field.text = @"";
+        
+
+
+        
+        
+        
 	}
-    
 }
 
 /*
@@ -340,6 +364,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"messageReceived" object:nil];
+
     //NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     //[nc removeObserver:self name: UIKeyboardWillShowNotification object:nil];
     //[nc removeObserver:self name: UIKeyboardWillHideNotification object:nil];
@@ -533,6 +559,7 @@
 		[tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 		
 		field.text = @"";
+
 	}
 }
 
@@ -674,6 +701,10 @@
  }
  */
 
+- (void)messageReceivedUpdate:(NSNotification *)notification{
+    [self.tableView reloadData];
+    // Retrieve information about the document and update the panel
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
