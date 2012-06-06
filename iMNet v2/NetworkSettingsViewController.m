@@ -97,6 +97,12 @@
     OwnSettings *fetchedMY = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
     if (fetchedMY) {
         self.NetworkAddressLabel.text = [NSString stringWithFormat:@"%@", [fetchedMY atSetting]];
+        if ([[fetchedMY atSetting] isEqualToString:@"0000"]){
+            self.DeviceTypeLabel.text = @"Coordinator";
+        }
+        else{
+            self.DeviceTypeLabel.text = @"Router";
+        }
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optionsTableUpdate:) name:@"optionsTableUpdate" object:nil];
@@ -253,6 +259,12 @@
 
     if (fetchedMY) {
         self.NetworkAddressLabel.text = [NSString stringWithFormat:@"%@", [fetchedMY atSetting]];
+        if ([[fetchedMY atSetting] isEqualToString:@"0000"]){
+            self.DeviceTypeLabel.text = @"Coordinator";
+        }
+        else{
+            self.DeviceTypeLabel.text = @"Router";
+        }
     }
     //  [self.tableView reloadData];
     
