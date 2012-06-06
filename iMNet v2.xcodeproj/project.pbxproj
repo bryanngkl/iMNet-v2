@@ -34,6 +34,7 @@
 		9356E2D815792D9100756ED2 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 9356E2D615792D9100756ED2 /* grey.png */; };
 		9356E2E11579420700756ED2 /* MessageLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356E2E01579420700756ED2 /* MessageLogViewController.m */; };
 		9356E2F8157ACE0F00756ED2 /* libRscMgrUniv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9356E2F5157ACE0F00756ED2 /* libRscMgrUniv.a */; };
+		938C43DD157F4569008508DB /* NetworkSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 938C43DC157F4569008508DB /* NetworkSettingsViewController.m */; };
 		938E8131157ACFEA00E7DCC7 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 938E8130157ACFEA00E7DCC7 /* ExternalAccessory.framework */; };
 		93B13B3A157AE4FE006F5BA4 /* hexConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B13B35157AE4FE006F5BA4 /* hexConvert.m */; };
 		93B13B3B157AE4FE006F5BA4 /* XbeeRx.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B13B37157AE4FE006F5BA4 /* XbeeRx.m */; };
@@ -155,6 +156,8 @@
 		9356E2F5157ACE0F00756ED2 /* libRscMgrUniv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libRscMgrUniv.a; sourceTree = "<group>"; };
 		9356E2F6157ACE0F00756ED2 /* redparkSerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = redparkSerial.h; sourceTree = "<group>"; };
 		9356E2F7157ACE0F00756ED2 /* RscMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RscMgr.h; sourceTree = "<group>"; };
+		938C43DB157F4569008508DB /* NetworkSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkSettingsViewController.h; sourceTree = "<group>"; };
+		938C43DC157F4569008508DB /* NetworkSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkSettingsViewController.m; sourceTree = "<group>"; };
 		938E8130157ACFEA00E7DCC7 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		93B13B34157AE4FE006F5BA4 /* hexConvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hexConvert.h; sourceTree = SOURCE_ROOT; };
 		93B13B35157AE4FE006F5BA4 /* hexConvert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hexConvert.m; sourceTree = SOURCE_ROOT; };
@@ -408,6 +411,8 @@
 				93E7171D1575A0120089A3D8 /* MessageViewController.m */,
 				9318A32D1575B400000E877A /* SettingsViewController.h */,
 				9318A32E1575B400000E877A /* SettingsViewController.m */,
+				938C43DB157F4569008508DB /* NetworkSettingsViewController.h */,
+				938C43DC157F4569008508DB /* NetworkSettingsViewController.m */,
 				93E717281575ABF00089A3D8 /* PersonalInfoViewController.h */,
 				93E717291575ABF00089A3D8 /* PersonalInfoViewController.m */,
 				9F4F7D4515761B0E0040496D /* MapViewController.h */,
@@ -637,6 +642,7 @@
 				93B13B3A157AE4FE006F5BA4 /* hexConvert.m in Sources */,
 				93B13B3B157AE4FE006F5BA4 /* XbeeRx.m in Sources */,
 				93B13B3C157AE4FE006F5BA4 /* XbeeTx.m in Sources */,
+				938C43DD157F4569008508DB /* NetworkSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,6 +728,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PROVISIONING_PROFILE = "E2108272-F2FB-4CA3-80F2-3ED4B1C7FED0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E2108272-F2FB-4CA3-80F2-3ED4B1C7FED0";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -733,7 +740,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Kin Loong Bryan Ng (58WK73XE5V)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -743,7 +750,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "E2108272-F2FB-4CA3-80F2-3ED4B1C7FED0";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

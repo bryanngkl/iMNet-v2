@@ -13,6 +13,7 @@
 
 @synthesize managedObjectContext;
 @synthesize rscMgr;
+@synthesize testString;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -56,6 +57,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [[self tableView] reloadData];
     [super viewWillAppear:animated];
 }
 
@@ -269,24 +271,24 @@
     else{
         rxPackBuf = [[NSMutableArray alloc] initWithArray:rxPacketBuffer];  //if not empty, initialise array with previous received bytes
     }
-
     for (int i = 0; i < numBytes; ++i) {
         [rxPackBuf addObject:[NSNumber numberWithUnsignedChar:rxBuffer[i]]];
     }
 
-    int packetLength = [[rxPackBuf objectAtIndex:1] unsignedIntValue] * 256 + [[rxPackBuf objectAtIndex:2] unsignedIntValue] + 4;
+    int packetLength = [[rxPackBuf objectAtIndex:1] unsignedIntValue] + [[rxPackBuf objectAtIndex:2] unsignedIntValue] + 4;
     //calculate length of entire packet
 
     if ([rxPackBuf count] >= packetLength){
         NSIndexSet *onePacketIndexes = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, packetLength)]; //location 0, length of packetLength
         NSMutableArray  *rxOnePacket = [[NSMutableArray alloc] initWithArray:[rxPackBuf objectsAtIndexes:onePacketIndexes]];
         [rxPackBuf removeObjectsAtIndexes:onePacketIndexes];
-    
+
         rxPacketBuffer = rxPackBuf;     //save the remainding bytes of packbuf for the next packet
 
         XbeeRx *XbeeRxObj = [XbeeRx new];
         [XbeeRxObj createRxInfo:rxOnePacket];   //load bytes into xbee receive object
-
+        
+        
         switch ([[XbeeRxObj frametype] unsignedIntValue]) {     //sort out frametypes
             case 136:    //frame is a zigbee receive AT command packet
                 //if node discover packet received
@@ -300,7 +302,7 @@
                     [fetchContacts setPredicate:predicate];
                     
                     NSError *error = nil;
-                    
+
                     Contacts *fetchedResult = [[managedObjectContext executeFetchRequest:fetchContacts error:&error] lastObject];
                     
                     if (!fetchedResult) {
@@ -325,7 +327,7 @@
                             // Handle the error.
                         }
                     }
-                    
+
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"contactUpdated" object:self];
                 }
                 
@@ -351,7 +353,8 @@
                             [newSettings setAtCommand:[XbeeRxObj ATString]];
                             [newSettings setAtSetting:[XbeeRxObj ATCommandResponse]];
                             
-                            NSError *error = nil;                            if (![managedObjectContext save:&error]) {
+                            NSError *error = nil;                           
+                            if (![managedObjectContext save:&error]) {
                                 // Handle the error.
                             }
                         }
@@ -556,12 +559,11 @@
                 break;
         }
         
-    
+        }}
     else{
         rxPacketBuffer = rxPackBuf;
     }
     
-        }
-    }
+
 }
     @end

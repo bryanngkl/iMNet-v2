@@ -77,11 +77,11 @@
     
     for (int i=0; i<[sortedMessages count]; i++) {
         [messages addObject:[[sortedMessages objectAtIndex:i] messageContents]];
-        NSLog(@"array: %@", [[sortedMessages objectAtIndex:i] messageContents]);
-        NSLog(@"array: %@", [[sortedMessages objectAtIndex:i] messageReceived]);
+        //NSLog(@"array: %@", [[sortedMessages objectAtIndex:i] messageContents]);
+        //NSLog(@"array: %@", [[sortedMessages objectAtIndex:i] messageReceived]);
     }
     
-	NSLog(@"array: %@", messages);
+	//NSLog(@"array: %@", messages);
 	/*
 	 Set the background color
 	 */
@@ -175,9 +175,13 @@
     //Add the toolbar as a subview to the navigation controller.
     [self.navigationController.view addSubview:toolbar];
     
+    startup = TRUE;
     
+    tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                            action:@selector(didTapAnywhere:)];
     
     [[self tableView] reloadData];
+
 }
 
 
@@ -274,7 +278,10 @@
     //NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     //[nc addObserver:self selector:@selector(keyboardWasShown:) name: UIKeyboardWillShowNotification object:nil];
     //[nc addObserver:self selector:@selector(keyboardWasHidden:) name: UIKeyboardWillHideNotification object:nil];
+    NSUInteger index = [messages count] - 1;
+    [tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) 
 												 name:UIKeyboardWillShowNotification object:self.view.window]; 
     
@@ -303,10 +310,10 @@
         NSArray *sortDescriptors1 = [[NSArray alloc] initWithObjects:sortDescriptor1, nil];
         sortedMessages = [[currentContact contactMessages] sortedArrayUsingDescriptors:sortDescriptors1];
         
-        for (int i=0; i<[sortedMessages count]; i++) {
-            NSLog(@"array new: %@", [[sortedMessages objectAtIndex:i] messageContents]);
-            NSLog(@"array new: %@", [[sortedMessages objectAtIndex:i] messageReceived]);
-        }
+        //for (int i=0; i<[sortedMessages count]; i++) {
+            //NSLog(@"array new: %@", [[sortedMessages objectAtIndex:i] messageContents]);
+            //NSLog(@"array new: %@", [[sortedMessages objectAtIndex:i] messageReceived]);
+        //}
         
 		[tbl reloadData];
 		NSUInteger index = [messages count] - 1;
@@ -369,6 +376,7 @@
     
     UIImageView *balloonView;
 	UILabel *label;
+    UILabel *senderandTimeLabel;
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -385,9 +393,18 @@
 		label.numberOfLines = 0;
 		label.lineBreakMode = UILineBreakModeWordWrap;
 		label.font = [UIFont systemFontOfSize:14.0];
-		
+        
+        //Sender and Time Label
+        senderandTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 20)];
+        senderandTimeLabel.tag = 3;
+        senderandTimeLabel.backgroundColor =[UIColor clearColor];
+        senderandTimeLabel.textAlignment = UITextAlignmentCenter;
+        senderandTimeLabel.font = [UIFont boldSystemFontOfSize:11.0];
+        senderandTimeLabel.textColor = [UIColor lightGrayColor];
+        
 		UIView *message = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, cell.frame.size.width, cell.frame.size.height)];
 		message.tag = 0;
+        [message addSubview:senderandTimeLabel];
 		[message addSubview:balloonView];
 		[message addSubview:label];
 		[cell.contentView addSubview:message];
@@ -395,6 +412,7 @@
 	}
 	else
 	{
+        senderandTimeLabel = (UILabel *)[[cell.contentView viewWithTag:0] viewWithTag:3];
 		balloonView = (UIImageView *)[[cell.contentView viewWithTag:0] viewWithTag:1];
 		label = (UILabel *)[[cell.contentView viewWithTag:0] viewWithTag:2];
 	}
@@ -406,28 +424,37 @@
 	
 	if ([[sortedMessages objectAtIndex:indexPath.row] messageReceived] == [NSNumber numberWithInt:1]) //if(indexPath.row % 2 == 0)
 	{
-		balloonView.frame = CGRectMake(320.0f - (size.width + 28.0f), 2.0f, size.width + 28.0f, size.height + 15.0f);
+		balloonView.frame = CGRectMake(320.0f - (size.width + 28.0f), 27.0f, size.width + 28.0f, size.height + 15.0f);
 		balloon = [[UIImage imageNamed:@"green.png"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
-		label.frame = CGRectMake(307.0f - (size.width + 5.0f), 8.0f, size.width + 5.0f, size.height);
+		label.frame = CGRectMake(307.0f - (size.width + 5.0f), 35.0f, size.width + 5.0f, size.height);
 	}
 	else
 	{
-		balloonView.frame = CGRectMake(0.0, 2.0, size.width + 28, size.height + 15);
+		balloonView.frame = CGRectMake(0.0, 24.0, size.width + 28, size.height + 15);
 		balloon = [[UIImage imageNamed:@"grey.png"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
-		label.frame = CGRectMake(16, 8, size.width + 5, size.height);
+		label.frame = CGRectMake(16, 31, size.width + 5, size.height);
 	}
 	
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"ccc dd/MM/yy',' HH:mm:ss"];
+    senderandTimeLabel.text = [dateFormatter stringFromDate:[[sortedMessages objectAtIndex:indexPath.row] messageDate]];
 	balloonView.image = balloon;
 	label.text = text;
+    
+    if (startup == TRUE) {
+        tbl.frame = CGRectMake(0, 0, 320, 325);	
+    }
 	
+    //tbl.frame = CGRectMake(0, 0, 320, 325);	
     return cell;
+
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSString *body = [messages objectAtIndex:indexPath.row];
 	CGSize size = [body sizeWithFont:[UIFont systemFontOfSize:14.0] constrainedToSize:CGSizeMake(240.0, 480.0) lineBreakMode:UILineBreakModeWordWrap];
-	return size.height + 15;
+	return size.height + 34;
 }
 
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -546,6 +573,7 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)aNotification {
+    [self.view addGestureRecognizer:tapRecognizer];
 	[UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];	
     NSLog(@"keyboard notification");
@@ -568,9 +596,11 @@
     [toolbar setFrame:rectArea];
     
 	//toolbar.frame = CGRectMake(0, 156, 320, 44);
-	tbl.frame = CGRectMake(0, 0, 320, 320);	
+	tbl.frame = CGRectMake(0, -40, 320, 320);	
 	[UIView commitAnimations];
 	
+    startup = FALSE;
+    
 	if([messages count] > 0)
 	{
 		NSUInteger index = [messages count] - 1;
@@ -578,6 +608,38 @@
 	}
 }
 
+-(void) keyboardWillHide:(NSNotification *) note
+{
+    [self.view removeGestureRecognizer:tapRecognizer];
+}
+
+-(void)didTapAnywhere: (UITapGestureRecognizer*) recognizer {    
+    [field resignFirstResponder];
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];	
+    //Caclulate the height of the toolbar
+    CGFloat toolbarHeight = [toolbar frame].size.height;
+    
+    //Get the bounds of the parent view
+    CGRect rootViewBounds = self.parentViewController.view.bounds;
+    
+    //Get the height of the parent view.
+    CGFloat rootViewHeight = CGRectGetHeight(rootViewBounds);
+    
+    //Get the width of the parent view,
+    CGFloat rootViewWidth = CGRectGetWidth(rootViewBounds);
+    
+    //Create a rectangle for the toolbar
+    CGRect rectArea = CGRectMake(0, rootViewHeight - toolbarHeight, rootViewWidth, toolbarHeight);
+    
+    //Reposition and resize the receiver
+    [toolbar setFrame:rectArea];
+    
+	//toolbar.frame = CGRectMake(0, 372, 320, 44);
+	tbl.frame = CGRectMake(0, 0, 320, 325);	
+	[UIView commitAnimations];
+
+}
 
 /*
  // Called when the UIKeyboardDidShowNotification is sent.
@@ -611,5 +673,12 @@
  //scrollView.scrollIndicatorInsets = contentInsets;
  }
  */
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    [[self view] endEditing:TRUE];
+    
+}
 
 @end

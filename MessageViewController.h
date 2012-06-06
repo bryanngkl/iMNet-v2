@@ -30,7 +30,7 @@
     UInt8   txBuffer[BUFFER_LEN];
     NSMutableArray *rxPacketBuffer;     //Temporary storage of bytes while rxBuffer is accumulating a packet
     
-    
+    NSString *testString;
     
     
     
@@ -43,5 +43,6 @@
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) RscMgr *rscMgr;
+@property (nonatomic,retain) NSString *testString;
 
 @end

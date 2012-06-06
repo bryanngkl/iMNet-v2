@@ -23,6 +23,9 @@
     NSMutableArray *messagefromselectedcontact;
     NSArray *sortedMessages;
     
+    BOOL startup;
+    UITapGestureRecognizer *tapRecognizer;
+    
     RscMgr *rscMgr;
 
     //core data instance variables

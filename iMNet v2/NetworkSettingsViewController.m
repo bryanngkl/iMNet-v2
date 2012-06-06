@@ -1,21 +1,18 @@
 //
-//  ContactDetailsViewController.m
+//  NetworkSettingsViewController.m
 //  iMNet v2
 //
-//  Created by Bryan on 30/5/12.
+//  Created by Bryan on 6/6/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "ContactDetailsViewController.h"
+#import "NetworkSettingsViewController.h"
 
-
-@implementation ContactDetailsViewController
+@implementation NetworkSettingsViewController
 
 @synthesize managedObjectContext;
-@synthesize currentContact;
-@synthesize userName,userData,userOrganisation;
 @synthesize rscMgr;
-
+@synthesize UsernameLabel,NetworkAddressLabel,NetworkIDLabel,MACAddressLabel,DeviceTypeLabel;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -27,16 +24,6 @@
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -46,14 +33,15 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
 }
 
 - (void)viewDidUnload
 {
-    userName = nil;
-    userOrganisation = nil;
-    userData = nil;
+    NetworkIDLabel = nil;
+    UsernameLabel = nil;
+    MACAddressLabel = nil;
+    NetworkAddressLabel = nil;
+    DeviceTypeLabel = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -61,9 +49,54 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.userName.text = currentContact.username;
-    self.userOrganisation.text = currentContact.userOrg;
-    self.userData.text = currentContact.userData;
+    // Load settings from core data
+    
+    NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+    NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+    [fetchOwnSettings setEntity:ownSettingsEntity];
+    
+    NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"atCommand == %@",@"ID"];
+    [fetchOwnSettings setPredicate:predicateID];
+    
+    NSError *error = nil;
+    OwnSettings *fetchedID = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    if (fetchedID) {
+        self.NetworkIDLabel.text = [NSString stringWithFormat:@"%@", [fetchedID atSetting]];
+    }
+    else {
+        //This method creates a new setting.
+        OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+        [newSettings setAtCommand:[NSString stringWithFormat:@"%@",@"ID"]];
+        [newSettings setAtSetting:[NSString stringWithFormat:@"%@",@"Unknown"]];
+        self.NetworkIDLabel.text = [NSString stringWithFormat:@"%@",@"Unknown"];
+        NSError *error = nil;                           
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+
+    NSPredicate *predicateNI = [NSPredicate predicateWithFormat:@"atCommand == %@",@"NI"];
+    [fetchOwnSettings setPredicate:predicateNI];
+    
+    OwnSettings *fetchedNI = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    if (fetchedNI) {
+        self.UsernameLabel.text = [NSString stringWithFormat:@"%@", [fetchedNI atSetting]];
+    }
+    else {
+        //This method creates a new setting.
+        OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+        [newSettings setAtCommand:[NSString stringWithFormat:@"%@",@"NI"]];
+        [newSettings setAtSetting:[NSString stringWithFormat:@"%@",@"Unknown"]];
+        self.UsernameLabel.text = [NSString stringWithFormat:@"%@",@"Unknown"];
+        NSError *errorNI = nil;                           
+        if (![managedObjectContext save:&errorNI]) {
+            // Handle the error.
+        }
+    }
+
+    
+    
+    
     [super viewWillAppear:animated];
 }
 
@@ -77,14 +110,10 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
@@ -107,17 +136,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
     
     // Configure the cell...
     
     return cell;
-}*/
-
+}
+*/
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

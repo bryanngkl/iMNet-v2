@@ -34,6 +34,7 @@
 - (void)viewDidLoad
 {
     mapChosen == @"control-room-0.2.0";
+    self.checkedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.

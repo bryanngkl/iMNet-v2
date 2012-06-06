@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RscMgr.h"
+#import "NetworkSettingsViewController.h"
 
 
 @interface SettingsViewController : UITableViewController{

@@ -48,6 +48,7 @@
     settingsViewController.rscMgr = rscMgr;
     mapViewController.rscMgr = rscMgr;
     
+    
     //create new sample contact
     Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
     
