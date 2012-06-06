@@ -13,6 +13,7 @@
 #import "OwnSettings.h"
 #import "Images.h"
 
+#import "NewMsgContactsViewController.h"
 #import "MessageLogViewController.h"
 #import "RscMgr.h"
 #import "XbeeRx.h"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4">
     <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
@@ -248,7 +249,7 @@
                     <navigationItem key="navigationItem" title="Messages" id="IbC-aW-Vfm">
                         <barButtonItem key="rightBarButtonItem" title="New Msg" id="etx-yj-NWA">
                             <connections>
-                                <segue destination="Ybc-m2-Kfr" kind="push" id="Y28-uN-qi8"/>
+                                <segue destination="Ybc-m2-Kfr" kind="push" identifier="NewMsgContactsSegue" id="Y28-uN-qi8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1073,7 +1074,7 @@
             </objects>
             <point key="canvasLocation" x="913" y="3051"/>
         </scene>
-        <!--New Msg Contacts View Controller - Choose Contact-->
+        <!--New Msg Contacts View Controller - Select Contact-->
         <scene sceneID="tlU-ZD-TWt">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pgu-DU-4cp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1114,8 +1115,12 @@
                             <outlet property="delegate" destination="Ybc-m2-Kfr" id="uOm-Mh-xkN"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Choose Contact" id="hqY-tH-WJM">
-                        <barButtonItem key="rightBarButtonItem" title="Update" id="omB-yA-ZqR"/>
+                    <navigationItem key="navigationItem" title="Select Contact" id="hqY-tH-WJM">
+                        <barButtonItem key="rightBarButtonItem" title="Update" id="omB-yA-ZqR">
+                            <connections>
+                                <action selector="contactDiscovery:" destination="Ybc-m2-Kfr" id="iem-Fn-tIA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
             </objects>
@@ -1200,6 +1205,9 @@
         </class>
         <class className="NewMsgContactsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewMsgContactsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="contactDiscovery:"/>
+            </relationships>
         </class>
         <class className="PersonalInfoViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PersonalInfoViewController.h"/>

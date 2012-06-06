@@ -244,6 +244,13 @@
         
         NSLog(@"Passed Managed object context");
     }
+    
+    if ([segue.identifier isEqualToString:@"NewMsgContactsSegue"]) {
+        
+        NewMsgContactsViewController *nmcVC = (NewMsgContactsViewController *)[segue destinationViewController];
+        nmcVC.managedObjectContext = managedObjectContext;
+        nmcVC.rscMgr = rscMgr;
+            }
 }
 
 - (void)messageReceivedUpdate:(NSNotification *)notification{
