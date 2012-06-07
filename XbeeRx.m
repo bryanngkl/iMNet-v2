@@ -42,7 +42,7 @@
         startID = [[rxBuffer objectAtIndex:15] unsignedIntValue];
         endID = [[rxBuffer objectAtIndex:16] unsignedIntValue];
         frameID = [rxBuffer objectAtIndex:17];
-        msgType = [[rxBuffer objectAtIndex:18] unsignedIntValue];   //1 = text message, 2 = picture
+        msgType = [[rxBuffer objectAtIndex:18] unsignedIntValue];   //1 = text message, 2 = picture, 3 = location, 4 = contact info
         
         
         //rxBuffer data

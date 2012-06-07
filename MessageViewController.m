@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad
 {
+    FrameID = 1;
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -474,6 +475,7 @@
                 NSError *error = nil;
                 Contacts *fetchedResult = [[managedObjectContext executeFetchRequest:fetchContacts error:&error] lastObject];
                 
+                
                 if ([XbeeRxObj msgType] == 1) {
                     
                     //output received text message into receivemsg.text
@@ -512,8 +514,101 @@
                     }
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"messageReceived" object:self];
                     
-                    
-                }  /*
+                }  
+                
+                
+                
+                /*else if ([XbeeRxObj msgType] == 4) {
+                 if (!fetchedResult){
+                 //This method creates a new contact.
+                 Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+                 newContact.address16 = [XbeeRxObj sourceAddr16HexString];
+                 newContact.address64 = [XbeeRxObj sourceAddr64HexString];
+                 newContact.username = @"Unknown";
+                 newContact.isAvailable = [NSNumber numberWithBool:TRUE];
+                 }
+                 else {
+                 fetchedResult.address16 = [XbeeRxObj sourceAddr16HexString];
+                 fetchedResult.isAvailable = [NSNumber numberWithBool:TRUE];
+                 }
+                 NSError *error = nil;
+                 if (![managedObjectContext save:&error]) {
+                 // Handle the error.
+                 }
+                 
+                 //output received text message into receivemsg.text
+                 NSMutableString *rxMessage = [[NSMutableString alloc] initWithCapacity:2];
+                 for (int i =0; i<[[XbeeRxObj receiveddata] count]; i++) {
+                 [rxMessage appendString:[NSString stringWithFormat:@"%c",[[[XbeeRxObj receiveddata] objectAtIndex:i] unsignedIntValue]]];
+                 }
+                 
+                 if ([rxMessage isEqualToString:@"$+$+"]) {
+                 NSString *organisationtemp = [[NSString alloc] initWithString:@""];
+                 NSString *userdatatemp = [[NSString alloc] initWithString:@""];
+                 
+                 NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+                 NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+                 [fetchOwnSettings setEntity:ownSettingsEntity];
+                 
+                 NSPredicate *predicateOrg= [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserOrg"];
+                 [fetchOwnSettings setPredicate:predicateOrg];
+                 
+                 NSError *error = nil;
+                 OwnSettings *fetchedOrg = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+                 if (fetchedOrg) {
+                 organisationtemp = [NSString stringWithFormat:@"%@", [fetchedOrg atSetting]];
+                 }
+                 
+                 
+                 NSPredicate *predicateData = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserData"];
+                 [fetchOwnSettings setPredicate:predicateData];
+                 
+                 OwnSettings *fetchedData = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+                 if (fetchedData) {
+                 userdatatemp = [NSString stringWithFormat:@"%@", [fetchedData atSetting]];
+                 }
+                 
+                 //pack string into appropriate form
+                 NSString *txMessage = [[NSString alloc] initWithFormat:@"%@%@%@", organisationtemp, @"+++",userdatatemp];
+                 XbeeTx *XbeeTxObj = [XbeeTx new];
+                 //send information on organisation and personal data
+                 [XbeeTxObj TxMessage:txMessage ofSize:0 andMessageType:4 withStartID:FrameID withFrameID:FrameID withPacketFrameId:FrameID withDestNode64:[[hexConvert alloc] convertStringToArray:[XbeeRxObj sourceAddr64HexString]] withDestNetworkAddr16:[[hexConvert alloc] convertStringToArray:[XbeeRxObj sourceAddr16HexString]]];
+                 NSArray *sendPacket = [XbeeTxObj txPacket];
+                 for ( int i = 0; i< (int)[sendPacket count]; i++ ) {
+                 txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue]; 
+                 }
+                 int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
+                 FrameID = FrameID + 1;  //increment FrameID
+                 if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+                 FrameID = 1;
+                 }
+                 
+                 }   
+                 
+                 else {
+                 NSString *separator = @"+++";
+                 NSArray *receivedUserData = [rxMessage componentsSeparatedByString:separator];
+                 
+                 NSFetchRequest *fetchContacts1 = [[NSFetchRequest alloc] init];
+                 NSEntityDescription *contactsEntity1 = [NSEntityDescription entityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+                 [fetchContacts1 setEntity:contactsEntity1];
+                 
+                 NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"address64 == %@",[XbeeRxObj sourceAddr64HexString]];
+                 [fetchContacts1 setPredicate:predicate1];
+                 
+                 NSError *error = nil;
+                 Contacts *fetchedResult1 = [[managedObjectContext executeFetchRequest:fetchContacts1 error:&error] lastObject];
+                 if (fetchedResult1) {
+                 fetchedResult.userOrg = [receivedUserData objectAtIndex:0];
+                 fetchedResult.userData = [receivedUserData objectAtIndex:1];
+                 }
+                 }
+                 }*/
+                
+                
+                
+                
+                /*
                     else if ([XbeeRxObj msgType] == 2) {
                     //If output is a picture
                     
