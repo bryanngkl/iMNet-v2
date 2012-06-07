@@ -348,6 +348,10 @@
     }
 }
 
+- (IBAction)backButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView*)alertView{
     UITextField *textField = [alertView textFieldAtIndex:0];
     if (alertView.tag==1) {

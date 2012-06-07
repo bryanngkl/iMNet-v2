@@ -12,6 +12,9 @@
 #import "XbeeTx.h"
 #define BUFFER_LEN 1024
 
+#import "MessageLogViewController.h"
+#import "DataClass.h"
+
 
 @interface ContactDetailsViewController : UITableViewController{
     NSManagedObjectContext *managedObjectContext;   
@@ -24,6 +27,7 @@
     int FrameID;
     UInt8   txBuffer[BUFFER_LEN];
     
+    
 }
 
 - (IBAction)requestUserInfo:(id)sender;
@@ -35,6 +39,8 @@
 @property (nonatomic,retain) UILabel *userName;
 @property (nonatomic,retain) UILabel *userOrganisation;
 @property (nonatomic,retain) UITextView *userData;
+
+- (IBAction)locateMe:(id)sender;
 
 
 @end

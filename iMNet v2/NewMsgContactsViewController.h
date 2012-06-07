@@ -12,6 +12,7 @@
 #import "XbeeTx.h"
 #define BUFFER_LEN 1024
 
+#import "MessageLogViewController.h"
 
 @interface NewMsgContactsViewController : UITableViewController{
 

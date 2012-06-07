@@ -18,6 +18,7 @@
 
 
 
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -187,5 +188,28 @@
         FrameID = 1;
     }   
 
+}
+
+#pragma mark Segues
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"MessageLogSegueFromDetailedContacts"]) {
+        MessageLogViewController *mlVC = (MessageLogViewController *)[segue destinationViewController];
+        mlVC.currentContact = currentContact;
+        mlVC.managedObjectContext = managedObjectContext;
+        mlVC.rscMgr = rscMgr;
+        NSLog(@"passed data from detailed contacts to message log");        
+    }
+}
+
+
+- (IBAction)locateMe:(id)sender {
+    //update dataclass to center map on the contact
+    DataClass *obj = [DataClass getInstance];
+    obj.fromDetailedContactView = @"YES";
+    obj.title = [[currentContact contactLocation] locationTitle];
+    obj.description = [[currentContact contactLocation] locationDescription];
+    obj.location = [[currentContact contactLocation] locationLatitude];
+    //load the map tab
+    [self.tabBarController setSelectedIndex:3];
 }
 @end

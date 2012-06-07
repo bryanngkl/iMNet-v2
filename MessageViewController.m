@@ -518,7 +518,7 @@
                 
                 
                 
-                /*else if ([XbeeRxObj msgType] == 4) {
+                else if ([XbeeRxObj msgType] == 4) {
                  if (!fetchedResult){
                  //This method creates a new contact.
                  Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
@@ -602,8 +602,15 @@
                  fetchedResult.userOrg = [receivedUserData objectAtIndex:0];
                  fetchedResult.userData = [receivedUserData objectAtIndex:1];
                  }
+                     
+                     error = nil;
+                     if (![managedObjectContext save:&error]) {
+                         // Handle the error.
+                     }
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"contactUpdated" object:self];
+
                  }
-                 }*/
+                 }
                 
                 
                 

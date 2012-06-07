@@ -48,7 +48,7 @@
     settingsViewController.rscMgr = rscMgr;
     mapViewController.rscMgr = rscMgr;
     
-    /*
+ /*   
     //create new sample contact
     Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
     
@@ -73,7 +73,17 @@
     [newContact2 setUsername:@"richard"];
     [newContact2 setUserData:@"asdfghjklzxcvbnm qwertyui"];
     [newContact2 setUserOrg:@"Red Cross"];
+    
+        //Create location for richard
+        Location *newlocation = (Location *)[NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:managedObjectContext];
+        newlocation.locationTitle = newContact2.username;
+        newlocation.locationDescription = newContact2.userData;
+        newlocation.locationLatitude = @"000.761708,103.359387";
+        [newlocation setLocationContact:newContact2];
+    
     [newContact2 setIsAvailable:[NSNumber numberWithBool:FALSE]];
+    [newContact2 setContactLocation:newlocation];
+    
     NSError *error1 = nil;
     if (![managedObjectContext save:&error1]) {
         // Handle the error.
@@ -117,8 +127,9 @@
         // Handle the error.
     }
     //end of sample message 2
+*/    
+
     
-    */
     
     return YES;
 }

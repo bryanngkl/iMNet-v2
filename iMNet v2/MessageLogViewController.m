@@ -39,39 +39,20 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    self.title = @"SMS Bubbles";
+    self.title = [currentContact username];
         
     FrameID = 1;
-    //Obtain the messages from CoreData
-    
-    //NSString *username = [[[fetchedMessagesArray objectAtIndex:selectedRowIndex.row] messageFromContacts] username];
-    
-    //NSLog(@"%@",username);
-    
+
     //Sort descriptors definition
     NSSortDescriptor *sortDescriptor1 = [[NSSortDescriptor alloc] initWithKey:@"messageDate" ascending:TRUE];
     NSArray *sortDescriptors1 = [[NSArray alloc] initWithObjects:sortDescriptor1, nil];
-    
-    [currentContact contactMessages];
-    
-    //NSArray *sortedMessages = [NSArray alloc];
-    
+    //An array of sorted messages by date
     sortedMessages = [[currentContact contactMessages] sortedArrayUsingDescriptors:sortDescriptors1];
 
-    //NSLog(@"array: %@", [[sortedMessages objectAtIndex:0] messageContents]);
-    //NSLog(@"array: %@", [[sortedMessages objectAtIndex:1] messageContents]);
-
-    //messagefromselectedcontact = [[NSMutableArray alloc] initWithObjects:@"Working Late.",
-     //                             @"Oh, too bad, honey. Want to go grab some food after work?",
-     //                             nil];
-
-    
-
-     
-    //NSLog(@"array2: %@", messagefromselectedcontact);
     
 	/*
 	 The conversation
+     An array of messages content sorted by time
 	 */
     messages = [[NSMutableArray alloc] initWithObjects:
 				nil];
@@ -81,9 +62,9 @@
         //NSLog(@"array: %@", [[sortedMessages objectAtIndex:i] messageContents]);
         //NSLog(@"array: %@", [[sortedMessages objectAtIndex:i] messageReceived]);
     }
-    
-	//NSLog(@"array: %@", messages);
-	/*
+    //NSLog(@"array: %@", messages);
+	
+    /*
 	 Set the background color
 	 */
 	tbl.backgroundColor = [UIColor colorWithRed:219.0/255.0 green:226.0/255.0 blue:237.0/255.0 alpha:1.0];
@@ -91,7 +72,8 @@
 	/*
 	 Create header with two buttons
 	 */
-	CGSize screenSize = [[UIScreen mainScreen] applicationFrame].size;	
+	/*
+    CGSize screenSize = [[UIScreen mainScreen] applicationFrame].size;	
 	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, 55)];
 	
 	UIButton *callButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -103,12 +85,13 @@
 	[contactButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];		
 	contactButton.frame = CGRectMake((screenSize.width / 2) + 10, 10, (screenSize.width / 2) - 20, 35);
 	[contactButton setTitle:@"Contact Info" forState:UIControlStateNormal];
+    [contactButton addTarget:self action:@selector(contactInfo:) forControlEvents:UIControlEventTouchUpInside];
 	
 	[headerView addSubview:callButton];
 	[headerView addSubview:contactButton];
 	
 	tbl.tableHeaderView = headerView;
-    
+    */
     //Initialize the toolbar
     toolbar = [[UIToolbar alloc] init];
     toolbar.barStyle = UIBarStyleDefault;
@@ -281,14 +264,19 @@
     //NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     //[nc addObserver:self selector:@selector(keyboardWasShown:) name: UIKeyboardWillShowNotification object:nil];
     //[nc addObserver:self selector:@selector(keyboardWasHidden:) name: UIKeyboardWillHideNotification object:nil];
-    NSUInteger index = [messages count] - 1;
+    
+    /* CHECK THIS! CAUSE CRASH
+    NSUInteger index = [messages count];
     [tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceivedUpdate:) name:@"messageReceived" object:nil];
+      */
+    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceivedUpdate:) name:@"messageReceived" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) 
 												 name:UIKeyboardWillShowNotification object:self.view.window]; 
     
 }
+
 
 - (void) info_clicked:(id)sender {
     
@@ -710,6 +698,17 @@
     
     [[self view] endEditing:TRUE];
     
+}
+
+//set max characters for textfield
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.text.length >= 160 && range.length == 0)
+    {
+        return NO; // return NO to not change text
+    }
+    else
+    {return YES;}
 }
 
 @end

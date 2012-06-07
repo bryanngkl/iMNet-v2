@@ -198,7 +198,34 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
+/*
+//set max characters for textfield
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.text.length >= 15 && range.length == 0)
+    {
+        return NO; // return NO to not change text
+    }
+    else
+    {return YES;}
+}
 
+- (BOOL)textView:(UITextView *)textView shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+
+    if (textView.text.length >= 15 && range.length == 0)
+    {
+        return NO; // return NO to not change text
+    }
+    else
+    {return YES;}
+
+}
+*/
+
+- (IBAction)backButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+
+}
 
 - (IBAction)saveData:(id)sender {
     

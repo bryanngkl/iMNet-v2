@@ -27,6 +27,7 @@
     
     //core data instance variables
     NSManagedObjectContext *managedObjectContext; 
+    
 }
 - (IBAction)Back:(id)sender;
 

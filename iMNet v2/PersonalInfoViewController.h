@@ -26,6 +26,8 @@
     
 }
 
+
+- (IBAction)backButton:(id)sender;
 - (IBAction)saveData:(id)sender;
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) RscMgr *rscMgr;

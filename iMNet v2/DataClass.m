@@ -9,7 +9,7 @@
 #import "DataClass.h"
 
 @implementation DataClass
-@synthesize location, title,description,map,newpininformationadded;
+@synthesize location, title,description,map,newpininformationadded, fromDetailedContactView;
 
 static DataClass *instance =nil;    
 +(DataClass *)getInstance    

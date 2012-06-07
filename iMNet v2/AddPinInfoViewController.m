@@ -176,7 +176,7 @@
     
     //working now!
     //[self.delegate infoAddedWithTitle:title.text andDescription:description.text];
-    //[self.delegate didReceiveMessage:@"SONG BOOOOO"];
+    [self.delegate didReceiveMessage:@"SONG BOOOOO"];
     [self.navigationController popViewControllerAnimated:NO];
     
 }

@@ -261,4 +261,17 @@
 }
 */
 
+#pragma mark Prepare for segue
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"NewMessageLogSegue"]){
+        MessageLogViewController *mlVC = (MessageLogViewController *)[segue destinationViewController];
+        NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
+        mlVC.currentContact = [fetchedContactsArray objectAtIndex:selectedRowIndex.row];
+        mlVC.managedObjectContext = managedObjectContext;
+        mlVC.rscMgr = rscMgr;
+        
+        NSLog(@"Passed data to new message log");
+    }
+}
+
 @end

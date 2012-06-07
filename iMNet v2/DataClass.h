@@ -14,6 +14,7 @@
     NSString * description;
     NSString * map;
     NSString * newpininformationadded;
+    NSString *fromDetailedContactView;
 }
 
 @property (nonatomic, strong) NSString * location;
@@ -21,6 +22,7 @@
 @property (nonatomic, strong) NSString * description;
 @property (nonatomic, strong) NSString * map;
 @property (nonatomic, strong) NSString * newpininformationadded;
+@property (nonatomic, strong) NSString *fromDetailedContactView;
 +(DataClass*)getInstance;    
 
 

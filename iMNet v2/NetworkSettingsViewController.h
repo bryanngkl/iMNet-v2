@@ -31,6 +31,7 @@
 
 - (void)optionsTableUpdate:(NSNotification *)notification;
 - (IBAction)updateNetworkDetails:(id)sender;
+- (IBAction)backButton:(id)sender;
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) RscMgr *rscMgr;

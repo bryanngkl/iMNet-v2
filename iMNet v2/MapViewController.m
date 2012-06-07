@@ -284,41 +284,32 @@
         [currentlyTappedMarker changeLabelUsingText:obj.title font:[UIFont fontWithName:@"Courier" size:10] foregroundColor:[UIColor blueColor] backgroundColor:[UIColor colorWithWhite:0.8 alpha:1.0]];
         
         obj.newpininformationadded = @"NO";
-        /*
-         //UPDATING CORE DATA
-         NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
-         NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
-         [fetchLocation setEntity:locationEntity];
-         
-         //SHould find the object with the same location?
-         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"locationTitle == %@", obj.title];
-         [fetchLocation setPredicate:predicate];
-         
-         NSError *error = nil;
-         Location *fetchedResult = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] lastObject];
-         
-         
-         if (!fetchedResult) {
-         //create new Location
-         Location *newLocation = (Location *) [NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:managedObjectContext];
-         newLocation.locationTitle = obj.title;
-         newLocation.locationDescription = obj.description;
-         newLocation.locationLatitude = obj.location;
-         NSLog(@"The location title was changed, we saved in COREDATA title = %@, location =%@ and description = %@", obj.title, obj.location, obj.description);
-         if (![managedObjectContext save:&error]) {
-         // Handle the error.
-         }
-         }
-         else{
-         fetchedResult.locationTitle = obj.title;
-         fetchedResult.locationDescription =obj.description;
-         fetchedResult.locationLatitude = obj.location;
-         NSLog(@"The location title was NOT changed, we saved in COREDATA title = %@, location =%@ and description = %@", obj.title, obj.location, obj.description);
-         if (![managedObjectContext save:&error]) {
-         // Handle the error.
-         }
-         }
-         */
+    }
+    
+    if (obj.fromDetailedContactView == @"YES") {
+        ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
+        [mapView moveToLatLong:[convertManager createLoctionFromString:obj.location]];
+        
+        RMMarkerManager *markerManager = [mapView markerManager];
+        NSArray *markers = [markerManager markers];
+        
+        NSLog(@"Nb markers %d", [markers count]);
+        
+        
+        NSEnumerator *markerEnumerator = [markers objectEnumerator];
+        RMMarker *aMarker;
+        NSArray *samedata = [[NSArray alloc] initWithObjects:obj.title, @"Person", nil];
+
+        //Pseudo tap on the contact marker
+        while (aMarker = (RMMarker *)[markerEnumerator nextObject]){
+            if ([aMarker.data isEqual: samedata]) {
+                if ([[convertManager createStringFromLocation:[markerManager latitudeLongitudeForMarker:aMarker]]isEqualToString: obj.location]) {
+                    [self tapOnMarker:aMarker onMap:mapView];
+                }
+            }
+        }
+
+        obj.fromDetailedContactView = @"NO";
     }
 }
 
@@ -405,26 +396,70 @@
         if (eachlocation.locationContact == NULL) { //not a person marker
             NSLog(@"THE LOCATIONS STORED IN COREDATA");
             NSLog(@"title : %@", eachlocation.locationTitle);
-            if (eachlocation.locationContact == NULL) {
-                RMMarkerManager *markerManager = [mapView markerManager];
-                //[mapView setDelegate:self];
-                RMMarker * newMarker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-red.png"]
+            
+            RMMarkerManager *markerManager = [mapView markerManager];
+            //[mapView setDelegate:self];
+            RMMarker * newMarker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-red.png"]
                                                             anchorPoint:CGPointMake(0.5, 1.0)];
-                UIFont *labelFont = [UIFont fontWithName:@"Courier" size:10];
-                UIColor *foregroundColor = [UIColor blueColor];
-                UIColor *backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+            UIFont *labelFont = [UIFont fontWithName:@"Courier" size:10];
+            UIColor *foregroundColor = [UIColor blueColor];
+            UIColor *backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0];
                 
-                [newMarker changeLabelUsingText:eachlocation.locationTitle font:labelFont foregroundColor:foregroundColor backgroundColor:backgroundColor];
-                ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
-                [markerManager addMarker:newMarker AtLatLong:[convertManager createLoctionFromString:eachlocation.locationLatitude]];
-                NSArray *datatostore = [[NSArray alloc] initWithObjects:eachlocation.locationTitle, @"notPerson", nil];
-                currentlyTappedMarker = newMarker;
-                currentlyTappedMarker.data = datatostore;
-                [newMarker hideLabel];
-            }
+            [newMarker changeLabelUsingText:eachlocation.locationTitle font:labelFont foregroundColor:foregroundColor backgroundColor:backgroundColor];
+            ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
+            [markerManager addMarker:newMarker AtLatLong:[convertManager createLoctionFromString:eachlocation.locationLatitude]];
+            NSArray *datatostore = [[NSArray alloc] initWithObjects:eachlocation.locationTitle, @"notPerson", nil];
+            currentlyTappedMarker = newMarker;
+            currentlyTappedMarker.data = datatostore;
+            [newMarker hideLabel];
+        
+        }
+        else {
+            NSLog(@"THE CONTACT LOCATIONS STORED IN COREDATA");
+            NSLog(@"title : %@", eachlocation.locationTitle);
+            
+            RMMarkerManager *markerManager = [mapView markerManager];
+            //[mapView setDelegate:self];
+            RMMarker * newMarker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue-withletter.png"] anchorPoint:CGPointMake(0.5, 1.0)];
+            UIFont *labelFont = [UIFont fontWithName:@"Courier" size:10];
+            UIColor *foregroundColor = [UIColor blueColor];
+            UIColor *backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+            
+            [newMarker changeLabelUsingText:eachlocation.locationTitle font:labelFont foregroundColor:foregroundColor backgroundColor:backgroundColor];
+            ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
+            [markerManager addMarker:newMarker AtLatLong:[convertManager createLoctionFromString:eachlocation.locationLatitude]];
+            NSArray *datatostore = [[NSArray alloc] initWithObjects:eachlocation.locationTitle, @"Person", nil];
+            currentlyTappedMarker = newMarker;
+            currentlyTappedMarker.data = datatostore;
+            [newMarker hideLabel];
         }
     }
     
+    if (obj.fromDetailedContactView == @"YES") {
+        ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
+        [mapView moveToLatLong:[convertManager createLoctionFromString:obj.location]];
+        
+        RMMarkerManager *markerManager = [mapView markerManager];
+        NSArray *markers = [markerManager markers];
+        
+        NSLog(@"Nb markers %d", [markers count]);
+        
+        
+        NSEnumerator *markerEnumerator = [markers objectEnumerator];
+        RMMarker *aMarker;
+        NSArray *samedata = [[NSArray alloc] initWithObjects:obj.title, @"Person", nil];
+        
+        //Pseudo tap on the contact marker
+        while (aMarker = (RMMarker *)[markerEnumerator nextObject]){
+            if ([aMarker.data isEqual: samedata]) {
+                if ([[convertManager createStringFromLocation:[markerManager latitudeLongitudeForMarker:aMarker]]isEqualToString: obj.location]) {
+                    [self tapOnMarker:aMarker onMap:mapView];
+                }
+            }
+        }
+        
+        obj.fromDetailedContactView = @"NO";
+    }
 }
 
 
@@ -662,6 +697,7 @@
 - (void) didReceiveMessage:(NSString *)message{
     NSLog(@"%@", message);
 }
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
