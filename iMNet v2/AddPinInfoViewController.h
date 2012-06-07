@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DataClass.h"
 #import "MapViewController.h"
+#import "SendLocationContactsViewController.h"
 
 #import "RscMgr.h"
 
@@ -23,10 +24,13 @@
     UITextField *title;
     UITextView *description;
     
+    
     RscMgr *rscMgr;
     
     //core data instance variables
     NSManagedObjectContext *managedObjectContext; 
+    NSString *ownpintapped; 
+    NSString * macAddress;
     
 }
 - (IBAction)Back:(id)sender;
@@ -37,6 +41,8 @@
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext; 
 @property (nonatomic,retain) RscMgr *rscMgr;
+@property (nonatomic,retain) NSString *ownpintapped;
+@property (nonatomic,retain) NSString * macAddress;
 
 
 @property (nonatomic, unsafe_unretained) id<AddPinInfoViewControllerDelegate> delegate;

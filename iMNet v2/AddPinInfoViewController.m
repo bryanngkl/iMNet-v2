@@ -14,6 +14,7 @@
 @synthesize title,description,managedObjectContext;
 @synthesize delegate = _delegate;
 @synthesize rscMgr;
+@synthesize ownpintapped, macAddress;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -88,6 +89,7 @@
 
 - (void) setEditing:(BOOL)editing animated:(BOOL)animated{
     
+    if ([ownpintapped isEqualToString:@"NO"]){
     [super setEditing:editing animated:animated];
     
     self.title.enabled = editing;
@@ -106,6 +108,8 @@
         description.font = [UIFont systemFontOfSize:14];
         //[description setBackgroundColor:[UIColor whiteColor]];
     }
+    
+    }      
 }
 
 
@@ -136,7 +140,8 @@
     
     //update data class
     DataClass *obj = [DataClass getInstance];
-    
+ 
+    if (ownpintapped == @"NO"){
     //UPDATING CORE DATA
     NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
     NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
@@ -173,11 +178,44 @@
     obj.title = title.text;
     obj.description = description.text;
     obj.newpininformationadded = @"YES";
+    }
+    ownpintapped = @"NO";
     
     //working now!
     //[self.delegate infoAddedWithTitle:title.text andDescription:description.text];
-    [self.delegate didReceiveMessage:@"SONG BOOOOO"];
+    //[self.delegate didReceiveMessage:@"SONG BOOOOO"];
     [self.navigationController popViewControllerAnimated:NO];
     
 }
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.identifier isEqualToString:@"SendLocationContactsSegue"])
+	{
+        SendLocationContactsViewController *slcVC = (SendLocationContactsViewController *)[segue destinationViewController];
+        slcVC.managedObjectContext = managedObjectContext;
+        slcVC.rscMgr = rscMgr;
+
+        //String to send
+        DataClass *obj = [DataClass getInstance];
+        NSMutableString * strtosend = [NSMutableString stringWithString:title.text];
+        NSString * descriptionstr = description.text;
+        NSString * locationstr = obj.location; 
+    
+        [strtosend appendString:[NSString stringWithString:@"*"]];
+        
+        [strtosend appendString:descriptionstr];
+        [strtosend appendString:@"*"];
+        [strtosend appendString:locationstr];
+        [strtosend appendString:@"*"];
+        [strtosend appendString:macAddress];
+        
+        NSLog(@"This is the string to send: %@", strtosend);
+        slcVC.stringToSend = strtosend;
+        
+        //      contactDetailsViewController.rscMgr = rscMgr;
+	}
+}
+
 @end

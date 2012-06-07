@@ -149,6 +149,7 @@
 	NSLog(@"MARKER TAPPED!");
     [currentlyTappedMarker hideLabel];
     
+    
     currentlyTappedMarker = marker;
     currentlyTappedMarker.data = marker.data;
     NSLog(@"the currently tapped market data is %@", [(NSArray*)currentlyTappedMarker.data objectAtIndex:0]);
@@ -185,9 +186,53 @@
     [marker showLabel];
     
     
+    
     if (marker != currentLocationMarker) {
         [addInfo setHidden:NO];
         [deletePin setHidden:NO];
+    }
+    else {
+        [addInfo setHidden:NO];
+        [deletePin setHidden:YES];
+    }
+    
+    if ([(NSArray*)currentlyTappedMarker.data objectAtIndex:1] == @"Person"){
+        if (currentlyTappedMarker != currentLocationMarker){
+            NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
+            NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+            [fetchLocation setEntity:locationEntity];
+            
+            NSError *error = nil;
+            NSMutableArray *fetchedResultArray = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] mutableCopy];
+            
+            
+            for (Location *eachlocation in fetchedResultArray){
+                if (eachlocation.locationContact != NULL) { //a person marker
+                    if (eachlocation.locationContact.address64 = [(NSArray*)currentlyTappedMarker.data objectAtIndex:2]){
+                        obj.description =  eachlocation.locationContact.userData;
+                        //nextViewController.macAddress = eachlocation.locationContact.address64;
+                        //NSLog(@"The mac address sent is %@",eachlocation.locationContact.address64);
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    if (currentlyTappedMarker == currentLocationMarker){
+        /*----GET OWN SETTINGS----*/
+        NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+        NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+        [fetchOwnSettings setEntity:ownSettingsEntity];
+        NSError *error = nil;
+        NSPredicate *predicateUserData = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserData"];
+        [fetchOwnSettings setPredicate:predicateUserData];
+        
+        OwnSettings *fetchedUserData = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+        
+        if (fetchedUserData) {
+            obj.description = fetchedUserData.atSetting;
+        } 
     }
 }
 
@@ -347,16 +392,42 @@
     
     [[RMMapContents alloc] initWithView:self.mapView tilesource:source centerLatLon:startingPoint zoomLevel:kStartingZoom maxZoomLevel:5.45 minZoomLevel:[source minZoom] backgroundImage:nil screenScale:1];
     
-    //[[RMMapContents alloc] initWithView:self.mapView tilesource:source centerLatLon:startingPoint zoomLevel:kStartingZoom maxZoomLevel:5.45 minZoomLevel:[source minZoom] backgroundImage:nil];
-    
-    //[[RMMapContents alloc] initWithView:self.mapView tilesource:source centerLatLon:startingPoint zoomLevel:kStartingZoom maxZoomLevel:[source maxZoom] minZoomLevel:[source minZoom] backgroundImage:nil];
-    
     mapView.enableRotate = NO;
     mapView.deceleration = NO;
-    
     mapView.backgroundColor = [UIColor blackColor];
-    
     mapView.contents.zoom = kStartingZoom;
+    
+    NSString *labelText =@"iMNet";
+    NSString *mydescription = @"add description";
+    
+    //Get ownsettings---------------------------------
+    
+    NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+    NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+    [fetchOwnSettings setEntity:ownSettingsEntity];
+    
+    NSPredicate *predicateUsername = [NSPredicate predicateWithFormat:@"atCommand == %@",@"NI"];
+    [fetchOwnSettings setPredicate:predicateUsername];
+    
+    NSError *error = nil;
+    OwnSettings *fetchedUsername = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    if (fetchedUsername) {
+        labelText = [NSString stringWithFormat:@"%@", [fetchedUsername atSetting]];
+    }
+    
+    
+    NSPredicate *predicateUserData = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserData"];
+    [fetchOwnSettings setPredicate:predicateUserData];
+    
+    error = nil;
+    OwnSettings *fetchedUserData = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedUserData) {
+        mydescription = [fetchedUserData atSetting];
+    }
+
+
+    //-------------------------------------------------
     
     //set marker
     RMMarkerManager *markerManager = [mapView markerManager];
@@ -364,7 +435,6 @@
     currentLocationMarker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue.png"]
                                                  anchorPoint:CGPointMake(0.5, 1.0)];
     UIFont *labelFont = [UIFont fontWithName:@"Courier" size:10];
-    NSString *labelText =@"iMNet";
     UIColor *foregroundColor = [UIColor blueColor];
     UIColor *backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0];
     
@@ -374,7 +444,7 @@
     //updating data class
     //DataClass *obj = [DataClass getInstance];
     obj.title = labelText;
-    obj.description = @"add description";
+    obj.description = mydescription;
     obj.location = [convertManager createStringFromLocation:startingPoint];
     NSLog(@"The data class currently has title = %@, description = %@, and location = %@", obj.title,obj.description,obj.location);
     NSArray *CLMdata = [[NSArray alloc] initWithObjects:labelText, @"Person", nil];
@@ -383,14 +453,47 @@
     currentlyTappedMarker = currentLocationMarker;
     currentlyTappedMarker.data = CLMdata;
     
+    /*----UPDATE OWN LOCATION DATA------*/
+    
+    NSPredicate *predicateUserLocation = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserLocation"];
+    [fetchOwnSettings setPredicate:predicateUserLocation];
+    
+    error = nil;
+    OwnSettings *fetchedUserLocation = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedUserLocation) {
+        //This method creates a new setting.
+        fetchedUserLocation.atSetting = obj.location;
+        NSLog(@"self location added");
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    else{
+        OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+        
+        [newSettings setAtCommand:@"UserLocation"];
+        [newSettings setAtSetting:obj.location];
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    
+    /*----------------------------------*/
+    
+    
+    
     
     //Plot the previous pins
     NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
     NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
     [fetchLocation setEntity:locationEntity];
     
-    NSError *error = nil;
+    //NSError *error = nil;
     NSMutableArray *fetchedResultArray = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] mutableCopy];
+    
     
     for (Location *eachlocation in fetchedResultArray){
         if (eachlocation.locationContact == NULL) { //not a person marker
@@ -428,7 +531,7 @@
             [newMarker changeLabelUsingText:eachlocation.locationTitle font:labelFont foregroundColor:foregroundColor backgroundColor:backgroundColor];
             ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
             [markerManager addMarker:newMarker AtLatLong:[convertManager createLoctionFromString:eachlocation.locationLatitude]];
-            NSArray *datatostore = [[NSArray alloc] initWithObjects:eachlocation.locationTitle, @"Person", nil];
+            NSArray *datatostore = [[NSArray alloc] initWithObjects:eachlocation.locationTitle, @"Person",eachlocation.locationContact.address64, nil];
             currentlyTappedMarker = newMarker;
             currentlyTappedMarker.data = datatostore;
             [newMarker hideLabel];
@@ -510,12 +613,44 @@
     
     NSString *display = [NSString stringWithFormat:@"%f,%f",lat, longitude];
     RMMarkerManager *markerManager = [mapView markerManager];
-    //ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
+    ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
     
     [markerManager moveMarker:currentLocationMarker AtLatLon:newlocation];
     
     locationLabel.text = display;
     //locationLabel.text = [location description];
+    
+    /*-----------UPDATE OWN LOCATION---------*/
+    
+    NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+    NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+    [fetchOwnSettings setEntity:ownSettingsEntity];
+    NSError *error = nil;
+    NSPredicate *predicateUserLocation = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserLocation"];
+    [fetchOwnSettings setPredicate:predicateUserLocation];
+    
+    error = nil;
+    OwnSettings *fetchedUserLocation = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedUserLocation) {
+        //This method creates a new setting.
+        fetchedUserLocation.atSetting = [convertManager createStringFromLocation:newlocation];
+        //NSLog(@"self location updated");
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    else{
+        OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+        
+        [newSettings setAtCommand:@"UserLocation"];
+        [newSettings setAtSetting:[convertManager createStringFromLocation:newlocation]];
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
 }
 
 - (void)locationError:(NSError *)error {
@@ -603,14 +738,187 @@
 - (IBAction)locateMe:(id)sender {
     RMMarkerManager *markerManager = [mapView markerManager];
 	[mapView setDelegate:self];
-    //[markerManager removeMarker:currentLocationMarker]; //remove current location marker
+    [markerManager removeMarkers]; //remove all markers
     
     CLLocationCoordinate2D newLocation;
     newLocation.latitude = locationController.locationManager.location.coordinate.latitude;
     newLocation.longitude = locationController.locationManager.location.coordinate.longitude;
-    [markerManager moveMarker:currentLocationMarker AtLatLon:newLocation];
+    //[markerManager moveMarker:currentLocationMarker AtLatLon:newLocation];
     
     [mapView moveToLatLong:newLocation];
+    DataClass *obj = [DataClass getInstance];
+    
+    /*-----------FROM VIEWDIDLOAD---------*/
+    NSString *labelText =@"iMNet";
+    NSString *mydescription = @"add description";
+    
+    //Get ownsettings---------------------------------
+    
+    NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+    NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+    [fetchOwnSettings setEntity:ownSettingsEntity];
+    
+    NSPredicate *predicateUsername = [NSPredicate predicateWithFormat:@"atCommand == %@",@"NI"];
+    [fetchOwnSettings setPredicate:predicateUsername];
+    
+    NSError *error = nil;
+    OwnSettings *fetchedUsername = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    if (fetchedUsername) {
+        labelText = [NSString stringWithFormat:@"%@", [fetchedUsername atSetting]];
+    }
+    
+    
+    NSPredicate *predicateUserData = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserData"];
+    [fetchOwnSettings setPredicate:predicateUserData];
+    
+    error = nil;
+    OwnSettings *fetchedUserData = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedUserData) {
+        mydescription = [fetchedUserData atSetting];
+    }
+    
+    
+    //-------------------------------------------------
+    
+    //set marker
+    //RMMarkerManager *markerManager = [mapView markerManager];
+	//[mapView setDelegate:self];
+    currentLocationMarker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue.png"]
+                                                 anchorPoint:CGPointMake(0.5, 1.0)];
+    UIFont *labelFont = [UIFont fontWithName:@"Courier" size:10];
+    UIColor *foregroundColor = [UIColor blueColor];
+    UIColor *backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+    
+    [currentLocationMarker changeLabelUsingText:labelText font:labelFont foregroundColor:foregroundColor backgroundColor:backgroundColor];
+	[markerManager addMarker:currentLocationMarker AtLatLong:newLocation];
+    
+    ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
+    //updating data class
+    //DataClass *obj = [DataClass getInstance];
+    obj.title = labelText;
+    obj.description = mydescription;
+    obj.location = [convertManager createStringFromLocation:newLocation];
+    NSLog(@"The data class currently has title = %@, description = %@, and location = %@", obj.title,obj.description,obj.location);
+    NSArray *CLMdata = [[NSArray alloc] initWithObjects:labelText, @"Person", nil];
+    
+    currentLocationMarker.data = CLMdata;
+    currentlyTappedMarker = currentLocationMarker;
+    currentlyTappedMarker.data = CLMdata;
+    
+    /*----UPDATE OWN LOCATION DATA------*/
+    
+    NSPredicate *predicateUserLocation = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserLocation"];
+    [fetchOwnSettings setPredicate:predicateUserLocation];
+    
+    error = nil;
+    OwnSettings *fetchedUserLocation = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedUserLocation) {
+        //This method creates a new setting.
+        fetchedUserLocation.atSetting = obj.location;
+        NSLog(@"self location added");
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    else{
+        OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+        
+        [newSettings setAtCommand:@"UserLocation"];
+        [newSettings setAtSetting:obj.location];
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    
+    /*----------------------------------*/
+    
+    
+    
+    
+    //Plot the previous pins
+    NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
+    NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+    [fetchLocation setEntity:locationEntity];
+    
+    //NSError *error = nil;
+    NSMutableArray *fetchedResultArray = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] mutableCopy];
+    
+    
+    for (Location *eachlocation in fetchedResultArray){
+        if (eachlocation.locationContact == NULL) { //not a person marker
+            NSLog(@"THE LOCATIONS STORED IN COREDATA");
+            NSLog(@"title : %@", eachlocation.locationTitle);
+            
+            RMMarkerManager *markerManager = [mapView markerManager];
+            //[mapView setDelegate:self];
+            RMMarker * newMarker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-red.png"]
+                                                        anchorPoint:CGPointMake(0.5, 1.0)];
+            UIFont *labelFont = [UIFont fontWithName:@"Courier" size:10];
+            UIColor *foregroundColor = [UIColor blueColor];
+            UIColor *backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+            
+            [newMarker changeLabelUsingText:eachlocation.locationTitle font:labelFont foregroundColor:foregroundColor backgroundColor:backgroundColor];
+            ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
+            [markerManager addMarker:newMarker AtLatLong:[convertManager createLoctionFromString:eachlocation.locationLatitude]];
+            NSArray *datatostore = [[NSArray alloc] initWithObjects:eachlocation.locationTitle, @"notPerson", nil];
+            currentlyTappedMarker = newMarker;
+            currentlyTappedMarker.data = datatostore;
+            [newMarker hideLabel];
+            
+        }
+        else {
+            NSLog(@"THE CONTACT LOCATIONS STORED IN COREDATA");
+            NSLog(@"title : %@", eachlocation.locationTitle);
+            
+            RMMarkerManager *markerManager = [mapView markerManager];
+            //[mapView setDelegate:self];
+            RMMarker * newMarker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue-withletter.png"] anchorPoint:CGPointMake(0.5, 1.0)];
+            UIFont *labelFont = [UIFont fontWithName:@"Courier" size:10];
+            UIColor *foregroundColor = [UIColor blueColor];
+            UIColor *backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+            
+            [newMarker changeLabelUsingText:eachlocation.locationTitle font:labelFont foregroundColor:foregroundColor backgroundColor:backgroundColor];
+            ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
+            [markerManager addMarker:newMarker AtLatLong:[convertManager createLoctionFromString:eachlocation.locationLatitude]];
+            NSArray *datatostore = [[NSArray alloc] initWithObjects:eachlocation.locationTitle, @"Person",eachlocation.locationContact.address64, nil];
+            currentlyTappedMarker = newMarker;
+            currentlyTappedMarker.data = datatostore;
+            [newMarker hideLabel];
+        }
+    }
+    
+    if (obj.fromDetailedContactView == @"YES") {
+        ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
+        [mapView moveToLatLong:[convertManager createLoctionFromString:obj.location]];
+        
+        RMMarkerManager *markerManager = [mapView markerManager];
+        NSArray *markers = [markerManager markers];
+        
+        NSLog(@"Nb markers %d", [markers count]);
+        
+        
+        NSEnumerator *markerEnumerator = [markers objectEnumerator];
+        RMMarker *aMarker;
+        NSArray *samedata = [[NSArray alloc] initWithObjects:obj.title, @"Person", nil];
+        
+        //Pseudo tap on the contact marker
+        while (aMarker = (RMMarker *)[markerEnumerator nextObject]){
+            if ([aMarker.data isEqual: samedata]) {
+                if ([[convertManager createStringFromLocation:[markerManager latitudeLongitudeForMarker:aMarker]]isEqualToString: obj.location]) {
+                    [self tapOnMarker:aMarker onMap:mapView];
+                }
+            }
+        }
+        
+        obj.fromDetailedContactView = @"NO";
+    }
+
+    /*---------------------------------------------*/
+    
     /*
      RMMarker *marker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue.png"]
      anchorPoint:CGPointMake(0.5, 1.0)];
@@ -619,6 +927,41 @@
      [markerManager addMarker:marker AtLatLong:newLocation];
      [marker release];    
      */
+
+    /*
+    //plot new points
+    //Get INFO from COREDATA
+    NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
+    NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+    [fetchLocation setEntity:locationEntity];
+    
+    NSError *error = nil;
+    NSMutableArray *fetchedResultArray = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] mutableCopy];
+    
+    for (Location *eachlocation in fetchedResultArray){
+        NSLog(@"THE LOCATIONS STORED IN COREDATA");
+        NSLog(@"title : %@", eachlocation.locationTitle);
+        if (eachlocation.locationContact == NULL){
+            //if ((eachlocation.locationContact != NULL) && (eachlocation.locationTitle == [(NSArray*)currentlyTappedMarker.data objectAtIndex:0])) {
+            RMMarkerManager *markerManager = [mapView markerManager];
+            //[mapView setDelegate:self];
+            RMMarker * newMarker = [[RMMarker alloc]initWithUIImage:[UIImage imageNamed:@"marker-blue-withletter.png"]
+                                                        anchorPoint:CGPointMake(0.5, 1.0)];
+            UIFont *labelFont = [UIFont fontWithName:@"Courier" size:10];
+            UIColor *foregroundColor = [UIColor blueColor];
+            UIColor *backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+            
+            [newMarker changeLabelUsingText:eachlocation.locationTitle font:labelFont foregroundColor:foregroundColor backgroundColor:backgroundColor];
+            ConvertLocationData *convertManager = [[ConvertLocationData alloc] init];
+            [markerManager addMarker:newMarker AtLatLong:[convertManager createLoctionFromString:eachlocation.locationLatitude]];
+            NSArray *datatostore = [[NSArray alloc] initWithObjects:eachlocation.locationTitle, @"Person", nil];
+            currentlyTappedMarker = newMarker;
+            currentlyTappedMarker.data = datatostore;
+            [newMarker hideLabel];
+        }
+        
+    }
+    */
     
 }
 
@@ -671,6 +1014,56 @@
         AddPinInfoViewController *nextViewController = segue.destinationViewController;
         nextViewController.managedObjectContext = managedObjectContext;
         nextViewController.rscMgr = rscMgr;
+        
+        if (currentlyTappedMarker == currentLocationMarker){
+        nextViewController.ownpintapped = @"YES";
+            /*----GET OWN SETTINGS----*/
+            NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+            NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+            [fetchOwnSettings setEntity:ownSettingsEntity];
+            NSError *error = nil;
+            NSPredicate *predicateSH = [NSPredicate predicateWithFormat:@"atCommand == %@",@"SH"];
+            [fetchOwnSettings setPredicate:predicateSH];
+            
+            OwnSettings *fetchedSH = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+            
+            
+            NSPredicate *predicateSL = [NSPredicate predicateWithFormat:@"atCommand == %@",@"SL"];
+            [fetchOwnSettings setPredicate:predicateSL];
+            
+            OwnSettings *fetchedSL = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+            if (fetchedSH && fetchedSL) {
+                nextViewController.macAddress = [NSString stringWithFormat:@"%@%@", [fetchedSH atSetting], [fetchedSL atSetting]];    
+            } 
+        }
+        
+        else {
+            nextViewController.ownpintapped = @"NO";
+            nextViewController.macAddress = @"notPerson";
+        }
+        
+        if ([(NSArray*)currentlyTappedMarker.data objectAtIndex:1] == @"Person"){
+            if (currentlyTappedMarker != currentLocationMarker){
+                NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
+                NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+                [fetchLocation setEntity:locationEntity];
+                
+                NSError *error = nil;
+                NSMutableArray *fetchedResultArray = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] mutableCopy];
+                
+                
+                for (Location *eachlocation in fetchedResultArray){
+                    if (eachlocation.locationContact != NULL) { //a person marker
+                        if (eachlocation.locationContact.address64 = [(NSArray*)currentlyTappedMarker.data objectAtIndex:2]){
+                            nextViewController.macAddress = eachlocation.locationContact.address64;
+                            NSLog(@"The mac address sent is %@",eachlocation.locationContact.address64);
+                        }
+                    }
+                }
+
+            }
+        }
+        
         NSLog(@"Passed Managed object context");
     }
     

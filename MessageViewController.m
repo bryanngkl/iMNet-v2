@@ -516,8 +516,6 @@
                     
                 }  
                 
-                
-                
                 else if ([XbeeRxObj msgType] == 4) {
                  if (!fetchedResult){
                  //This method creates a new contact.
@@ -611,6 +609,136 @@
 
                  }
                  }
+                
+                else if ([XbeeRxObj msgType] == 3){
+                    
+                    if (!fetchedResult){
+                        //This method creates a new contact.
+                        Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+                        newContact.address16 = [XbeeRxObj sourceAddr16HexString];
+                        newContact.address64 = [XbeeRxObj sourceAddr64HexString];
+                        newContact.username = @"Unknown";
+                        newContact.isAvailable = [NSNumber numberWithBool:TRUE];
+                    }
+                    else {
+                        fetchedResult.address16 = [XbeeRxObj sourceAddr16HexString];
+                        fetchedResult.isAvailable = [NSNumber numberWithBool:TRUE];
+                    }
+                    NSError *error = nil;
+                    if (![managedObjectContext save:&error]) {
+                        // Handle the error.
+                    }
+
+                    NSMutableString *rxMessage = [[NSMutableString alloc] initWithCapacity:[[XbeeRxObj receiveddata] count]];
+                    for (int i =0; i<[[XbeeRxObj receiveddata] count]; i++) {
+                        [rxMessage appendString:[NSString stringWithFormat:@"%c",[[[XbeeRxObj receiveddata] objectAtIndex:i] unsignedIntValue]]];
+                    }                    
+                    
+                    NSString *separator = @"*";
+                    NSArray *receivedstrings = [rxMessage componentsSeparatedByString:separator];
+                    NSString *title = [receivedstrings objectAtIndex:0];
+                    NSString *description = [receivedstrings objectAtIndex:1];
+                    NSString *location = [receivedstrings objectAtIndex:2];
+                    NSString *tag = [receivedstrings objectAtIndex:3];
+                    NSLog(@"The received information are title = %@ with description = %@ and location = %@ and tag = %@", title, description, location,tag);
+                    
+                    //USING CORE DATA
+                    NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
+                    NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+                    [fetchLocation setEntity:locationEntity];
+                    
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"locationTitle == %@", title];
+                    [fetchLocation setPredicate:predicate];
+                    
+                    error = nil;
+                    Location *fetchedResult = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] lastObject];
+                
+                    if (!fetchedResult) {
+                        //create new Location
+                        Location *newLocation = (Location *) [NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:managedObjectContext];
+                        newLocation.locationTitle = title;
+                        newLocation.locationDescription = description;
+                        newLocation.locationLatitude = location;
+                        // newLocation.locationLongitude = NULL;
+                        
+                        if (![tag isEqualToString:@"notPerson"]){
+                        //use mac address to find the contact and link the contact to the location
+                            NSPredicate *predicateLocateContact = [NSPredicate predicateWithFormat:@"address64 == %@",tag];
+                            [fetchContacts setPredicate:predicateLocateContact];
+                            
+                            NSError *errorContact = nil;
+                            Contacts *fetchedLocateContact = [[managedObjectContext executeFetchRequest:fetchContacts error:&errorContact] lastObject];
+                            
+                            if (!fetchedLocateContact){
+                                //This method creates a new contact.
+                                Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+                                newContact.address16 = @"FFFE";
+                                newContact.address64 = tag;
+                                newContact.userData = description;
+                                newContact.username = @"Unknown";
+                                newContact.isAvailable = [NSNumber numberWithBool:FALSE];
+                                newContact.contactLocation = newLocation;
+                        }
+                            else {
+                                fetchedLocateContact.contactLocation = newLocation;
+                                fetchedLocateContact.userData = description;
+                        }
+                            NSError *error = nil;
+                        if (![managedObjectContext save:&error]) {
+                            // Handle the error.
+                        }
+                            
+                            
+                        
+               /*         NSError *error = nil;
+                        //[managedObjectContext save:&error ];
+                        if (![managedObjectContext save:&error]) {
+                            // Handle the error.
+                        }*/
+                    }
+                        
+                    }
+                    else{
+                        fetchedResult.locationDescription = description;
+                        fetchedResult.locationLatitude = location;
+                        
+                        if (![tag isEqualToString:@"notPerson"]){
+                            //use mac address to find the contact and link the contact to the location
+                            NSPredicate *predicateLocateContact = [NSPredicate predicateWithFormat:@"address64 == %@",tag];
+                            [fetchContacts setPredicate:predicateLocateContact];
+                            
+                            NSError *errorContact = nil;
+                            Contacts *fetchedLocateContact = [[managedObjectContext executeFetchRequest:fetchContacts error:&errorContact] lastObject];
+                            
+                            if (!fetchedLocateContact){
+                                //This method creates a new contact.
+                                Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+                                newContact.address16 = @"FFFE";
+                                newContact.address64 = tag;
+                                newContact.username = @"Unknown";
+                                newContact.userData = description;
+                                newContact.isAvailable = [NSNumber numberWithBool:FALSE];
+                                newContact.contactLocation = fetchedResult;
+                            }
+                            else {
+                                fetchedLocateContact.contactLocation = fetchedResult;
+                                fetchedLocateContact.userData = description;
+                            }
+                            NSError *error = nil;
+                            if (![managedObjectContext save:&error]) {
+                                // Handle the error.
+                            }
+                        }
+                        /*
+                        NSError *error = nil;
+                        if (![managedObjectContext save:&error]) {
+                            // Handle the error.
+                        }*/
+                    }
+                }
+
+                
+                
                 
                 
                 

@@ -13,11 +13,12 @@
 #import "RMMapView.h"
 #import "AddPinInfoViewController.h"
 
+
 #import "RscMgr.h"
 
 //CoreData
 #import "Location.h"
-
+#import "OwnSettings.h"
 
 
 @protocol AddPinInfoViewControllerDelegate
