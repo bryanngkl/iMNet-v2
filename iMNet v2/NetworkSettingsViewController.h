@@ -21,11 +21,12 @@
     UInt8   txBuffer[BUFFER_LEN];
     //core data instance variables
     NSManagedObjectContext *managedObjectContext;   
+    
     IBOutlet UILabel *NetworkIDLabel;
+    IBOutlet UILabel *UsernameLabel;
     IBOutlet UILabel *DeviceTypeLabel;
     IBOutlet UILabel *NetworkAddressLabel;
     IBOutlet UILabel *MACAddressLabel;
-    IBOutlet UILabel *UsernameLabel;
 }
 
 - (void)optionsTableUpdate:(NSNotification *)notification;

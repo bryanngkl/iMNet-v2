@@ -47,6 +47,10 @@
     NetworkAddressLabel = nil;
     DeviceTypeLabel = nil;
 
+    NetworkIDLabel = nil;
+    UsernameLabel = nil;
+    UsernameLabel = nil;
+    NetworkIDLabel = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -206,6 +210,16 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            UIAlertView *alertViewNetID= [[UIAlertView alloc] initWithTitle:@"Change Network" message:@"Please enter a 3-8 character network name to join" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
+            alertViewNetID.tag = 1;
+            alertViewNetID.alertViewStyle = UIAlertViewStylePlainTextInput;
+            
+            [alertViewNetID show];
+        }
+    }
 }
 
 - (void)optionsTableUpdate:(NSNotification *)notification
@@ -332,8 +346,81 @@
     if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
         FrameID = 1;
     }
-    
+}
 
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView*)alertView{
+    UITextField *textField = [alertView textFieldAtIndex:0];
+    if (alertView.tag==1) {
+        if (([textField.text length] >= 3)&&([textField.text length] <=8)) {
+            return YES;
+        }
+        else {
+            return NO;
+        }
+    }
+    else{
+        return NO;
+    }
+}   
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     
+    if (alertView.tag==1) {
+        switch (buttonIndex) {
+            case 0:
+                break;
+            case 1:{
+                NSString *infoEntered = [[alertView textFieldAtIndex:0] text];
+                
+                XbeeTx *XbeeObj = [XbeeTx new];
+                //set up ATCommand for PAN ID
+                [XbeeObj ATCommandSetString:@"ID" withParameter:infoEntered withFrameID:FrameID];
+                NSArray *sendPacket = [XbeeObj txPacket];
+                for ( int i = 0; i< (int)[sendPacket count]; i++ ) {
+                    txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue]; 
+                }
+                int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
+                FrameID = FrameID + 1;  //increment FrameID
+                if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+                    FrameID = 1;
+                }
+                
+                NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+                NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+                [fetchOwnSettings setEntity:ownSettingsEntity];
+                
+                NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"atCommand == %@",@"ID"];
+                [fetchOwnSettings setPredicate:predicateID];
+                
+                NSError *error = nil;
+                OwnSettings *fetchedID = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+                
+                if (fetchedID) {
+                    //This method creates a new setting.
+                    fetchedID.atSetting = infoEntered;
+                    NSError *error = nil;
+                    if (![managedObjectContext save:&error]) {
+                        // Handle the error.
+                    }
+                }
+                else{
+                    OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+                    
+                    [newSettings setAtCommand:@"ID"];
+                    [newSettings setAtSetting:infoEntered];
+                    NSError *error = nil;
+                    if (![managedObjectContext save:&error]) {
+                        // Handle the error.
+                    }
+                }
+                
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"optionsTableUpdate" object:self];
+                
+                break; }   
+            default:
+                break;
+        }
+        
+    }
 }
 @end

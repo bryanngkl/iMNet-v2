@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RscMgr.h"
 #import "NetworkSettingsViewController.h"
+#import "PersonalInfoViewController.h"
 
 
 @interface SettingsViewController : UITableViewController{

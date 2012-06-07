@@ -11,6 +11,10 @@
 
 @implementation PersonalInfoViewController
 
+@synthesize managedObjectContext;
+@synthesize rscMgr;
+@synthesize userDataField,usernameField,organisationField;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -32,6 +36,8 @@
 
 - (void)viewDidLoad
 {
+
+    FrameID = 1;
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -43,6 +49,9 @@
 
 - (void)viewDidUnload
 {
+    usernameField = nil;
+    organisationField = nil;
+    userDataField = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -50,6 +59,40 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+    NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+    [fetchOwnSettings setEntity:ownSettingsEntity];
+    
+    NSPredicate *predicateUsername = [NSPredicate predicateWithFormat:@"atCommand == %@",@"NI"];
+    [fetchOwnSettings setPredicate:predicateUsername];
+    
+    NSError *error = nil;
+    OwnSettings *fetchedUsername = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    if (fetchedUsername) {
+        self.usernameField.text = [NSString stringWithFormat:@"%@", [fetchedUsername atSetting]];
+    }
+    
+
+    NSPredicate *predicateOrg = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserOrg"];
+    [fetchOwnSettings setPredicate:predicateOrg];
+    
+    error = nil;
+    OwnSettings *fetchedOrg = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedOrg) {
+        self.organisationField.text = [fetchedOrg atSetting];
+    }
+    
+    NSPredicate *predicateUserData = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserData"];
+    [fetchOwnSettings setPredicate:predicateUserData];
+    
+    error = nil;
+    OwnSettings *fetchedUserData = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedUserData) {
+        self.userDataField.text = [fetchedUserData atSetting];
+    }
+    
     [super viewWillAppear:animated];
 }
 
@@ -75,7 +118,7 @@
 }
 
 #pragma mark - Table view data source
-
+/*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 #warning Potentially incomplete method implementation.
@@ -103,7 +146,7 @@
     
     return cell;
 }
-
+*/
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -156,4 +199,105 @@
      */
 }
 
+
+- (IBAction)saveData:(id)sender {
+    
+    NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+    NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+    [fetchOwnSettings setEntity:ownSettingsEntity];
+    
+    NSPredicate *predicateUsername = [NSPredicate predicateWithFormat:@"atCommand == %@",@"NI"];
+    [fetchOwnSettings setPredicate:predicateUsername];
+    
+    NSError *error = nil;
+    OwnSettings *fetchedUsername = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedUsername) {
+        //This method creates a new setting.
+        fetchedUsername.atSetting = self.usernameField.text;
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    else{
+        OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+        
+        [newSettings setAtCommand:@"NI"];
+        [newSettings setAtSetting:self.usernameField.text];
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    
+    
+    
+    NSPredicate *predicateOrg = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserOrg"];
+    [fetchOwnSettings setPredicate:predicateOrg];
+    
+    error = nil;
+    OwnSettings *fetchedOrg = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedOrg) {
+        //This method creates a new setting.
+        fetchedOrg.atSetting = self.organisationField.text;
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    else{
+        OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+        
+        [newSettings setAtCommand:@"UserOrg"];
+        [newSettings setAtSetting:self.organisationField.text];
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    
+    
+    NSPredicate *predicateUserData = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserData"];
+    [fetchOwnSettings setPredicate:predicateUserData];
+    
+    error = nil;
+    OwnSettings *fetchedUserData = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedUserData) {
+        //This method creates a new setting.
+        fetchedUserData.atSetting = self.userDataField.text;
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    else{
+        OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+        
+        [newSettings setAtCommand:@"UserData"];
+        [newSettings setAtSetting:self.userDataField.text];
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+    }
+    
+    XbeeTx *XbeeObj = [XbeeTx new];
+    //set up ATCommand for PAN ID
+    [XbeeObj ATCommandSetString:@"NI" withParameter:self.usernameField.text withFrameID:FrameID];
+    NSArray *sendPacket = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacket count]; i++ ) {
+        txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue]; 
+    }
+    int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"optionsTableUpdate" object:self];
+    
+}
 @end
