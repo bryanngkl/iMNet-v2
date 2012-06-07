@@ -185,7 +185,13 @@
                             <outlet property="delegate" destination="KFa-H0-Eir" id="PvM-pD-JBQ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="3MP-ZS-XAq"/>
+                    <navigationItem key="navigationItem" id="3MP-ZS-XAq">
+                        <barButtonItem key="rightBarButtonItem" title="Request Info" id="F7n-eO-7lk">
+                            <connections>
+                                <action selector="requestUserInfo:" destination="KFa-H0-Eir" id="Mt0-ZD-dYe"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="userData" destination="G1N-Db-buF" id="Csv-Je-sG8"/>
                         <outlet property="userName" destination="fTJ-z2-Yfq" id="f9L-84-vBU"/>
@@ -1189,6 +1195,7 @@
         <class className="ContactDetailsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactDetailsViewController.h"/>
             <relationships>
+                <relationship kind="action" name="requestUserInfo:"/>
                 <relationship kind="outlet" name="userData" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="userName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="userOrganisation" candidateClass="UILabel"/>

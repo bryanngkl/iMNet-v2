@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Contacts.h"
 #import "RscMgr.h"
+#import "XbeeTx.h"
+#define BUFFER_LEN 1024
 
 
 @interface ContactDetailsViewController : UITableViewController{
@@ -19,10 +21,12 @@
     IBOutlet UITextView *userData;
     
     RscMgr *rscMgr;
-
+    int FrameID;
+    UInt8   txBuffer[BUFFER_LEN];
     
 }
 
+- (IBAction)requestUserInfo:(id)sender;
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) Contacts *currentContact;  
 
