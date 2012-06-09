@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
@@ -449,7 +448,7 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <segue destination="eQ5-xD-61A" kind="push" id="VBU-iF-wqX"/>
+                                            <segue destination="eQ5-xD-61A" kind="push" identifier="ManualConfigSegue" id="VBU-iF-wqX"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="MvU-IC-02P" style="IBUITableViewCellStyleDefault" id="ntV-tz-CiT">
@@ -657,9 +656,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Network Settings" id="VVT-Zr-pMg">
                         <barButtonItem key="backBarButtonItem" title="Back" id="YwD-u4-xm4"/>
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="lHh-ii-nBz">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="v2q-GG-iHP">
                             <connections>
-                                <action selector="backButton:" destination="R9e-Jz-0EP" id="fCd-qC-vbI"/>
+                                <action selector="backButton:" destination="R9e-Jz-0EP" id="bdB-so-5VX"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="tSn-Gh-417">
@@ -714,7 +713,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Organisation" id="KRS-ac-z5n">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="1eF-Oa-8Kc">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="1eF-Oa-8Kc">
                                         <rect key="frame" x="0.0" y="138" width="320" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -884,20 +883,20 @@
             </objects>
             <point key="canvasLocation" x="407" y="3057"/>
         </scene>
-        <!--View Controller - Manual Configuration-->
+        <!--Manual Config View Controller - Manual Configuration-->
         <scene sceneID="Isv-j6-cWl">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kCe-vZ-1Gq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="eQ5-xD-61A" sceneMemberID="viewController">
+                <viewController id="eQ5-xD-61A" customClass="ManualConfigViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c3D-wp-SZR">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="tNg-lp-lqx">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="7E00" borderStyle="roundedRect" minimumFontSize="17" id="tNg-lp-lqx">
                                 <rect key="frame" x="20" y="49" width="280" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Send Bytes:" lineBreakMode="tailTruncation" minimumFontSize="10" id="Qy9-Lx-dEE">
                                 <rect key="frame" x="20" y="20" width="93" height="21"/>
@@ -907,26 +906,45 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Receive Bytes:" lineBreakMode="tailTruncation" minimumFontSize="10" id="Uph-iZ-3DE">
-                                <rect key="frame" x="20" y="88" width="114" height="21"/>
+                                <rect key="frame" x="20" y="128" width="114" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3lm-4b-9QQ">
-                                <rect key="frame" x="20" y="117" width="280" height="230"/>
+                                <rect key="frame" x="20" y="157" width="280" height="190"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="603-OV-4uQ">
+                                <rect key="frame" x="207" y="88" width="93" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Send Hex">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendHex:" destination="eQ5-xD-61A" eventType="touchUpInside" id="DxM-Dd-71Y"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Manual Configuration" id="bId-cd-f0C"/>
+                    <connections>
+                        <outlet property="bytesToSend" destination="tNg-lp-lqx" id="mqf-Nl-Kw3"/>
+                        <outlet property="displayBytes" destination="3lm-4b-9QQ" id="GPH-jY-iO7"/>
+                    </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="661" y="1689"/>
+            <point key="canvasLocation" x="656" y="1665"/>
         </scene>
         <!--Navigation Controller - Settings-->
         <scene sceneID="Tv3-9w-3dK">
@@ -1398,6 +1416,14 @@
                 <relationship kind="action" name="contactDiscovery:"/>
             </relationships>
         </class>
+        <class className="ManualConfigViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ManualConfigViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="sendHex:"/>
+                <relationship kind="outlet" name="bytesToSend" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="displayBytes" candidateClass="UITextView"/>
+            </relationships>
+        </class>
         <class className="MapChoseTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapChoseTableViewController.h"/>
         </class>
@@ -1487,6 +1513,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="667-6m-lxe"/>
+        <segue reference="3PG-y9-DQc"/>
     </inferredMetricsTieBreakers>
 </document>

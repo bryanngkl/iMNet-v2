@@ -40,6 +40,7 @@
 
 - (void)viewDidLoad
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contactDetailUpdate:) name:@"contactDetailsUpdated" object:nil];
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -52,6 +53,7 @@
 
 - (void)viewDidUnload
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"contactDetailsUpdated" object:nil];
     userName = nil;
     userOrganisation = nil;
     userData = nil;
@@ -191,6 +193,44 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
+- (void)contactTableUpdate:(NSNotification *)notification{
+    NSFetchRequest *fetchContacts = [[NSFetchRequest alloc] init];
+    NSEntityDescription *contactsEntity = [NSEntityDescription entityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+    [fetchContacts setEntity:contactsEntity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"address64 == %@", currentContact.address64];
+    [fetchContacts setPredicate:predicate];
+    
+    NSError *error = nil;
+    Contacts *fetchedResult = [[managedObjectContext executeFetchRequest:fetchContacts error:&error] lastObject];
+    if (fetchedResult) {
+        currentContact = fetchedResult;
+    }
+
+    self.userName.text = currentContact.username;
+    self.userOrganisation.text = currentContact.userOrg;
+    self.userData.text = currentContact.userData;
+
+    //CONTACT LOCATION
+    Location *locationofcurrentcontact;
+    if ([currentContact contactLocation] != NULL){
+    locationofcurrentcontact = [currentContact contactLocation];
+    //get the respective coordinates
+    NSString *separator = @",";
+    NSArray *coordinatesofcontact = [[locationofcurrentcontact locationLatitude] componentsSeparatedByString:separator];
+    self.userlatitude.text =  [[coordinatesofcontact objectAtIndex:0] stringByAppendingString:@"E"];
+    self.userlongitude.text = [[coordinatesofcontact objectAtIndex:1] stringByAppendingString:@"N"];
+    
+}
+else {
+    self.userlatitude.text = @"Not available";
+    self.userlongitude.text = @"Not available";
+}
+
+
+}
+    
+
 
 - (IBAction)requestUserInfo:(id)sender {
     //send message to xbee

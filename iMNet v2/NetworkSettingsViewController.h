@@ -10,7 +10,6 @@
 #import "RscMgr.h"
 #import "OwnSettings.h"
 #import "XbeeTx.h"
-#import "Contacts.h"
 #define BUFFER_LEN 1024
 
 

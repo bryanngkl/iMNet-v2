@@ -182,6 +182,14 @@
         RSvc.managedObjectContext = managedObjectContext;
         RSvc.rscMgr = rscMgr;
 	}
+    
+    else if ([segue.identifier isEqualToString:@"ManualConfigSegue"])
+	{
+        ManualConfigViewController *MCvc = segue.destinationViewController;
+        MCvc.managedObjectContext = managedObjectContext;
+        MCvc.rscMgr = rscMgr;
+	}
+    
 }
 
 

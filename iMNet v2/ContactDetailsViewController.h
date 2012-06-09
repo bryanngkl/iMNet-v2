@@ -31,6 +31,7 @@
     
     
 }
+- (void)contactDetailUpdate:(NSNotification *)notification;
 
 - (IBAction)requestUserInfo:(id)sender;
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  

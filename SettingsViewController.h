@@ -11,6 +11,7 @@
 #import "NetworkSettingsViewController.h"
 #import "PersonalInfoViewController.h"
 #import "RadioSettingsViewController.h"
+#import "ManualConfigViewController.h"
 
 
 @interface SettingsViewController : UITableViewController{

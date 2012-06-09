@@ -314,6 +314,34 @@
             test = [NSString stringWithFormat:@"%@%.2x",test, [[rxOnePacket objectAtIndex:i] unsignedIntValue]];
         } 
         
+        NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+        NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+        [fetchOwnSettings setEntity:ownSettingsEntity];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"atCommand == %@",@"byteString"];
+        [fetchOwnSettings setPredicate:predicate];
+        
+        NSError *error = nil;
+        OwnSettings *fetchedSettings = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+        
+        if (!fetchedSettings) {
+            //This method creates a new setting.
+            OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+            
+            [newSettings setAtCommand:@"byteString"];
+            [newSettings setAtSetting:test];
+        }
+        else {
+            fetchedSettings.atSetting = test;
+        }
+            error = nil;
+            if (![managedObjectContext save:&error]) {
+                // Handle the error.
+            }
+        
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"bytesReceivedUpdate" object:self];
+        
         switch ([[XbeeRxObj frametype] unsignedIntValue]) {     //sort out frametypes
             case 136:    //frame is a zigbee receive AT command packet
                 //if node discover packet received
@@ -635,6 +663,7 @@
 
                  }
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"contactUpdated" object:self];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"contactDetailsUpdated" object:self]; 
 
             }
                 
