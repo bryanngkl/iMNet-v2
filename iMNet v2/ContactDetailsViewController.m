@@ -13,7 +13,7 @@
 
 @synthesize managedObjectContext;
 @synthesize currentContact;
-@synthesize userName,userData,userOrganisation;
+@synthesize userName,userData,userOrganisation,userlatitude,userlongitude;
 @synthesize rscMgr;
 
 
@@ -55,6 +55,8 @@
     userName = nil;
     userOrganisation = nil;
     userData = nil;
+    userlatitude = nil;
+    userlongitude = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -65,6 +67,25 @@
     self.userName.text = currentContact.username;
     self.userOrganisation.text = currentContact.userOrg;
     self.userData.text = currentContact.userData;
+    
+    
+    //CONTACT LOCATION
+    Location *locationofcurrentcontact;
+    if ([currentContact contactLocation] != NULL){
+        locationofcurrentcontact = [currentContact contactLocation];
+        //get the respective coordinates
+        NSString *separator = @",";
+        NSArray *coordinatesofcontact = [[locationofcurrentcontact locationLatitude] componentsSeparatedByString:separator];
+        self.userlatitude.text =  [[coordinatesofcontact objectAtIndex:0] stringByAppendingString:@"E"];
+        self.userlongitude.text = [[coordinatesofcontact objectAtIndex:1] stringByAppendingString:@"N"];
+        
+    }
+    else {
+        self.userlatitude.text = @"Not available";
+        self.userlongitude.text = @"Not available";
+    }
+    
+    
     [super viewWillAppear:animated];
 }
 

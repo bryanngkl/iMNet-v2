@@ -17,6 +17,7 @@
 
 @interface ContactsViewController : UITableViewController{
 
+    //redpark instance variables
     RscMgr *rscMgr;
     int FrameID;
     UInt8   txBuffer[BUFFER_LEN];

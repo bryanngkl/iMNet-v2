@@ -30,6 +30,7 @@
 		930F07681575962100F39890 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 930F07661575962100F39890 /* InfoPlist.strings */; };
 		930F076B1575962100F39890 /* iMNet_v2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 930F076A1575962100F39890 /* iMNet_v2Tests.m */; };
 		9318A32F1575B401000E877A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9318A32E1575B400000E877A /* SettingsViewController.m */; };
+		931A54B01582D3C60008C559 /* IphoneNavigationButton_Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 931A54AF1582D3C60008C559 /* IphoneNavigationButton_Back.png */; };
 		9356E2D715792D9100756ED2 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 9356E2D515792D9100756ED2 /* green.png */; };
 		9356E2D815792D9100756ED2 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 9356E2D615792D9100756ED2 /* grey.png */; };
 		9356E2E11579420700756ED2 /* MessageLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356E2E01579420700756ED2 /* MessageLogViewController.m */; };
@@ -39,6 +40,7 @@
 		93B13B3A157AE4FE006F5BA4 /* hexConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B13B35157AE4FE006F5BA4 /* hexConvert.m */; };
 		93B13B3B157AE4FE006F5BA4 /* XbeeRx.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B13B37157AE4FE006F5BA4 /* XbeeRx.m */; };
 		93B13B3C157AE4FE006F5BA4 /* XbeeTx.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B13B39157AE4FE006F5BA4 /* XbeeTx.m */; };
+		93B8EE071582A60A00B8E4F7 /* RadioSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B8EE061582A60A00B8E4F7 /* RadioSettingsViewController.m */; };
 		93BD91371580152500CC8F75 /* NewMsgContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BD91361580152500CC8F75 /* NewMsgContactsViewController.m */; };
 		93BD91941580EC3000CC8F75 /* SendLocationContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BD91931580EC3000CC8F75 /* SendLocationContactsViewController.m */; };
 		93E7171E1575A0120089A3D8 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7171D1575A0120089A3D8 /* MessageViewController.m */; };
@@ -151,6 +153,7 @@
 		930F076A1575962100F39890 /* iMNet_v2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iMNet_v2Tests.m; sourceTree = "<group>"; };
 		9318A32D1575B400000E877A /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ../SettingsViewController.h; sourceTree = "<group>"; };
 		9318A32E1575B400000E877A /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ../SettingsViewController.m; sourceTree = "<group>"; };
+		931A54AF1582D3C60008C559 /* IphoneNavigationButton_Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IphoneNavigationButton_Back.png; sourceTree = "<group>"; };
 		9356E2D515792D9100756ED2 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
 		9356E2D615792D9100756ED2 /* grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey.png; sourceTree = "<group>"; };
 		9356E2DF1579420700756ED2 /* MessageLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageLogViewController.h; sourceTree = "<group>"; };
@@ -167,6 +170,8 @@
 		93B13B37157AE4FE006F5BA4 /* XbeeRx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbeeRx.m; sourceTree = SOURCE_ROOT; };
 		93B13B38157AE4FE006F5BA4 /* XbeeTx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbeeTx.h; sourceTree = SOURCE_ROOT; };
 		93B13B39157AE4FE006F5BA4 /* XbeeTx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbeeTx.m; sourceTree = SOURCE_ROOT; };
+		93B8EE051582A60A00B8E4F7 /* RadioSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioSettingsViewController.h; sourceTree = "<group>"; };
+		93B8EE061582A60A00B8E4F7 /* RadioSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioSettingsViewController.m; sourceTree = "<group>"; };
 		93BD91351580152500CC8F75 /* NewMsgContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMsgContactsViewController.h; sourceTree = "<group>"; };
 		93BD91361580152500CC8F75 /* NewMsgContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMsgContactsViewController.m; sourceTree = "<group>"; };
 		93BD91921580EC2F00CC8F75 /* SendLocationContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendLocationContactsViewController.h; sourceTree = "<group>"; };
@@ -253,6 +258,7 @@
 		9301FB481575BA6000D20688 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				931A54AF1582D3C60008C559 /* IphoneNavigationButton_Back.png */,
 				9F02491D15765B27008DDD6B /* loading.png */,
 				9F02491E15765B27008DDD6B /* marker-X.png */,
 				9F02491F15765B27008DDD6B /* marker-blue.png */,
@@ -419,6 +425,8 @@
 				93E7171D1575A0120089A3D8 /* MessageViewController.m */,
 				9318A32D1575B400000E877A /* SettingsViewController.h */,
 				9318A32E1575B400000E877A /* SettingsViewController.m */,
+				93B8EE051582A60A00B8E4F7 /* RadioSettingsViewController.h */,
+				93B8EE061582A60A00B8E4F7 /* RadioSettingsViewController.m */,
 				938C43DB157F4569008508DB /* NetworkSettingsViewController.h */,
 				938C43DC157F4569008508DB /* NetworkSettingsViewController.m */,
 				93E717281575ABF00089A3D8 /* PersonalInfoViewController.h */,
@@ -595,6 +603,7 @@
 				9FBA7AC51577E6A6003C3F14 /* MainStoryboard_iPhone.storyboard in Resources */,
 				9356E2D715792D9100756ED2 /* green.png in Resources */,
 				9356E2D815792D9100756ED2 /* grey.png in Resources */,
+				931A54B01582D3C60008C559 /* IphoneNavigationButton_Back.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +664,7 @@
 				938C43DD157F4569008508DB /* NetworkSettingsViewController.m in Sources */,
 				93BD91371580152500CC8F75 /* NewMsgContactsViewController.m in Sources */,
 				93BD91941580EC3000CC8F75 /* SendLocationContactsViewController.m in Sources */,
+				93B8EE071582A60A00B8E4F7 /* RadioSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

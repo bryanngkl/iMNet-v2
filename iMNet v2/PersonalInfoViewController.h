@@ -12,7 +12,7 @@
 #import "XbeeTx.h"
 #define BUFFER_LEN 1024
 
-@interface PersonalInfoViewController : UITableViewController{
+@interface PersonalInfoViewController : UITableViewController<UITextViewDelegate,UITextFieldDelegate>{
 
     RscMgr *rscMgr;
     int FrameID;
@@ -23,6 +23,8 @@
     IBOutlet UITextView *userDataField;
     //core data instance variables
     NSManagedObjectContext *managedObjectContext;   
+    
+    UITapGestureRecognizer *tapRecognizer;
     
 }
 

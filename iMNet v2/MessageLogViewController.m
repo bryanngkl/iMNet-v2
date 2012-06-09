@@ -36,13 +36,14 @@
 
 - (void)viewDidLoad
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceivedUpdate:) name:@"messageReceived" object:nil];
+
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    self.title = [currentContact username];
-        
+    self.title = [currentContact username];        
     FrameID = 1;
-
+/*
     //Sort descriptors definition
     NSSortDescriptor *sortDescriptor1 = [[NSSortDescriptor alloc] initWithKey:@"messageDate" ascending:TRUE];
     NSArray *sortDescriptors1 = [[NSArray alloc] initWithObjects:sortDescriptor1, nil];
@@ -50,10 +51,10 @@
     sortedMessages = [[currentContact contactMessages] sortedArrayUsingDescriptors:sortDescriptors1];
 
     
-	/*
-	 The conversation
-     An array of messages content sorted by time
-	 */
+	
+	// The conversation
+    // An array of messages content sorted by time
+	 
     messages = [[NSMutableArray alloc] initWithObjects:
 				nil];
     
@@ -62,8 +63,10 @@
         //NSLog(@"array: %@", [[sortedMessages objectAtIndex:i] messageContents]);
         //NSLog(@"array: %@", [[sortedMessages objectAtIndex:i] messageReceived]);
     }
-    //NSLog(@"array: %@", messages);
-	
+    
+    */
+    //NSLog(@"array: %@", messages);  
+
     /*
 	 Set the background color
 	 */
@@ -164,6 +167,7 @@
     tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                             action:@selector(didTapAnywhere:)];
     
+    
     [[self tableView] reloadData];
 
 }
@@ -250,7 +254,8 @@
 - (void)viewDidUnload
 {
     tbl = nil;
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"messageReceived" object:nil];
+
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -268,10 +273,12 @@
     /* CHECK THIS! CAUSE CRASH
     NSUInteger index = [messages count];
     [tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-      */
     
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceivedUpdate:) name:@"messageReceived" object:nil];
     
+    NSIndexPath* ipath = [NSIndexPath indexPathForRow: [self tableView:tbl numberOfRowsInSection:1] inSection: 1];
+    [tbl scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
+    
+     */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) 
 												 name:UIKeyboardWillShowNotification object:self.view.window]; 
     
@@ -328,11 +335,6 @@
 		
 		field.text = @"";
         
-
-
-        
-        
-        
 	}
 }
 
@@ -352,8 +354,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"messageReceived" object:nil];
-
     //NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     //[nc removeObserver:self name: UIKeyboardWillShowNotification object:nil];
     //[nc removeObserver:self name: UIKeyboardWillHideNotification object:nil];
@@ -380,6 +380,21 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
+    
+    //Sort descriptors definition
+    NSSortDescriptor *sortDescriptor1 = [[NSSortDescriptor alloc] initWithKey:@"messageDate" ascending:TRUE];
+    NSArray *sortDescriptors1 = [[NSArray alloc] initWithObjects:sortDescriptor1, nil];
+    //An array of sorted messages by date
+    sortedMessages = [[currentContact contactMessages] sortedArrayUsingDescriptors:sortDescriptors1];
+        messages = [[NSMutableArray alloc] initWithObjects:
+				nil];
+    
+    for (int i=0; i<[sortedMessages count]; i++) {
+        [messages addObject:[[sortedMessages objectAtIndex:i] messageContents]];
+        //NSLog(@"array: %@", [[sortedMessages objectAtIndex:i] messageContents]);
+        //NSLog(@"array: %@", [[sortedMessages objectAtIndex:i] messageReceived]);
+    }
     return [messages count];
 }
 
@@ -690,7 +705,9 @@
  */
 
 - (void)messageReceivedUpdate:(NSNotification *)notification{
-    [self.tableView reloadData];
+    [tbl reloadData];
+    NSUInteger index = [messages count] - 1;
+    [tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     // Retrieve information about the document and update the panel
 }
 
@@ -712,3 +729,4 @@
 }
 
 @end
+

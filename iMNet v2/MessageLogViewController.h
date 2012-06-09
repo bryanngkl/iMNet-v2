@@ -29,6 +29,7 @@
     BOOL startup;
     UITapGestureRecognizer *tapRecognizer;
     
+    //Redpark instance variables
     RscMgr *rscMgr;
     int FrameID;
     UInt8   txBuffer[BUFFER_LEN];

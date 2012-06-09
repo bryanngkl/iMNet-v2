@@ -18,7 +18,7 @@
 
 @protocol AddPinInfoViewControllerDelegate;
 
-@interface AddPinInfoViewController : UIViewController {
+@interface AddPinInfoViewController : UIViewController<UITextViewDelegate> {
     
     id<AddPinInfoViewControllerDelegate>delegate;
     UITextField *title;

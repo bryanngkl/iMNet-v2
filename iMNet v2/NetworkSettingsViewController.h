@@ -22,6 +22,7 @@
     //core data instance variables
     NSManagedObjectContext *managedObjectContext;   
     
+    IBOutlet UILabel *ChannelLabel;
     IBOutlet UILabel *NetworkIDLabel;
     IBOutlet UILabel *UsernameLabel;
     IBOutlet UILabel *DeviceTypeLabel;
@@ -33,6 +34,7 @@
 - (IBAction)updateNetworkDetails:(id)sender;
 - (IBAction)backButton:(id)sender;
 
+
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) RscMgr *rscMgr;
 @property (nonatomic,retain) UILabel *NetworkIDLabel;
@@ -40,5 +42,5 @@
 @property (nonatomic,retain) UILabel *NetworkAddressLabel;
 @property (nonatomic,retain) UILabel *MACAddressLabel;
 @property (nonatomic,retain) UILabel *UsernameLabel;
-
+@property (nonatomic,retain) UILabel *ChannelLabel;
 @end

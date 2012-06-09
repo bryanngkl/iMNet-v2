@@ -22,6 +22,7 @@
 @synthesize mapInUse;
 @synthesize managedObjectContext;
 @synthesize rscMgr;
+@synthesize mytoolbar;
 
 
 - (void)testMarkers
@@ -360,6 +361,9 @@
 
 - (void)viewDidLoad
 {
+    //set toolbar
+    [mytoolbar setFrame:CGRectMake(0, 405, 320, 58)];
+    
     count =1;
     
     locationController = [[MyCLController alloc] init];
@@ -574,6 +578,7 @@
     mapView = nil;
     mapView = nil;
     [self setDeletePin:nil];
+    mytoolbar = nil;
     [super viewDidUnload];
 }
 

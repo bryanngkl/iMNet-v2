@@ -39,6 +39,18 @@
 
     FrameID = 1;
     [super viewDidLoad];
+    
+    userDataField.delegate = self;
+    usernameField.delegate = self;
+    organisationField.delegate = self;
+    
+    
+    //Register for gesture notification
+    tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                            action:@selector(didTapAnywhere:)];
+    //Rgister for keyboard notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) 
+												 name:UIKeyboardWillShowNotification object:self.view.window]; 
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -52,6 +64,10 @@
     usernameField = nil;
     organisationField = nil;
     userDataField = nil;
+    
+    //Deregister the keyboard notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil]; 
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -198,7 +214,9 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
-/*
+
+
+
 //set max characters for textfield
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
@@ -210,6 +228,17 @@
     {return YES;}
 }
 
+- (void)textViewDidChange:(UITextView *)textView{
+    
+    NSInteger restrictedLength=140;
+    
+    NSString *temp=textView.text;
+    
+    if([[textView text] length] > restrictedLength){
+        textView.text=[temp substringToIndex:[temp length]-1];
+    }
+}
+/*
 - (BOOL)textView:(UITextView *)textView shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
 
     if (textView.text.length >= 15 && range.length == 0)
@@ -323,8 +352,46 @@
     if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
         FrameID = 1;
     }
+    
+    //save changes permanently
+    [XbeeObj ATCommand:@"WR" withFrameID:FrameID];
+    NSArray *sendPacketWR = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacketWR count]; i++ ) {
+        txBuffer[i] = [[sendPacketWR objectAtIndex:i] unsignedIntValue]; 
+    }
+    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketWR count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"optionsTableUpdate" object:self];
     
+}
+
+#pragma mark Resigning the keyboard
+
+- (void)keyboardWillShow:(NSNotification *)aNotification {
+    [self.view addGestureRecognizer:tapRecognizer];
+    NSLog(@"keyboard notification");
+    }
+
+-(void) keyboardWillHide:(NSNotification *) note
+{
+    [self.view removeGestureRecognizer:tapRecognizer];
+}
+
+-(void)didTapAnywhere: (UITapGestureRecognizer*) recognizer {    
+    [userDataField resignFirstResponder];
+    [usernameField resignFirstResponder];
+    [organisationField resignFirstResponder];
+    }
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	[usernameField resignFirstResponder];
+    [userDataField resignFirstResponder];
+	return YES;
 }
 @end

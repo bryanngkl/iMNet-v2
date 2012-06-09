@@ -168,7 +168,7 @@
         networkSettingsViewController.rscMgr = rscMgr;
         networkSettingsViewController.managedObjectContext = managedObjectContext;
 	}
-    
+
     else if ([segue.identifier isEqualToString:@"PersonalInfoSegue"])
 	{
         PersonalInfoViewController *personalInfoViewController = segue.destinationViewController;
@@ -176,6 +176,12 @@
         personalInfoViewController.rscMgr = rscMgr;
 	}
     
+    else if ([segue.identifier isEqualToString:@"RadioSettingsSegue"])
+	{
+        RadioSettingsViewController *RSvc = segue.destinationViewController;
+        RSvc.managedObjectContext = managedObjectContext;
+        RSvc.rscMgr = rscMgr;
+	}
 }
 
 

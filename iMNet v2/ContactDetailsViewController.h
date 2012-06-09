@@ -22,6 +22,8 @@
     IBOutlet UILabel *userName;
     IBOutlet UILabel *userOrganisation;
     IBOutlet UITextView *userData;
+    IBOutlet UILabel *userlatitude;
+    IBOutlet UILabel *userlongitude;
     
     RscMgr *rscMgr;
     int FrameID;
@@ -39,6 +41,8 @@
 @property (nonatomic,retain) UILabel *userName;
 @property (nonatomic,retain) UILabel *userOrganisation;
 @property (nonatomic,retain) UITextView *userData;
+@property (nonatomic,retain) UILabel *userlatitude;
+@property (nonatomic,retain) UILabel *userlongitude;
 
 - (IBAction)locateMe:(id)sender;
 

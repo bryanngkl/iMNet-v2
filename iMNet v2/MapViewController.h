@@ -49,6 +49,7 @@
     //CoreData 
     NSManagedObjectContext *managedObjectContext;
     
+    IBOutlet UIToolbar *mytoolbar;
 }
 
 
@@ -74,6 +75,8 @@
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic,retain) RscMgr *rscMgr;
+
+@property (nonatomic,retain) UIToolbar *mytoolbar;
 
 //- (IBAction)sendLocation:(id)sender;
 

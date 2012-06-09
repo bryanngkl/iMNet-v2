@@ -198,12 +198,18 @@
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete)
 	{
-        Contacts *contactToDelete = [fetchedContactsArray objectAtIndex:indexPath.row];
-        [managedObjectContext deleteObject:contactToDelete];
+        
+        Contacts *contactToDelete = [[fetchedMessagesArray objectAtIndex:indexPath.row] messageFromContacts];
+                
+        for (Messages *eachMessage in [contactToDelete contactMessages]) {
+            [managedObjectContext deleteObject:eachMessage];
+        }
+        
         NSError *error1 = nil;
         if (![managedObjectContext save:&error1]) {
             // Handle the error.
         }
+
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 }
@@ -307,24 +313,7 @@
         for (int i = 0; i < [rxOnePacket count]; ++i) {
             test = [NSString stringWithFormat:@"%@%.2x",test, [[rxOnePacket objectAtIndex:i] unsignedIntValue]];
         } 
-        /*
-        //create new sample contact
-        Contacts *newContact1 = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
         
-        [newContact1 setAddress16:@"1234"];
-        [newContact1 setAddress64:@"1234567890"];
-        [newContact1 setUsername:@"error"];
-        [newContact1 setUserData:test];
-        [newContact1 setUserOrg:@"error"];
-        [newContact1 setIsAvailable:[NSNumber numberWithBool:TRUE]];
-        NSError *error1 = nil;
-        if (![managedObjectContext save:&error1]) {
-            // Handle the error.
-        }
-         */
-        
-
-        //end of sample contact
         switch ([[XbeeRxObj frametype] unsignedIntValue]) {     //sort out frametypes
             case 136:    //frame is a zigbee receive AT command packet
                 //if node discover packet received
@@ -367,8 +356,8 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"contactUpdated" object:self];
                 }
                 
-                //if ATNI packet received
-                else if([[XbeeRxObj ATString] isEqualToString:@"NI"]||[[XbeeRxObj ATString] isEqualToString:@"ID"]){                    
+                //if ATNI packet received, or PAN ID or operating channel
+                else if(([[XbeeRxObj ATString] isEqualToString:@"NI"])||([[XbeeRxObj ATString] isEqualToString:@"ID"])){                    
                     
                     if ([[XbeeRxObj ATCommandResponse] length] > 0) {
                         
@@ -410,7 +399,7 @@
                 
                 }
                 //if ATSL or ATSH or ATMY packet received
-                else if(([[XbeeRxObj ATString] isEqualToString:@"SL"])||([[XbeeRxObj ATString] isEqualToString:@"SH"])||([[XbeeRxObj ATString] isEqualToString:@"MY"])){
+                else if(([[XbeeRxObj ATString] isEqualToString:@"SL"])||([[XbeeRxObj ATString] isEqualToString:@"SH"])||([[XbeeRxObj ATString] isEqualToString:@"MY"])||([[XbeeRxObj ATString] isEqualToString:@"CH"])){
       
 
                     if ([[XbeeRxObj ATCommandResponseHex] length] > 0) {
@@ -447,6 +436,44 @@
                         }
                     }
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"optionsTableUpdate" object:self];
+                
+                }
+                else if(([[XbeeRxObj ATString] isEqualToString:@"PL"])||([[XbeeRxObj ATString] isEqualToString:@"%V"])||([[XbeeRxObj ATString] isEqualToString:@"DB"])){
+                    if ([[XbeeRxObj ATCommandResponse] length] > 0) {
+                
+                        NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+                        NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+                        [fetchOwnSettings setEntity:ownSettingsEntity];
+                        
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"atCommand == %@",[XbeeRxObj ATString]];
+                        [fetchOwnSettings setPredicate:predicate];
+                        
+                        NSError *error = nil;
+                        OwnSettings *fetchedSettings = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+                        
+                        if (!fetchedSettings) {
+                            //This method creates a new setting.
+                            OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+                            
+                            [newSettings setAtCommand:[XbeeRxObj ATString]];
+                            [newSettings setAtSetting:[XbeeRxObj ATCommandResponse]];
+                            
+                            NSError *error = nil;
+                            if (![managedObjectContext save:&error]) {
+                                // Handle the error.
+                            }
+                        }
+                        else{
+                            fetchedSettings.atCommand = [XbeeRxObj ATString];
+                            fetchedSettings.atSetting = [XbeeRxObj ATCommandResponse];
+                            NSError *error = nil;
+                            if (![managedObjectContext save:&error]) {
+                                // Handle the error.
+                            }
+                        }
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"powerSettings" object:self];
+                    }
+
                 
                 }
                 break;
@@ -601,14 +628,15 @@
                  fetchedResult.userData = [receivedUserData objectAtIndex:1];
                  }
                      
-                     error = nil;
-                     if (![managedObjectContext save:&error]) {
+                error = nil;
+                if (![managedObjectContext save:&error]) {
                          // Handle the error.
-                     }
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"contactUpdated" object:self];
+                    }
 
                  }
-                 }
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"contactUpdated" object:self];
+
+            }
                 
                 else if ([XbeeRxObj msgType] == 3){
                     
@@ -735,6 +763,9 @@
                             // Handle the error.
                         }*/
                     }
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"contactUpdated" object:self];
+
                 }
 
                 
@@ -820,7 +851,7 @@
                         }
                     }
                 }*/
-                
+            
                 break;}
             default:
                 break;

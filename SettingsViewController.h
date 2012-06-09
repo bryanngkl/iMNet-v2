@@ -10,6 +10,7 @@
 #import "RscMgr.h"
 #import "NetworkSettingsViewController.h"
 #import "PersonalInfoViewController.h"
+#import "RadioSettingsViewController.h"
 
 
 @interface SettingsViewController : UITableViewController{

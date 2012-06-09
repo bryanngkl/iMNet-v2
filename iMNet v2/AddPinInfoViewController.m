@@ -60,9 +60,10 @@
     
     //set Coordinates
     coordinates.text = [coordinates.text stringByAppendingString:obj.location];
+    description.delegate = self;
+    
     [super viewDidLoad];
 }
-
 
 
 
@@ -119,11 +120,15 @@
 
 - (BOOL) textViewShouldBeginEditing:(UITextView *)textView
 {
-    description.text = @"";
-    description.textColor = [UIColor blackColor];
+    DataClass *obj = [DataClass getInstance];
+    if([obj.description isEqualToString:@"Description"]) {
+        self.description.text = @"";
+        self.description.textColor = [UIColor blackColor];
+    }
     return YES;
 }
 
+/*
 -(void) textViewDidChange:(UITextView *)textView
 {
     
@@ -133,7 +138,14 @@
         [description resignFirstResponder];
     }
 }
+ */
 
+-(void) textViewDidEndEditing:(UITextView *)textView{
+    if(description.text.length == 0){
+        description.textColor = [UIColor lightGrayColor];
+        description.text = @"Description";
+    }
+}
 
 
 - (IBAction)Back:(id)sender {

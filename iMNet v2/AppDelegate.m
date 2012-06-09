@@ -48,13 +48,13 @@
     settingsViewController.rscMgr = rscMgr;
     mapViewController.rscMgr = rscMgr;
     
- /*   
+  /*
     //create new sample contact
     Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
     
     [newContact setAddress16:@"1234"];
     [newContact setAddress64:@"1234567890"];
-    [newContact setUsername:@"qwerty"];
+    [newContact setUsername:@"richard2"];
     [newContact setUserData:@"asdfghjklzxcvbnm qwertyui"];
     [newContact setUserOrg:@"Oxfam"];
     [newContact setIsAvailable:[NSNumber numberWithBool:TRUE]];
@@ -63,7 +63,7 @@
         // Handle the error.
     }
     //end of sample contact
-    
+   
     
     //create new sample contact2
     Contacts *newContact2 = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];

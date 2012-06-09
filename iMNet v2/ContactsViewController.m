@@ -36,6 +36,7 @@
 
 - (void)viewDidLoad
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contactTableUpdate:) name:@"contactUpdated" object:nil];
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -50,6 +51,7 @@
 
 - (void)viewDidUnload
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"contactUpdated" object:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -57,7 +59,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contactTableUpdate:) name:@"contactUpdated" object:nil];
     [super viewWillAppear:animated];
 }
 
@@ -68,7 +69,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"contactUpdated" object:nil];
+
     [super viewWillDisappear:animated];
 }
 
@@ -190,11 +191,13 @@
 - (void)contactTableUpdate:(NSNotification *)notification
 {
     [self.tableView reloadData];
+    NSLog(@"Contacts table update");
     // Retrieve information about the document and update the panel
 }
 
 - (IBAction)contactDiscovery:(id)sender {
     //send node discover AT command to xbee
+
     
     //initialise all contacts to unavailable
     NSFetchRequest *fetchContacts = [[NSFetchRequest alloc] init];
@@ -278,6 +281,5 @@
 	}
 }
 
-
-
 @end
+
