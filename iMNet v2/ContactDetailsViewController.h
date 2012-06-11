@@ -15,8 +15,10 @@
 #import "MessageLogViewController.h"
 #import "DataClass.h"
 
+#import "MBProgressHUD.h"
 
-@interface ContactDetailsViewController : UITableViewController{
+
+@interface ContactDetailsViewController : UITableViewController<MBProgressHUDDelegate>{
     NSManagedObjectContext *managedObjectContext;   
     Contacts *currentContact;
     IBOutlet UILabel *userName;
@@ -29,9 +31,11 @@
     int FrameID;
     UInt8   txBuffer[BUFFER_LEN];
     
+    MBProgressHUD *HUD;
     
 }
 - (void)contactDetailUpdate:(NSNotification *)notification;
+- (void)myTask;
 
 - (IBAction)requestUserInfo:(id)sender;
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  

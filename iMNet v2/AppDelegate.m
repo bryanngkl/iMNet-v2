@@ -54,8 +54,8 @@
     
     [newContact setAddress16:@"1234"];
     [newContact setAddress64:@"1234567890"];
-    [newContact setUsername:@"richard2"];
-    [newContact setUserData:@"asdfghjklzxcvbnm qwertyui"];
+    [newContact setUsername:@"John"];
+    [newContact setUserData:@"Head of Logistics Red Cross"];
     [newContact setUserOrg:@"Oxfam"];
     [newContact setIsAvailable:[NSNumber numberWithBool:TRUE]];
     NSError *error = nil;
@@ -70,9 +70,9 @@
     
     [newContact2 setAddress16:@"1234"];
     [newContact2 setAddress64:@"1234567890"];
-    [newContact2 setUsername:@"richard"];
-    [newContact2 setUserData:@"asdfghjklzxcvbnm qwertyui"];
-    [newContact2 setUserOrg:@"Red Cross"];
+    [newContact2 setUsername:@"Xing"];
+    [newContact2 setUserData:@"Head of Logistics, Oxfam"];
+    [newContact2 setUserOrg:@"Oxfam"];
     
         //Create location for richard
         Location *newlocation = (Location *)[NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:managedObjectContext];
@@ -81,7 +81,7 @@
         newlocation.locationLatitude = @"000.761708,103.359387";
         [newlocation setLocationContact:newContact2];
     
-    [newContact2 setIsAvailable:[NSNumber numberWithBool:FALSE]];
+    [newContact2 setIsAvailable:[NSNumber numberWithBool:TRUE]];
     [newContact2 setContactLocation:newlocation];
     
     NSError *error1 = nil;
@@ -94,7 +94,7 @@
     
     //create new sample message
     Messages *newMessage = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
-    newMessage.messageContents = [NSString stringWithFormat:@"%@", @"firstfirst"];
+    newMessage.messageContents = [NSString stringWithFormat:@"%@", @"We need a situational report on your clinic"];
     newMessage.messageReceived = [NSNumber numberWithBool:TRUE];
     newMessage.messageDate = [NSDate date];
     newMessage.messageFromContacts = newContact2;
@@ -104,9 +104,10 @@
     }
     //end of sample message 1
     
+
     //create new sample message
     Messages *newMessage2 = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
-    newMessage2.messageContents = [NSString stringWithFormat:@"%@", @"firstsecond"];
+    newMessage2.messageContents = [NSString stringWithFormat:@"%@", @"Do you have enough water?"];
     newMessage2.messageReceived = [NSNumber numberWithBool:TRUE];
     newMessage2.messageDate = [NSDate date];
     newMessage2.messageFromContacts = newContact;
@@ -118,7 +119,7 @@
     
     //create new sample message
     Messages *newMessage3 = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
-    newMessage3.messageContents = [NSString stringWithFormat:@"%@", @"secondfirst"];
+    newMessage3.messageContents = [NSString stringWithFormat:@"%@", @"Roger that. I will dispatch the antibiotics to you within an hour."];
     newMessage3.messageReceived = [NSNumber numberWithBool:TRUE];
     newMessage3.messageDate = [NSDate date];
     newMessage3.messageFromContacts = newContact;
@@ -127,7 +128,7 @@
         // Handle the error.
     }
     //end of sample message 2
-*/    
+    */
 
     
     

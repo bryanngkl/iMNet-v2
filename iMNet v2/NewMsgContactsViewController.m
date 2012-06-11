@@ -177,46 +177,15 @@
 }
 
 - (IBAction)contactDiscovery:(id)sender {
-    //send node discover AT command to xbee
-    
-    //initialise all contacts to unavailable
-    NSFetchRequest *fetchContacts = [[NSFetchRequest alloc] init];
-    NSEntityDescription *contactsEntity = [NSEntityDescription entityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
-    [fetchContacts setEntity:contactsEntity];
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"username" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-    [fetchContacts setSortDescriptors:sortDescriptors];
-    
-    NSError *error = nil;
-    NSMutableArray *fetchedResultArray = [[managedObjectContext executeFetchRequest:fetchContacts error:&error] mutableCopy];
-    
-    if ([fetchedResultArray count] > 0) {
-        for (int i =0; i<[fetchedResultArray count]; i++) {
-            [[fetchedResultArray objectAtIndex:i] setIsAvailable:[NSNumber numberWithBool:FALSE]];
-        }
-        
-        NSError *error1 = nil;
-        if (![managedObjectContext save:&error1]) {
-            // Handle the error.
-        }
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	HUD.delegate = self;
+	HUD.labelText = @"Updating";
+    HUD.dimBackground = YES;
+	
+	[HUD showWhileExecuting:@selector(contactDiscoveryTask) onTarget:self withObject:nil animated:YES];
     }
-    
-    [self.tableView reloadData];
-    
-    XbeeTx *XbeeObj = [XbeeTx new];
-    [XbeeObj ATCommand:@"ND" withFrameID:FrameID];   //set up ATCommand for node discover
-    
-    NSArray *sendPacket = [XbeeObj txPacket];
-    for ( int i = 0; i< (int)[sendPacket count]; i++ ) {
-        txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue]; 
-    }
-    int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
-    FrameID = FrameID + 1;  //increment FrameID
-    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
-        FrameID = 1;
-    }
-}
 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -274,4 +243,58 @@
     }
 }
 
+
+#pragma mark HUD PROGRESS BAR
+
+- (void)contactDiscoveryTask{
+    //send node discover AT command to xbee
+    
+    //initialise all contacts to unavailable
+    NSFetchRequest *fetchContacts = [[NSFetchRequest alloc] init];
+    NSEntityDescription *contactsEntity = [NSEntityDescription entityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+    [fetchContacts setEntity:contactsEntity];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"username" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    [fetchContacts setSortDescriptors:sortDescriptors];
+    
+    NSError *error = nil;
+    NSMutableArray *fetchedResultArray = [[managedObjectContext executeFetchRequest:fetchContacts error:&error] mutableCopy];
+    
+    if ([fetchedResultArray count] > 0) {
+        for (int i =0; i<[fetchedResultArray count]; i++) {
+            [[fetchedResultArray objectAtIndex:i] setIsAvailable:[NSNumber numberWithBool:FALSE]];
+        }
+        
+        NSError *error1 = nil;
+        if (![managedObjectContext save:&error1]) {
+            // Handle the error.
+        }
+    }
+    
+    [self.tableView reloadData];
+    
+    XbeeTx *XbeeObj = [XbeeTx new];
+    [XbeeObj ATCommand:@"ND" withFrameID:FrameID];   //set up ATCommand for node discover
+    
+    NSArray *sendPacket = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacket count]; i++ ) {
+        txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue]; 
+    }
+    int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+    sleep(10);
+    [self.tableView reloadData];
+    
+}
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	HUD = nil;
+}
 @end

@@ -14,7 +14,9 @@
 
 #import "MessageLogViewController.h"
 
-@interface NewMsgContactsViewController : UITableViewController{
+#import "MBProgressHUD.h"
+
+@interface NewMsgContactsViewController : UITableViewController<MBProgressHUDDelegate>{
 
     RscMgr *rscMgr;
     int FrameID;
@@ -24,11 +26,15 @@
     NSManagedObjectContext *managedObjectContext;   
 
     NSMutableArray *fetchedContactsArray;
+    
+    MBProgressHUD *HUD;
     }
 
 - (void)contactTableUpdate:(NSNotification *)notification;
 
 - (IBAction)contactDiscovery:(id)sender;
+
+- (void)contactDiscoveryTask;
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) RscMgr *rscMgr;

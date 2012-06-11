@@ -1039,12 +1039,25 @@
             OwnSettings *fetchedSL = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
             if (fetchedSH && fetchedSL) {
                 nextViewController.macAddress = [NSString stringWithFormat:@"%@%@", [fetchedSH atSetting], [fetchedSL atSetting]];    
-            } 
+            }
+            
+            //Fetch organisation
+            NSPredicate *predicateOrg = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserOrg"];
+            [fetchOwnSettings setPredicate:predicateOrg];
+            
+            error = nil;
+            OwnSettings *fetchedOrg = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+            
+            if (fetchedOrg) {
+                nextViewController.organisation = [fetchedOrg atSetting];
+            }
+
         }
         
         else {
             nextViewController.ownpintapped = @"NO";
             nextViewController.macAddress = @"notPerson";
+            nextViewController.organisation =@"?l";
         }
         
         if ([(NSArray*)currentlyTappedMarker.data objectAtIndex:1] == @"Person"){
@@ -1061,6 +1074,7 @@
                     if (eachlocation.locationContact != NULL) { //a person marker
                         if (eachlocation.locationContact.address64 = [(NSArray*)currentlyTappedMarker.data objectAtIndex:2]){
                             nextViewController.macAddress = eachlocation.locationContact.address64;
+                            nextViewController.organisation = eachlocation.locationContact.userOrg;
                             NSLog(@"The mac address sent is %@",eachlocation.locationContact.address64);
                         }
                     }

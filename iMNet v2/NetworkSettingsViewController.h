@@ -12,8 +12,10 @@
 #import "XbeeTx.h"
 #define BUFFER_LEN 1024
 
+#import "MBProgressHUD.h"
 
-@interface NetworkSettingsViewController : UITableViewController{
+
+@interface NetworkSettingsViewController : UITableViewController<MBProgressHUDDelegate>{
 
     RscMgr *rscMgr;
     int FrameID;
@@ -27,11 +29,16 @@
     IBOutlet UILabel *DeviceTypeLabel;
     IBOutlet UILabel *NetworkAddressLabel;
     IBOutlet UILabel *MACAddressLabel;
+    
+    MBProgressHUD *HUD;
 }
 
 - (void)optionsTableUpdate:(NSNotification *)notification;
 - (IBAction)updateNetworkDetails:(id)sender;
 - (IBAction)backButton:(id)sender;
+
+- (void)updateNetworkDetailsTask;
+- (void)ChangeNetworkIDTask:(NSString *)infoEntered;
 
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  

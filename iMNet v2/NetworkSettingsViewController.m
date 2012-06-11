@@ -385,9 +385,127 @@
 }
 
 - (IBAction)updateNetworkDetails:(id)sender {
-   // [[NSNotificationCenter defaultCenter] postNotificationName:@"messageReceived" object:self];
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	HUD.delegate = self;
+	HUD.labelText = @"Loading";
+    HUD.dimBackground = YES;
+	
+	[HUD showWhileExecuting:@selector(updateNetworkDetailsTask) onTarget:self withObject:nil animated:YES];
+  }
 
+- (IBAction)backButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView*)alertView{
+    UITextField *textField = [alertView textFieldAtIndex:0];
+    if (alertView.tag==1) {
+        if (([textField.text length] >= 3)&&([textField.text length] <=8)) {
+            return YES;
+        }
+        else {
+            return NO;
+        }
+    }
+    else{
+        return NO;
+    }
+}   
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     
+    if (alertView.tag==1) {
+        switch (buttonIndex) {
+            case 0:
+                break;
+            case 1:{
+                HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+                [self.navigationController.view addSubview:HUD];
+                
+                HUD.delegate = self;
+                HUD.labelText = @"Loading";
+                HUD.dimBackground = YES;
+                
+                NSString *infoEntered = [[alertView textFieldAtIndex:0] text];
+                
+                [HUD showWhileExecuting:@selector(ChangeNetworkIDTask:) onTarget:self withObject:infoEntered animated:YES];
+                
+                /*
+                [self updateNetworkDetailsTask];
+                sleep(2);
+                [self updateNetworkDetailsTask];
+                
+                
+                XbeeTx *XbeeObj = [XbeeTx new];
+                //set up ATCommand for 16 bit network address
+                [XbeeObj ATCommand:@"MY" withFrameID:FrameID];
+                NSArray *sendPacketMY = [XbeeObj txPacket];
+                for ( int i = 0; i< (int)[sendPacketMY count]; i++ ) {
+                    txBuffer[i] = [[sendPacketMY objectAtIndex:i] unsignedIntValue]; 
+                }
+                int bytesWritten = [rscMgr write:txBuffer Length:[sendPacketMY count]];
+                FrameID = FrameID + 1;  //increment FrameID
+                if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+                    FrameID = 1;
+                }
+                
+                //set up ATCommand for finding operating channel
+                [XbeeObj ATCommand:@"CH" withFrameID:FrameID];
+                NSArray *sendPacketCH = [XbeeObj txPacket];
+                for ( int i = 0; i< (int)[sendPacketCH count]; i++ ) {
+                    txBuffer[i] = [[sendPacketCH objectAtIndex:i] unsignedIntValue]; 
+                }
+                bytesWritten = [rscMgr write:txBuffer Length:[sendPacketCH count]];
+                FrameID = FrameID + 1;  //increment FrameID
+                if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+                    FrameID = 1;
+                }
+                
+                sleep(2);
+                
+                //set up ATCommand for 16 bit network address
+                [XbeeObj ATCommand:@"MY" withFrameID:FrameID];
+                sendPacketMY = [XbeeObj txPacket];
+                for ( int i = 0; i< (int)[sendPacketMY count]; i++ ) {
+                    txBuffer[i] = [[sendPacketMY objectAtIndex:i] unsignedIntValue]; 
+                }
+                bytesWritten = [rscMgr write:txBuffer Length:[sendPacketMY count]];
+                FrameID = FrameID + 1;  //increment FrameID
+                if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+                    FrameID = 1;
+                }
+                
+                //set up ATCommand for finding operating channel
+                [XbeeObj ATCommand:@"CH" withFrameID:FrameID];
+                sendPacketCH = [XbeeObj txPacket];
+                for ( int i = 0; i< (int)[sendPacketCH count]; i++ ) {
+                    txBuffer[i] = [[sendPacketCH objectAtIndex:i] unsignedIntValue]; 
+                }
+                bytesWritten = [rscMgr write:txBuffer Length:[sendPacketCH count]];
+                FrameID = FrameID + 1;  //increment FrameID
+                if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+                    FrameID = 1;
+                }
+                */
+                
+                break; }   
+            default:
+                break;
+        }
+        
+    }
+}
+
+#pragma mark HUD progress bar
+
+- (void) updateNetworkDetailsTask{
+    // [[NSNotificationCenter defaultCenter] postNotificationName:@"messageReceived" object:self];
+    
+    sleep(0.5);
+
     XbeeTx *XbeeObj = [XbeeTx new];
     [XbeeObj ATCommand:@"ID" withFrameID:FrameID];
     NSArray *sendPacket = [XbeeObj txPacket];
@@ -459,110 +577,145 @@
     if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
         FrameID = 1;
     }
+    
+    sleep(1);
+
 }
 
-- (IBAction)backButton:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
-- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView*)alertView{
-    UITextField *textField = [alertView textFieldAtIndex:0];
-    if (alertView.tag==1) {
-        if (([textField.text length] >= 3)&&([textField.text length] <=8)) {
-            return YES;
-        }
-        else {
-            return NO;
+- (void) ChangeNetworkIDTask:(NSString *)infoEntered{
+    
+    XbeeTx *XbeeObj = [XbeeTx new];
+    //set up ATCommand for PAN ID
+    [XbeeObj ATCommandSetString:@"ID" withParameter:infoEntered withFrameID:FrameID];
+    NSArray *sendPacket = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacket count]; i++ ) {
+        txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue]; 
+    }
+    int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+    sleep(0.5);
+    
+    //scan channels
+    [XbeeObj ATCommandSetNumber:@"SC" withParameter:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithUnsignedInt:127],[NSNumber numberWithUnsignedInt:255], nil] withFrameID:FrameID];
+    NSArray *sendPacketSC = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacketSC count]; i++ ) {
+        txBuffer[i] = [[sendPacketSC objectAtIndex:i] unsignedIntValue]; 
+    }
+    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketSC count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+    sleep(6);
+    
+    [XbeeObj ATCommand:@"WR" withFrameID:FrameID];
+    NSArray *sendPacketWR = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacketWR count]; i++ ) {
+        txBuffer[i] = [[sendPacketWR objectAtIndex:i] unsignedIntValue]; 
+    }
+    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketWR count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+    sleep(1);
+    
+    NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
+    NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
+    [fetchOwnSettings setEntity:ownSettingsEntity];
+    
+    NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"atCommand == %@",@"ID"];
+    [fetchOwnSettings setPredicate:predicateID];
+    
+    NSError *error = nil;
+    OwnSettings *fetchedID = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+    
+    if (fetchedID) {
+        //This method creates a new setting.
+        fetchedID.atSetting = infoEntered;
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
         }
     }
     else{
-        return NO;
-    }
-}   
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    
-    if (alertView.tag==1) {
-        switch (buttonIndex) {
-            case 0:
-                break;
-            case 1:{
-                NSString *infoEntered = [[alertView textFieldAtIndex:0] text];
-                
-                XbeeTx *XbeeObj = [XbeeTx new];
-                //set up ATCommand for PAN ID
-                [XbeeObj ATCommandSetString:@"ID" withParameter:infoEntered withFrameID:FrameID];
-                NSArray *sendPacket = [XbeeObj txPacket];
-                for ( int i = 0; i< (int)[sendPacket count]; i++ ) {
-                    txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue]; 
-                }
-                int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
-                FrameID = FrameID + 1;  //increment FrameID
-                if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
-                    FrameID = 1;
-                }
-                
-                
-                //scan channels
-                [XbeeObj ATCommandSetNumber:@"SC" withParameter:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithUnsignedInt:127],[NSNumber numberWithUnsignedInt:255], nil] withFrameID:FrameID];
-                NSArray *sendPacketSC = [XbeeObj txPacket];
-                for ( int i = 0; i< (int)[sendPacketSC count]; i++ ) {
-                    txBuffer[i] = [[sendPacketSC objectAtIndex:i] unsignedIntValue]; 
-                }
-                bytesWritten = [rscMgr write:txBuffer Length:[sendPacketSC count]];
-                FrameID = FrameID + 1;  //increment FrameID
-                if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
-                    FrameID = 1;
-                }
-                
-                [XbeeObj ATCommand:@"WR" withFrameID:FrameID];
-                NSArray *sendPacketWR = [XbeeObj txPacket];
-                for ( int i = 0; i< (int)[sendPacketWR count]; i++ ) {
-                    txBuffer[i] = [[sendPacketWR objectAtIndex:i] unsignedIntValue]; 
-                }
-                bytesWritten = [rscMgr write:txBuffer Length:[sendPacketWR count]];
-                FrameID = FrameID + 1;  //increment FrameID
-                if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
-                    FrameID = 1;
-                }
-                
-                NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
-                NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
-                [fetchOwnSettings setEntity:ownSettingsEntity];
-                
-                NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"atCommand == %@",@"ID"];
-                [fetchOwnSettings setPredicate:predicateID];
-                
-                NSError *error = nil;
-                OwnSettings *fetchedID = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
-                
-                if (fetchedID) {
-                    //This method creates a new setting.
-                    fetchedID.atSetting = infoEntered;
-                    NSError *error = nil;
-                    if (![managedObjectContext save:&error]) {
-                        // Handle the error.
-                    }
-                }
-                else{
-                    OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
-                    
-                    [newSettings setAtCommand:@"ID"];
-                    [newSettings setAtSetting:infoEntered];
-                    NSError *error = nil;
-                    if (![managedObjectContext save:&error]) {
-                        // Handle the error.
-                    }
-                }
-                
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"optionsTableUpdate" object:self];
-                
-                break; }   
-            default:
-                break;
-        }
+        OwnSettings *newSettings = (OwnSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
         
+        [newSettings setAtCommand:@"ID"];
+        [newSettings setAtSetting:infoEntered];
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            // Handle the error.
+        }
     }
+    
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"optionsTableUpdate" object:self];
+    
+    sleep(2);
+    
+    //set up ATCommand for 16 bit network address
+    [XbeeObj ATCommand:@"MY" withFrameID:FrameID];
+    NSArray *sendPacketMY = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacketMY count]; i++ ) {
+        txBuffer[i] = [[sendPacketMY objectAtIndex:i] unsignedIntValue]; 
+    }
+    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketMY count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+    //set up ATCommand for finding operating channel
+    [XbeeObj ATCommand:@"CH" withFrameID:FrameID];
+    NSArray *sendPacketCH = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacketCH count]; i++ ) {
+        txBuffer[i] = [[sendPacketCH objectAtIndex:i] unsignedIntValue]; 
+    }
+    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketCH count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+    
+    sleep(2);    
+    
+    //set up ATCommand for 16 bit network address
+    for ( int i = 0; i< (int)[sendPacketMY count]; i++ ) {
+        txBuffer[i] = [[sendPacketMY objectAtIndex:i] unsignedIntValue]; 
+    }
+    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketMY count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+    //set up ATCommand for finding operating channel
+    for ( int i = 0; i< (int)[sendPacketCH count]; i++ ) {
+        txBuffer[i] = [[sendPacketCH objectAtIndex:i] unsignedIntValue]; 
+    }
+    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketCH count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+    
+    
+    sleep(2);    
+
+
+}
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	HUD = nil;
 }
 @end

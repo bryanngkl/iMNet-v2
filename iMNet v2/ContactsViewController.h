@@ -12,10 +12,12 @@
 #import "RscMgr.h"
 #import "XbeeTx.h"
 
+#import "MBProgressHUD.h"
+
 #define BUFFER_LEN 1024
 
 
-@interface ContactsViewController : UITableViewController{
+@interface ContactsViewController : UITableViewController<MBProgressHUDDelegate>{
 
     //redpark instance variables
     RscMgr *rscMgr;
@@ -26,11 +28,15 @@
     NSManagedObjectContext *managedObjectContext;   
     
     NSMutableArray *fetchedContactsArray;
+    
+    MBProgressHUD *HUD;
 }
 
 - (void)contactTableUpdate:(NSNotification *)notification;
 
 - (IBAction)contactDiscovery:(id)sender;
+
+- (void)contactDiscoveryTask;
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) RscMgr *rscMgr;

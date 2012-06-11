@@ -32,6 +32,15 @@
 		9318A32F1575B401000E877A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9318A32E1575B400000E877A /* SettingsViewController.m */; };
 		931A54B01582D3C60008C559 /* IphoneNavigationButton_Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 931A54AF1582D3C60008C559 /* IphoneNavigationButton_Back.png */; };
 		931A54BA1582D9130008C559 /* ManualConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 931A54B91582D9130008C559 /* ManualConfigViewController.m */; };
+		931A54F215836CF70008C559 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 931A54F115836CF70008C559 /* MBProgressHUD.m */; };
+		931A54F915836D120008C559 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 931A54F315836D120008C559 /* 37x-Checkmark.png */; };
+		931A54FA15836D120008C559 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931A54F415836D120008C559 /* 37x-Checkmark@2x.png */; };
+		931A54FB15836D120008C559 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 931A54F515836D120008C559 /* Default.png */; };
+		931A54FC15836D120008C559 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931A54F615836D120008C559 /* Default@2x.png */; };
+		931A54FD15836D120008C559 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 931A54F715836D120008C559 /* Icon.png */; };
+		931A54FE15836D120008C559 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931A54F815836D120008C559 /* Icon@2x.png */; };
+		931A54FF1583717E0008C559 /* MBProgressHUD.h in Sources */ = {isa = PBXBuildFile; fileRef = 931A54F015836CF70008C559 /* MBProgressHUD.h */; };
+		931A55001583717E0008C559 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 931A54F115836CF70008C559 /* MBProgressHUD.m */; };
 		9356E2D715792D9100756ED2 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 9356E2D515792D9100756ED2 /* green.png */; };
 		9356E2D815792D9100756ED2 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 9356E2D615792D9100756ED2 /* grey.png */; };
 		9356E2E11579420700756ED2 /* MessageLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356E2E01579420700756ED2 /* MessageLogViewController.m */; };
@@ -157,6 +166,14 @@
 		931A54AF1582D3C60008C559 /* IphoneNavigationButton_Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IphoneNavigationButton_Back.png; sourceTree = "<group>"; };
 		931A54B81582D9130008C559 /* ManualConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManualConfigViewController.h; path = ../ManualConfigViewController.h; sourceTree = "<group>"; };
 		931A54B91582D9130008C559 /* ManualConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManualConfigViewController.m; path = ../ManualConfigViewController.m; sourceTree = "<group>"; };
+		931A54F015836CF70008C559 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		931A54F115836CF70008C559 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		931A54F315836D120008C559 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
+		931A54F415836D120008C559 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
+		931A54F515836D120008C559 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		931A54F615836D120008C559 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		931A54F715836D120008C559 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		931A54F815836D120008C559 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		9356E2D515792D9100756ED2 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
 		9356E2D615792D9100756ED2 /* grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey.png; sourceTree = "<group>"; };
 		9356E2DF1579420700756ED2 /* MessageLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageLogViewController.h; sourceTree = "<group>"; };
@@ -316,6 +333,7 @@
 				9F100E411577E513008E3015 /* CoreData.framework */,
 				9302F3081577E36E00DA6648 /* Data Classes */,
 				9F03C9E01576158500554DCE /* MapView.xcodeproj */,
+				931A54EF15836CC10008C559 /* HUD */,
 				9301FB481575BA6000D20688 /* icons */,
 				9F4F7D3715761A2E0040496D /* Map */,
 				93E7171B15759F650089A3D8 /* View Controllers */,
@@ -389,6 +407,22 @@
 				930F07661575962100F39890 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		931A54EF15836CC10008C559 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				931A54F015836CF70008C559 /* MBProgressHUD.h */,
+				931A54F115836CF70008C559 /* MBProgressHUD.m */,
+				931A54F315836D120008C559 /* 37x-Checkmark.png */,
+				931A54F415836D120008C559 /* 37x-Checkmark@2x.png */,
+				931A54F515836D120008C559 /* Default.png */,
+				931A54F615836D120008C559 /* Default@2x.png */,
+				931A54F715836D120008C559 /* Icon.png */,
+				931A54F815836D120008C559 /* Icon@2x.png */,
+			);
+			name = HUD;
+			path = "iMNet v2/icons";
 			sourceTree = "<group>";
 		};
 		9356E2F4157ACE0F00756ED2 /* redpark */ = {
@@ -617,6 +651,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				930F07681575962100F39890 /* InfoPlist.strings in Resources */,
+				931A54F915836D120008C559 /* 37x-Checkmark.png in Resources */,
+				931A54FA15836D120008C559 /* 37x-Checkmark@2x.png in Resources */,
+				931A54FB15836D120008C559 /* Default.png in Resources */,
+				931A54FC15836D120008C559 /* Default@2x.png in Resources */,
+				931A54FD15836D120008C559 /* Icon.png in Resources */,
+				931A54FE15836D120008C559 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,6 +683,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				931A54FF1583717E0008C559 /* MBProgressHUD.h in Sources */,
+				931A55001583717E0008C559 /* MBProgressHUD.m in Sources */,
 				930F073E1575962100F39890 /* main.m in Sources */,
 				930F07421575962100F39890 /* AppDelegate.m in Sources */,
 				93E7171E1575A0120089A3D8 /* MessageViewController.m in Sources */,
@@ -659,13 +701,13 @@
 				9302F3061577E36300DA6648 /* Images.m in Sources */,
 				9302F30F1577E39800DA6648 /* Location.m in Sources */,
 				9302F3101577E39800DA6648 /* Messages.m in Sources */,
+				93B13B3C157AE4FE006F5BA4 /* XbeeTx.m in Sources */,
 				9302F3111577E39800DA6648 /* OwnSettings.m in Sources */,
 				9302F3141577E3A700DA6648 /* iMNetData.xcdatamodeld in Sources */,
 				9F2442821577EBDD001D3876 /* Contacts.m in Sources */,
 				9356E2E11579420700756ED2 /* MessageLogViewController.m in Sources */,
 				93B13B3A157AE4FE006F5BA4 /* hexConvert.m in Sources */,
 				93B13B3B157AE4FE006F5BA4 /* XbeeRx.m in Sources */,
-				93B13B3C157AE4FE006F5BA4 /* XbeeTx.m in Sources */,
 				938C43DD157F4569008508DB /* NetworkSettingsViewController.m in Sources */,
 				93BD91371580152500CC8F75 /* NewMsgContactsViewController.m in Sources */,
 				93BD91941580EC3000CC8F75 /* SendLocationContactsViewController.m in Sources */,
@@ -679,6 +721,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				930F076B1575962100F39890 /* iMNet_v2Tests.m in Sources */,
+				931A54F215836CF70008C559 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

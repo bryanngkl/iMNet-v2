@@ -31,6 +31,7 @@
     NSManagedObjectContext *managedObjectContext; 
     NSString *ownpintapped; 
     NSString * macAddress;
+    NSString *organisation;
     
 }
 - (IBAction)Back:(id)sender;
@@ -38,12 +39,13 @@
 @property (nonatomic,retain) IBOutlet UITextField *title;
 @property (nonatomic,retain) IBOutlet UITextView *description;
 @property (nonatomic, retain) IBOutlet UILabel *coordinates;
+@property (strong, nonatomic) IBOutlet UILabel *orglabel;
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext; 
 @property (nonatomic,retain) RscMgr *rscMgr;
 @property (nonatomic,retain) NSString *ownpintapped;
 @property (nonatomic,retain) NSString * macAddress;
-
+@property (nonatomic,retain) NSString *organisation;
 
 @property (nonatomic, unsafe_unretained) id<AddPinInfoViewControllerDelegate> delegate;
 

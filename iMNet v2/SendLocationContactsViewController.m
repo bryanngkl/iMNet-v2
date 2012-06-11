@@ -162,6 +162,54 @@
 }
 
 - (IBAction)contactDiscovery:(id)sender {
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	HUD.delegate = self;
+	HUD.labelText = @"Updating";
+    HUD.dimBackground = YES;
+	
+	[HUD showWhileExecuting:@selector(contactDiscoveryTask) onTarget:self withObject:nil animated:YES];
+    
+    }
+
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Navigation logic may go here. Create and push another view controller.
+    /*
+     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+     [self.navigationController pushViewController:detailViewController animated:YES];
+     */
+    
+    Contacts *destContact = [fetchedContactsArray objectAtIndex:indexPath.row];
+    
+    XbeeTx *XbeeObj = [XbeeTx alloc];
+    
+    [XbeeObj TxMessage:stringToSend ofSize:0 andMessageType:3 withStartID:FrameID withFrameID:FrameID withPacketFrameId:FrameID withDestNode64:[[hexConvert alloc] convertStringToArray:[destContact address64]] withDestNetworkAddr16:[[hexConvert alloc] convertStringToArray:[destContact address16]]];
+    
+    NSArray *sendPacket = [XbeeObj txPacket];    
+    for ( int i = 0; i < (int)[sendPacket count]; i++ ) {
+        txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue];
+    }
+    int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
+    
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }  
+    [self.navigationController popViewControllerAnimated:YES];
+
+    
+    
+}
+#pragma mark HUD PROGRESS BAR
+
+- (void)contactDiscoveryTask{
     //send node discover AT command to xbee
     
     //initialise all contacts to unavailable
@@ -201,41 +249,15 @@
     if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
         FrameID = 1;
     }
+    sleep(10);
+    [self.tableView reloadData];
+    
 }
 
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-    
-    Contacts *destContact = [fetchedContactsArray objectAtIndex:indexPath.row];
-    
-    XbeeTx *XbeeObj = [XbeeTx alloc];
-    
-    [XbeeObj TxMessage:stringToSend ofSize:0 andMessageType:3 withStartID:FrameID withFrameID:FrameID withPacketFrameId:FrameID withDestNode64:[[hexConvert alloc] convertStringToArray:[destContact address64]] withDestNetworkAddr16:[[hexConvert alloc] convertStringToArray:[destContact address16]]];
-    
-    NSArray *sendPacket = [XbeeObj txPacket];    
-    for ( int i = 0; i < (int)[sendPacket count]; i++ ) {
-        txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue];
-    }
-    int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
-    
-    FrameID = FrameID + 1;  //increment FrameID
-    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
-        FrameID = 1;
-    }  
-    [self.navigationController popViewControllerAnimated:YES];
-
-    
-    
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	HUD = nil;
 }
 
 @end

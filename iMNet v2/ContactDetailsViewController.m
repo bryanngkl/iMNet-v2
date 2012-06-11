@@ -7,6 +7,7 @@
 //
 
 #import "ContactDetailsViewController.h"
+#import <unistd.h>
 
 
 @implementation ContactDetailsViewController
@@ -193,7 +194,7 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
-- (void)contactTableUpdate:(NSNotification *)notification{
+- (void)contactDetailUpdate:(NSNotification *)notification{
     NSFetchRequest *fetchContacts = [[NSFetchRequest alloc] init];
     NSEntityDescription *contactsEntity = [NSEntityDescription entityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
     [fetchContacts setEntity:contactsEntity];
@@ -233,23 +234,15 @@ else {
 
 
 - (IBAction)requestUserInfo:(id)sender {
-    //send message to xbee
-    //create tx packet
-    XbeeTx *XbeeObj = [XbeeTx new];
-    [XbeeObj TxMessage:@"$+$+" ofSize:0 andMessageType:4 withStartID:FrameID withFrameID:FrameID withPacketFrameId:FrameID withDestNode64:[[hexConvert alloc] convertStringToArray:[currentContact address64]] withDestNetworkAddr16:[[hexConvert alloc] convertStringToArray:[currentContact address16]]];
-    
-    NSArray *sendPacket = [XbeeObj txPacket];    
-    for ( int i = 0; i < (int)[sendPacket count]; i++ ) {
-        txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue];
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	HUD.delegate = self;
+	HUD.labelText = @"Loading";
+    HUD.dimBackground = YES;
+	
+	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
     }
-    int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
-    
-    FrameID = FrameID + 1;  //increment FrameID
-    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
-        FrameID = 1;
-    }   
-
-}
 
 #pragma mark Segues
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -272,5 +265,32 @@ else {
     obj.location = [[currentContact contactLocation] locationLatitude];
     //load the map tab
     [self.tabBarController setSelectedIndex:3];
+}
+
+
+- (void)myTask {
+	// Do something usefull in here instead of sleeping ...
+    //send message to xbee
+    //create tx packet
+    XbeeTx *XbeeObj = [XbeeTx new];
+    [XbeeObj TxMessage:@"$+$+" ofSize:0 andMessageType:4 withStartID:FrameID withFrameID:FrameID withPacketFrameId:FrameID withDestNode64:[[hexConvert alloc] convertStringToArray:[currentContact address64]] withDestNetworkAddr16:[[hexConvert alloc] convertStringToArray:[currentContact address16]]];
+    
+    NSArray *sendPacket = [XbeeObj txPacket];    
+    for ( int i = 0; i < (int)[sendPacket count]; i++ ) {
+        txBuffer[i] = [[sendPacket objectAtIndex:i] unsignedIntValue];
+    }
+    int bytesWritten = [rscMgr write:txBuffer Length:[sendPacket count]];
+    
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }   
+    sleep(3);
+}
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	HUD = nil;
 }
 @end

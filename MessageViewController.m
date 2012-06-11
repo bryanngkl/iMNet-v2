@@ -621,10 +621,34 @@
                  userdatatemp = [NSString stringWithFormat:@"%@", [fetchedData atSetting]];
                  }
                  
+                     NSString * userlocationtemp = [[NSString alloc] initWithString:@""];
+                /*---------GET OWN LOCATION--------*/
+                
+                     NSPredicate *predicateUserLocation = [NSPredicate predicateWithFormat:@"atCommand == %@",@"UserLocation"];
+                     [fetchOwnSettings setPredicate:predicateUserLocation];
+                     
+                     error = nil;
+                     OwnSettings *fetchedUserLocation = [[managedObjectContext executeFetchRequest:fetchOwnSettings error:&error] lastObject];
+                     
+                     if (fetchedUserLocation) {
+                         //This method creates a new setting.
+                         userlocationtemp = [NSString stringWithFormat:@"%@", [fetchedUserLocation atSetting]];
+                         NSLog(@"self location to be sent %@", userlocationtemp);
+                         NSError *error = nil;
+                         if (![managedObjectContext save:&error]) {
+                             // Handle the error.
+                         }
+                     }
+                     else{
+                        userlocationtemp = @"!NA";
+                     }
+                     
+                /*---------------------------------*/     
+                     
                  //pack string into appropriate form
-                 NSString *txMessage = [[NSString alloc] initWithFormat:@"%@%@%@", organisationtemp, @"+++",userdatatemp];
+                 NSString *txMessage = [[NSString alloc] initWithFormat:@"%@%@%@%@%@", organisationtemp, @"+++",userdatatemp, @"+++", userlocationtemp];
                  XbeeTx *XbeeTxObj = [XbeeTx new];
-                 //send information on organisation and personal data
+                 //send information on organisation and personal data and location
                  [XbeeTxObj TxMessage:txMessage ofSize:0 andMessageType:4 withStartID:FrameID withFrameID:FrameID withPacketFrameId:FrameID withDestNode64:[[hexConvert alloc] convertStringToArray:[XbeeRxObj sourceAddr64HexString]] withDestNetworkAddr16:[[hexConvert alloc] convertStringToArray:[XbeeRxObj sourceAddr16HexString]]];
                  NSArray *sendPacket = [XbeeTxObj txPacket];
                  for ( int i = 0; i< (int)[sendPacket count]; i++ ) {
@@ -654,6 +678,21 @@
                  if (fetchedResult1) {
                  fetchedResult.userOrg = [receivedUserData objectAtIndex:0];
                  fetchedResult.userData = [receivedUserData objectAtIndex:1];
+                 
+                     if (![[receivedUserData objectAtIndex:2] isEqualToString:@"!NA"]){
+                     if (fetchedResult.contactLocation != NULL) {
+                         fetchedResult.contactLocation.locationLatitude = [receivedUserData objectAtIndex:2];
+                     }
+                     else {
+                         //create new Location
+                         Location *newLocation = (Location *) [NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:managedObjectContext];
+                         newLocation.locationTitle = fetchedResult.username;
+                         newLocation.locationDescription = fetchedResult.userData;
+                         newLocation.locationLatitude = [receivedUserData objectAtIndex:2];
+                         newLocation.locationContact = fetchedResult;
+                     }
+                     }
+                     
                  }
                      
                 error = nil;
@@ -697,7 +736,8 @@
                     NSString *description = [receivedstrings objectAtIndex:1];
                     NSString *location = [receivedstrings objectAtIndex:2];
                     NSString *tag = [receivedstrings objectAtIndex:3];
-                    NSLog(@"The received information are title = %@ with description = %@ and location = %@ and tag = %@", title, description, location,tag);
+                    NSString *organisation = [receivedstrings objectAtIndex:4];
+                    NSLog(@"The received information are title = %@ with description = %@ and location = %@ and tag = %@ and organisation = %@", title, description, location,tag,organisation);
                     
                     //USING CORE DATA
                     NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
@@ -716,7 +756,6 @@
                         newLocation.locationTitle = title;
                         newLocation.locationDescription = description;
                         newLocation.locationLatitude = location;
-                        // newLocation.locationLongitude = NULL;
                         
                         if (![tag isEqualToString:@"notPerson"]){
                         //use mac address to find the contact and link the contact to the location
@@ -732,13 +771,16 @@
                                 newContact.address16 = @"FFFE";
                                 newContact.address64 = tag;
                                 newContact.userData = description;
-                                newContact.username = @"Unknown";
+                                newContact.username = title;
                                 newContact.isAvailable = [NSNumber numberWithBool:FALSE];
                                 newContact.contactLocation = newLocation;
+                                newContact.userOrg = organisation;
                         }
                             else {
                                 fetchedLocateContact.contactLocation = newLocation;
                                 fetchedLocateContact.userData = description;
+                                fetchedLocateContact.userOrg = organisation;
+                                fetchedLocateContact.username = title;
                         }
                             NSError *error = nil;
                         if (![managedObjectContext save:&error]) {
@@ -772,14 +814,17 @@
                                 Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
                                 newContact.address16 = @"FFFE";
                                 newContact.address64 = tag;
-                                newContact.username = @"Unknown";
+                                newContact.username = title;
                                 newContact.userData = description;
                                 newContact.isAvailable = [NSNumber numberWithBool:FALSE];
                                 newContact.contactLocation = fetchedResult;
+                                newContact.userOrg = organisation;
                             }
                             else {
                                 fetchedLocateContact.contactLocation = fetchedResult;
                                 fetchedLocateContact.userData = description;
+                                fetchedLocateContact.userOrg = organisation;
+                                fetchedLocateContact.username = title;
                             }
                             NSError *error = nil;
                             if (![managedObjectContext save:&error]) {

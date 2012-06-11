@@ -11,10 +11,11 @@
 
 @implementation AddPinInfoViewController
 @synthesize coordinates;
+@synthesize orglabel;
 @synthesize title,description,managedObjectContext;
 @synthesize delegate = _delegate;
 @synthesize rscMgr;
-@synthesize ownpintapped, macAddress;
+@synthesize ownpintapped, macAddress,organisation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,6 +63,14 @@
     coordinates.text = [coordinates.text stringByAppendingString:obj.location];
     description.delegate = self;
     
+    //Set Organisation
+    if ([organisation isEqualToString:@"?l"]) {
+        orglabel.text = @"Location";
+    }
+    else {
+        orglabel.text = organisation;
+    }
+    
     [super viewDidLoad];
 }
 
@@ -70,6 +79,8 @@
 - (void)viewDidUnload
 {
     [self setCoordinates:nil];
+    orglabel = nil;
+    [self setOrglabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -222,6 +233,8 @@
         [strtosend appendString:locationstr];
         [strtosend appendString:@"*"];
         [strtosend appendString:macAddress];
+        [strtosend appendString:@"*"];
+        [strtosend appendString:organisation];
         
         NSLog(@"This is the string to send: %@", strtosend);
         slcVC.stringToSend = strtosend;
