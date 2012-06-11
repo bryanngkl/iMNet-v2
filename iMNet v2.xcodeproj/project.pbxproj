@@ -11,8 +11,6 @@
 		9301FB4E1575BA6000D20688 /* MapViewIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9301FB4A1575BA6000D20688 /* MapViewIcon.png */; };
 		9301FB4F1575BA6000D20688 /* MessageIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9301FB4B1575BA6000D20688 /* MessageIcon.png */; };
 		9301FB501575BA6000D20688 /* SettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9301FB4C1575BA6000D20688 /* SettingsIcon.png */; };
-		9302F3061577E36300DA6648 /* Images.m in Sources */ = {isa = PBXBuildFile; fileRef = 9302F3041577E36300DA6648 /* Images.m */; };
-		9302F30F1577E39800DA6648 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 9302F30A1577E39800DA6648 /* Location.m */; };
 		9302F3101577E39800DA6648 /* Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = 9302F30C1577E39800DA6648 /* Messages.m */; };
 		9302F3111577E39800DA6648 /* OwnSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9302F30E1577E39800DA6648 /* OwnSettings.m */; };
 		9302F3141577E3A700DA6648 /* iMNetData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9302F3121577E3A700DA6648 /* iMNetData.xcdatamodeld */; };
@@ -41,6 +39,10 @@
 		931A54FE15836D120008C559 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931A54F815836D120008C559 /* Icon@2x.png */; };
 		931A54FF1583717E0008C559 /* MBProgressHUD.h in Sources */ = {isa = PBXBuildFile; fileRef = 931A54F015836CF70008C559 /* MBProgressHUD.h */; };
 		931A55001583717E0008C559 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 931A54F115836CF70008C559 /* MBProgressHUD.m */; };
+		934A3B2F15869E3B004A5BFA /* ContactImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 934A3B2E15869E3B004A5BFA /* ContactImageViewController.m */; };
+		9356A0AF1586434B00132AC3 /* Contacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356A0AE1586434B00132AC3 /* Contacts.m */; };
+		9356A0B2158643BF00132AC3 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356A0B1158643BF00132AC3 /* Location.m */; };
+		9356A0C51586443A00132AC3 /* Images.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356A0C41586443A00132AC3 /* Images.m */; };
 		9356E2D715792D9100756ED2 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 9356E2D515792D9100756ED2 /* green.png */; };
 		9356E2D815792D9100756ED2 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 9356E2D615792D9100756ED2 /* grey.png */; };
 		9356E2E11579420700756ED2 /* MessageLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356E2E01579420700756ED2 /* MessageLogViewController.m */; };
@@ -79,7 +81,6 @@
 		9F100E421577E513008E3015 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F100E411577E513008E3015 /* CoreData.framework */; };
 		9F20B46915767441004315B1 /* AddPinInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F20B46815767441004315B1 /* AddPinInfoViewController.m */; };
 		9F20B47E15768680004315B1 /* MapChoseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F20B47D15768680004315B1 /* MapChoseTableViewController.m */; };
-		9F2442821577EBDD001D3876 /* Contacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2442811577EBDD001D3876 /* Contacts.m */; };
 		9F4F7D4015761A780040496D /* control-room-0.2.0.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3815761A780040496D /* control-room-0.2.0.mbtiles */; };
 		9F4F7D4115761A780040496D /* geography-class_f9f8b8.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3915761A780040496D /* geography-class_f9f8b8.mbtiles */; };
 		9F4F7D4215761A780040496D /* ConvertLocationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3B15761A780040496D /* ConvertLocationData.m */; };
@@ -134,10 +135,6 @@
 		9301FB4A1575BA6000D20688 /* MapViewIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapViewIcon.png; sourceTree = "<group>"; };
 		9301FB4B1575BA6000D20688 /* MessageIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MessageIcon.png; sourceTree = "<group>"; };
 		9301FB4C1575BA6000D20688 /* SettingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsIcon.png; sourceTree = "<group>"; };
-		9302F3031577E36300DA6648 /* Images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Images.h; sourceTree = SOURCE_ROOT; };
-		9302F3041577E36300DA6648 /* Images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Images.m; sourceTree = SOURCE_ROOT; };
-		9302F3091577E39800DA6648 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
-		9302F30A1577E39800DA6648 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		9302F30B1577E39800DA6648 /* Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messages.h; sourceTree = "<group>"; };
 		9302F30C1577E39800DA6648 /* Messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Messages.m; sourceTree = "<group>"; };
 		9302F30D1577E39800DA6648 /* OwnSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnSettings.h; sourceTree = "<group>"; };
@@ -174,6 +171,14 @@
 		931A54F615836D120008C559 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		931A54F715836D120008C559 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		931A54F815836D120008C559 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		934A3B2D15869E3A004A5BFA /* ContactImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactImageViewController.h; sourceTree = "<group>"; };
+		934A3B2E15869E3B004A5BFA /* ContactImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactImageViewController.m; sourceTree = "<group>"; };
+		9356A0AD1586434B00132AC3 /* Contacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contacts.h; sourceTree = "<group>"; };
+		9356A0AE1586434B00132AC3 /* Contacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contacts.m; sourceTree = "<group>"; };
+		9356A0B0158643BF00132AC3 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		9356A0B1158643BF00132AC3 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		9356A0C31586443A00132AC3 /* Images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Images.h; sourceTree = "<group>"; };
+		9356A0C41586443A00132AC3 /* Images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Images.m; sourceTree = "<group>"; };
 		9356E2D515792D9100756ED2 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
 		9356E2D615792D9100756ED2 /* grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey.png; sourceTree = "<group>"; };
 		9356E2DF1579420700756ED2 /* MessageLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageLogViewController.h; sourceTree = "<group>"; };
@@ -228,8 +233,6 @@
 		9F20B46815767441004315B1 /* AddPinInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPinInfoViewController.m; sourceTree = "<group>"; };
 		9F20B47C15768680004315B1 /* MapChoseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapChoseTableViewController.h; sourceTree = "<group>"; };
 		9F20B47D15768680004315B1 /* MapChoseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapChoseTableViewController.m; sourceTree = "<group>"; };
-		9F2442801577EBDD001D3876 /* Contacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contacts.h; sourceTree = "<group>"; };
-		9F2442811577EBDD001D3876 /* Contacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contacts.m; sourceTree = "<group>"; };
 		9F4F7D3815761A780040496D /* control-room-0.2.0.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "control-room-0.2.0.mbtiles"; sourceTree = "<group>"; };
 		9F4F7D3915761A780040496D /* geography-class_f9f8b8.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "geography-class_f9f8b8.mbtiles"; sourceTree = "<group>"; };
 		9F4F7D3A15761A780040496D /* ConvertLocationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertLocationData.h; sourceTree = "<group>"; };
@@ -310,16 +313,16 @@
 			isa = PBXGroup;
 			children = (
 				9302F3121577E3A700DA6648 /* iMNetData.xcdatamodeld */,
-				9F2442801577EBDD001D3876 /* Contacts.h */,
-				9F2442811577EBDD001D3876 /* Contacts.m */,
-				9302F3091577E39800DA6648 /* Location.h */,
-				9302F30A1577E39800DA6648 /* Location.m */,
+				9356A0C31586443A00132AC3 /* Images.h */,
+				9356A0C41586443A00132AC3 /* Images.m */,
+				9356A0B0158643BF00132AC3 /* Location.h */,
+				9356A0B1158643BF00132AC3 /* Location.m */,
+				9356A0AD1586434B00132AC3 /* Contacts.h */,
+				9356A0AE1586434B00132AC3 /* Contacts.m */,
 				9302F30B1577E39800DA6648 /* Messages.h */,
 				9302F30C1577E39800DA6648 /* Messages.m */,
 				9302F30D1577E39800DA6648 /* OwnSettings.h */,
 				9302F30E1577E39800DA6648 /* OwnSettings.m */,
-				9302F3031577E36300DA6648 /* Images.h */,
-				9302F3041577E36300DA6648 /* Images.m */,
 			);
 			name = "Data Classes";
 			sourceTree = "<group>";
@@ -456,6 +459,8 @@
 				93E717201575A0D50089A3D8 /* ContactsViewController.m */,
 				93E717251575A8720089A3D8 /* ContactDetailsViewController.h */,
 				93E717261575A8720089A3D8 /* ContactDetailsViewController.m */,
+				934A3B2D15869E3A004A5BFA /* ContactImageViewController.h */,
+				934A3B2E15869E3B004A5BFA /* ContactImageViewController.m */,
 				93BD91351580152500CC8F75 /* NewMsgContactsViewController.h */,
 				93BD91361580152500CC8F75 /* NewMsgContactsViewController.m */,
 				93E7171C1575A0120089A3D8 /* MessageViewController.h */,
@@ -698,13 +703,10 @@
 				9F4F7D4715761B0E0040496D /* MapViewController.m in Sources */,
 				9F20B46915767441004315B1 /* AddPinInfoViewController.m in Sources */,
 				9F20B47E15768680004315B1 /* MapChoseTableViewController.m in Sources */,
-				9302F3061577E36300DA6648 /* Images.m in Sources */,
-				9302F30F1577E39800DA6648 /* Location.m in Sources */,
 				9302F3101577E39800DA6648 /* Messages.m in Sources */,
 				93B13B3C157AE4FE006F5BA4 /* XbeeTx.m in Sources */,
 				9302F3111577E39800DA6648 /* OwnSettings.m in Sources */,
 				9302F3141577E3A700DA6648 /* iMNetData.xcdatamodeld in Sources */,
-				9F2442821577EBDD001D3876 /* Contacts.m in Sources */,
 				9356E2E11579420700756ED2 /* MessageLogViewController.m in Sources */,
 				93B13B3A157AE4FE006F5BA4 /* hexConvert.m in Sources */,
 				93B13B3B157AE4FE006F5BA4 /* XbeeRx.m in Sources */,
@@ -713,6 +715,9 @@
 				93BD91941580EC3000CC8F75 /* SendLocationContactsViewController.m in Sources */,
 				93B8EE071582A60A00B8E4F7 /* RadioSettingsViewController.m in Sources */,
 				931A54BA1582D9130008C559 /* ManualConfigViewController.m in Sources */,
+				9356A0AF1586434B00132AC3 /* Contacts.m in Sources */,
+				9356A0B2158643BF00132AC3 /* Location.m in Sources */,
+				934A3B2F15869E3B004A5BFA /* ContactImageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,6 +727,7 @@
 			files = (
 				930F076B1575962100F39890 /* iMNet_v2Tests.m in Sources */,
 				931A54F215836CF70008C559 /* MBProgressHUD.m in Sources */,
+				9356A0C51586443A00132AC3 /* Images.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,21 +7,23 @@
         <attribute name="userData" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userOrg" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="contactImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Images" inverseName="imageFromContacts" inverseEntity="Images" syncable="YES"/>
         <relationship name="contactLocation" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="locationContact" inverseEntity="Location" syncable="YES"/>
         <relationship name="contactMessages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Messages" inverseName="messageFromContacts" inverseEntity="Messages" syncable="YES"/>
-        <relationship name="contactSentImage" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Images" inverseName="imageFromContacts" inverseEntity="Images" syncable="YES"/>
     </entity>
     <entity name="Images" representedClassName="Images" syncable="YES">
         <attribute name="imageData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="imageDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageSender64" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="imageFromContacts" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Contacts" inverseName="contactSentImage" inverseEntity="Contacts" syncable="YES"/>
+        <relationship name="imageFromContacts" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Contacts" inverseName="contactImage" inverseEntity="Contacts" syncable="YES"/>
+        <relationship name="imageLocation" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="locationImage" inverseEntity="Location" syncable="YES"/>
     </entity>
     <entity name="Location" representedClassName="Location" syncable="YES">
         <attribute name="locationDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="locationLatitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="locationTitle" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="locationContact" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Contacts" inverseName="contactLocation" inverseEntity="Contacts" syncable="YES"/>
+        <relationship name="locationImage" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Images" inverseName="imageLocation" inverseEntity="Images" syncable="YES"/>
     </entity>
     <entity name="Messages" representedClassName="Messages" syncable="YES">
         <attribute name="messageContents" optional="YES" attributeType="String" syncable="YES"/>
@@ -35,8 +37,8 @@
     </entity>
     <elements>
         <element name="Contacts" positionX="160" positionY="192" width="128" height="180"/>
-        <element name="Images" positionX="-18" positionY="225" width="128" height="105"/>
-        <element name="Location" positionX="358" positionY="387" width="128" height="105"/>
+        <element name="Images" positionX="-18" positionY="225" width="128" height="120"/>
+        <element name="Location" positionX="358" positionY="387" width="128" height="120"/>
         <element name="Messages" positionX="268" positionY="27" width="128" height="105"/>
         <element name="OwnSettings" positionX="421" positionY="213" width="128" height="75"/>
     </elements>

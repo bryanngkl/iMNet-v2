@@ -2,7 +2,7 @@
 //  Contacts.m
 //  iMNet v2
 //
-//  Created by Kenneth on 5/31/12.
+//  Created by Bryan on 11/6/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -22,6 +22,6 @@
 @dynamic userOrg;
 @dynamic contactLocation;
 @dynamic contactMessages;
-@dynamic contactSentImage;
+@dynamic contactImage;
 
 @end

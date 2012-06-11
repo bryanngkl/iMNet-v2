@@ -16,8 +16,7 @@
 @synthesize currentContact;
 @synthesize userName,userData,userOrganisation,userlatitude,userlongitude;
 @synthesize rscMgr;
-
-
+@synthesize contactPicture;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -42,6 +41,7 @@
 - (void)viewDidLoad
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contactDetailUpdate:) name:@"contactDetailsUpdated" object:nil];
+    self.contactPicture.image = [[UIImage alloc] initWithData:currentContact.contactImage.imageData];
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -60,6 +60,7 @@
     userData = nil;
     userlatitude = nil;
     userlongitude = nil;
+    contactPicture = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -70,7 +71,6 @@
     self.userName.text = currentContact.username;
     self.userOrganisation.text = currentContact.userOrg;
     self.userData.text = currentContact.userData;
-    
     
     //CONTACT LOCATION
     Location *locationofcurrentcontact;
@@ -253,6 +253,12 @@ else {
         mlVC.rscMgr = rscMgr;
         NSLog(@"passed data from detailed contacts to message log");        
     }
+
+    else if ([segue.identifier isEqualToString:@"ContactImageSegue"]) {
+        ContactImageViewController *ciVC = (ContactImageViewController *)[segue destinationViewController];
+        ciVC.currentImage = contactPicture.image;
+        ciVC.navigationItem.title = currentContact.username;
+    }
 }
 
 
@@ -286,6 +292,59 @@ else {
         FrameID = 1;
     }   
     sleep(3);
+}
+
+- (IBAction)choosePhoto:(id)sender {
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+	picker.delegate = self;
+    
+    picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+	
+	[self presentModalViewController:picker animated:YES];
+}
+
+- (IBAction)takePhoto:(id)sender {
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+	picker.delegate = self;
+    
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;    
+	
+    [self presentModalViewController:picker animated:YES];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	[picker dismissModalViewControllerAnimated:YES];
+	contactPicture.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    
+    NSFetchRequest *fetchContacts = [[NSFetchRequest alloc] init];
+    NSEntityDescription *contactsEntity = [NSEntityDescription entityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+    [fetchContacts setEntity:contactsEntity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"address64 == %@",currentContact.address64];
+    [fetchContacts setPredicate:predicate];
+    
+    NSError *error = nil;
+    Contacts *fetchedResult = [[managedObjectContext executeFetchRequest:fetchContacts error:&error] lastObject];
+    
+    if (fetchedResult) {
+        NSData *imageDataCurrent = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerOriginalImage"], 0.0); //Convert image to .png format     
+        if (fetchedResult.contactImage) {
+            fetchedResult.contactImage.imageData = imageDataCurrent;
+        }
+        else {
+            Images *newImage = (Images *)[NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:managedObjectContext];
+            newImage.imageData = imageDataCurrent;        
+            
+            fetchedResult.contactImage = newImage;
+        }
+
+    }
+
+    error = nil;
+    if (![managedObjectContext save:&error]) {
+        // Handle the error.
+    }
+    
 }
 
 - (void)hudWasHidden:(MBProgressHUD *)hud {

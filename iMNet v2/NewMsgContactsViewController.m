@@ -287,7 +287,7 @@
         FrameID = 1;
     }
     
-    sleep(10);
+    sleep(7);
     [self.tableView reloadData];
     
 }

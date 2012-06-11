@@ -16,6 +16,7 @@
 @synthesize delegate = _delegate;
 @synthesize rscMgr;
 @synthesize ownpintapped, macAddress,organisation;
+@synthesize locationPicture;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,6 +72,8 @@
         orglabel.text = organisation;
     }
     
+   
+    
     [super viewDidLoad];
 }
 
@@ -81,6 +84,7 @@
     [self setCoordinates:nil];
     orglabel = nil;
     [self setOrglabel:nil];
+    locationPicture = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -88,6 +92,26 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     //show the navigation bar
+    DataClass *obj = [DataClass getInstance];
+
+    NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
+    NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+    [fetchLocation setEntity:locationEntity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"locationTitle == %@",obj.title];
+    [fetchLocation setPredicate:predicate];
+    
+    NSError *error = nil;
+    Location *fetchedResult = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] lastObject];
+    
+    if (fetchedResult) {
+        self.locationPicture.image = [[UIImage alloc] initWithData:fetchedResult.locationImage.imageData];
+    }
+    
+    error = nil;
+    if (![managedObjectContext save:&error]) {
+        // Handle the error.
+    }
     [self.navigationController setNavigationBarHidden:NO];
 }
 
@@ -211,6 +235,60 @@
     
 }
 
+- (IBAction)choosePhoto:(id)sender {
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+	picker.delegate = self;
+    
+    picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+	
+	[self presentModalViewController:picker animated:YES];
+}
+
+- (IBAction)takePhoto:(id)sender {
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+	picker.delegate = self;
+    
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;    
+	
+    [self presentModalViewController:picker animated:YES];
+}
+
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	[picker dismissModalViewControllerAnimated:YES];
+	locationPicture.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    DataClass *obj = [DataClass getInstance];
+    
+    NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
+    NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+    [fetchLocation setEntity:locationEntity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"locationTitle == %@",obj.title];
+    [fetchLocation setPredicate:predicate];
+    
+    NSError *error = nil;
+    Location *fetchedResult = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] lastObject];
+    
+    if (fetchedResult) {
+        NSData *imageDataCurrent = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerOriginalImage"], 0.0); //Convert image to .png format     
+        if (fetchedResult.locationImage) {
+            fetchedResult.locationImage.imageData = imageDataCurrent;
+        }
+        else {
+            Images *newImage = (Images *)[NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:managedObjectContext];
+            newImage.imageData = imageDataCurrent;        
+            
+            fetchedResult.locationImage = newImage;
+        }
+        
+    }
+    
+    error = nil;
+    if (![managedObjectContext save:&error]) {
+        // Handle the error.
+    }
+    
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -241,6 +319,14 @@
         
         //      contactDetailsViewController.rscMgr = rscMgr;
 	}
+    else if ([segue.identifier isEqualToString:@"LocationImageSegue"]) {
+        ContactImageViewController *ciVC = (ContactImageViewController *)[segue destinationViewController];
+        ciVC.currentImage = locationPicture.image;
+        
+        DataClass *obj = [DataClass getInstance];
+        ciVC.navigationItem.title = obj.title;
+    }
+    
 }
 
 @end

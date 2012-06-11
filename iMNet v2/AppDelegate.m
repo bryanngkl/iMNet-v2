@@ -47,7 +47,7 @@
     contactsViewController.rscMgr = rscMgr;
     settingsViewController.rscMgr = rscMgr;
     mapViewController.rscMgr = rscMgr;
-    
+  
   /*
     //create new sample contact
     Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
@@ -64,7 +64,7 @@
     }
     //end of sample contact
    
-    
+      
     //create new sample contact2
     Contacts *newContact2 = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
     
@@ -230,7 +230,7 @@
         return persistentStoreCoordinator;
     }
     
-    NSURL *storeUrl = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"iMNet-v2.sqlite"];
+    NSURL *storeUrl = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"iMNet-v21.sqlite"];
     
     NSError *error;
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];

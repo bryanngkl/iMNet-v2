@@ -36,6 +36,7 @@
 - (void)optionsTableUpdate:(NSNotification *)notification;
 - (IBAction)updateNetworkDetails:(id)sender;
 - (IBAction)backButton:(id)sender;
+- (IBAction)retryATSC:(id)sender;
 
 - (void)updateNetworkDetailsTask;
 - (void)ChangeNetworkIDTask:(NSString *)infoEntered;

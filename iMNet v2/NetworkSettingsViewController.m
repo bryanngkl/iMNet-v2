@@ -399,6 +399,21 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)retryATSC:(id)sender {
+    //scan channels
+    XbeeTx *XbeeObj = [XbeeTx new];
+    [XbeeObj ATCommandSetNumber:@"SC" withParameter:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithUnsignedInt:127],[NSNumber numberWithUnsignedInt:255], nil] withFrameID:FrameID];
+    NSArray *sendPacketSC = [XbeeObj txPacket];
+    for ( int i = 0; i< (int)[sendPacketSC count]; i++ ) {
+        txBuffer[i] = [[sendPacketSC objectAtIndex:i] unsignedIntValue]; 
+    }
+    int bytesWritten = [rscMgr write:txBuffer Length:[sendPacketSC count]];
+    FrameID = FrameID + 1;  //increment FrameID
+    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+        FrameID = 1;
+    }
+}
+
 
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView*)alertView{
     UITextField *textField = [alertView textFieldAtIndex:0];
@@ -624,7 +639,7 @@
         FrameID = 1;
     }
     
-    sleep(1);
+    sleep(0.2);
     
     NSFetchRequest *fetchOwnSettings = [[NSFetchRequest alloc] init];
     NSEntityDescription *ownSettingsEntity = [NSEntityDescription entityForName:@"OwnSettings" inManagedObjectContext:managedObjectContext];
@@ -655,10 +670,9 @@
         }
     }
     
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"optionsTableUpdate" object:self];
     
-    sleep(2);
+    sleep(4);
     
     //set up ATCommand for 16 bit network address
     [XbeeObj ATCommand:@"MY" withFrameID:FrameID];
@@ -683,33 +697,6 @@
     if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
         FrameID = 1;
     }
-    
-    
-    sleep(2);    
-    
-    //set up ATCommand for 16 bit network address
-    for ( int i = 0; i< (int)[sendPacketMY count]; i++ ) {
-        txBuffer[i] = [[sendPacketMY objectAtIndex:i] unsignedIntValue]; 
-    }
-    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketMY count]];
-    FrameID = FrameID + 1;  //increment FrameID
-    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
-        FrameID = 1;
-    }
-    
-    //set up ATCommand for finding operating channel
-    for ( int i = 0; i< (int)[sendPacketCH count]; i++ ) {
-        txBuffer[i] = [[sendPacketCH objectAtIndex:i] unsignedIntValue]; 
-    }
-    bytesWritten = [rscMgr write:txBuffer Length:[sendPacketCH count]];
-    FrameID = FrameID + 1;  //increment FrameID
-    if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
-        FrameID = 1;
-    }
-    
-    
-    sleep(2);    
-
 
 }
 

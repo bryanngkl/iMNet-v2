@@ -2,7 +2,7 @@
 //  Contacts.h
 //  iMNet v2
 //
-//  Created by Kenneth on 5/31/12.
+//  Created by Bryan on 11/6/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -21,7 +21,7 @@
 @property (nonatomic, retain) NSString * userOrg;
 @property (nonatomic, retain) Location *contactLocation;
 @property (nonatomic, retain) NSSet *contactMessages;
-@property (nonatomic, retain) NSSet *contactSentImage;
+@property (nonatomic, retain) Images *contactImage;
 @end
 
 @interface Contacts (CoreDataGeneratedAccessors)
@@ -30,8 +30,5 @@
 - (void)removeContactMessagesObject:(Messages *)value;
 - (void)addContactMessages:(NSSet *)values;
 - (void)removeContactMessages:(NSSet *)values;
-- (void)addContactSentImageObject:(Images *)value;
-- (void)removeContactSentImageObject:(Images *)value;
-- (void)addContactSentImage:(NSSet *)values;
-- (void)removeContactSentImage:(NSSet *)values;
+
 @end

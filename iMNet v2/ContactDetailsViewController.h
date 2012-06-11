@@ -8,17 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "Contacts.h"
+#import "Images.h"
 #import "RscMgr.h"
 #import "XbeeTx.h"
 #define BUFFER_LEN 1024
 
 #import "MessageLogViewController.h"
 #import "DataClass.h"
+#import "ContactImageViewController.h"
 
 #import "MBProgressHUD.h"
 
 
-@interface ContactDetailsViewController : UITableViewController<MBProgressHUDDelegate>{
+@interface ContactDetailsViewController : UITableViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, MBProgressHUDDelegate>{
     NSManagedObjectContext *managedObjectContext;   
     Contacts *currentContact;
     IBOutlet UILabel *userName;
@@ -26,7 +28,9 @@
     IBOutlet UITextView *userData;
     IBOutlet UILabel *userlatitude;
     IBOutlet UILabel *userlongitude;
+    IBOutlet UIImageView *contactPicture;
     
+
     RscMgr *rscMgr;
     int FrameID;
     UInt8   txBuffer[BUFFER_LEN];
@@ -37,7 +41,10 @@
 - (void)contactDetailUpdate:(NSNotification *)notification;
 - (void)myTask;
 
+- (IBAction)choosePhoto:(id)sender;
+- (IBAction)takePhoto:(id)sender;
 - (IBAction)requestUserInfo:(id)sender;
+
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) Contacts *currentContact;  
 
@@ -48,6 +55,9 @@
 @property (nonatomic,retain) UITextView *userData;
 @property (nonatomic,retain) UILabel *userlatitude;
 @property (nonatomic,retain) UILabel *userlongitude;
+@property (nonatomic,retain) UIImageView *contactPicture;
+
+
 
 - (IBAction)locateMe:(id)sender;
 

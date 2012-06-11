@@ -249,7 +249,7 @@
     if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
         FrameID = 1;
     }
-    sleep(10);
+    sleep(7);
     [self.tableView reloadData];
     
 }

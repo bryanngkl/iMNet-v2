@@ -224,6 +224,16 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            UIAlertView *alertViewNetID= [[UIAlertView alloc] initWithTitle:@"Change Transmit Power" message:@"Please enter a power level from 0 (min) to 4 (max)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
+            alertViewNetID.tag = 1;
+            alertViewNetID.alertViewStyle = UIAlertViewStylePlainTextInput;
+            
+            [alertViewNetID show];
+        }
+    }
 }
                                         
 - (void)powerTableUpdate:(NSNotification *)notification{
@@ -306,6 +316,76 @@
     FrameID = FrameID + 1;  //increment FrameID
     if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
         FrameID = 1;
+    }
+}
+
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView*)alertView{
+    UITextField *textField = [alertView textFieldAtIndex:0];
+    if (alertView.tag==1) {
+        if ([textField.text isEqualToString:@"0"]||[textField.text isEqualToString:@"1"]||[textField.text isEqualToString:@"2"]||[textField.text isEqualToString:@"3"]||[textField.text isEqualToString:@"4"]) {
+            
+
+            
+            return YES;
+        }
+        else {
+            return NO;
+        }
+    }
+    else{
+        return NO;
+    }
+}   
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    
+    if (alertView.tag==1) {
+        switch (buttonIndex) {
+            case 0:
+                break;
+            case 1:{
+                NSString *infoEntered = [[alertView textFieldAtIndex:0] text];
+                
+                //set up AT command for power level
+                XbeeTx *XbeeObj = [XbeeTx new];
+                [XbeeObj ATCommandSetNumber:@"PL" withParameter:[NSMutableArray arrayWithObjects:[NSNumber numberWithUnsignedInt:[infoEntered intValue]], nil] withFrameID:FrameID];
+                NSArray *sendPacketPL = [XbeeObj txPacket];
+                for ( int i = 0; i< (int)[sendPacketPL count]; i++ ) {
+                    txBuffer[i] = [[sendPacketPL objectAtIndex:i] unsignedIntValue]; 
+                }
+                int bytesWritten = [rscMgr write:txBuffer Length:[sendPacketPL count]];
+                FrameID = FrameID + 1;  //increment FrameID
+                if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+                    FrameID = 1;
+                }
+                [XbeeObj ATCommand:@"WR" withFrameID:FrameID];
+                NSArray *sendPacketWR = [XbeeObj txPacket];
+                for ( int i = 0; i< (int)[sendPacketWR count]; i++ ) {
+                    txBuffer[i] = [[sendPacketWR objectAtIndex:i] unsignedIntValue]; 
+                }
+                bytesWritten = [rscMgr write:txBuffer Length:[sendPacketWR count]];
+                FrameID = FrameID + 1;  //increment FrameID
+                if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+                    FrameID = 1;
+                }
+                sleep(1);
+                
+                [XbeeObj ATCommand:@"PL" withFrameID:FrameID];
+                NSArray *sendPacketPL2 = [XbeeObj txPacket];
+                for ( int i = 0; i< (int)[sendPacketPL2 count]; i++ ) {
+                    txBuffer[i] = [[sendPacketPL2 objectAtIndex:i] unsignedIntValue]; 
+                }
+                bytesWritten = [rscMgr write:txBuffer Length:[sendPacketPL2 count]];
+                FrameID = FrameID + 1;  //increment FrameID
+                if (FrameID == 256) {   //If FrameID > 0xFF, start counting from 1 again
+                    FrameID = 1;
+                }
+                
+                break; }   
+            default:
+                break;
+        }
+        
     }
 }
 @end
