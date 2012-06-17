@@ -59,7 +59,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [[self tableView] reloadData];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceivedUpdate:) name:@"messageReceived" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceivedUpdate:) name:@"messageReceived" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SOSReceivedUpdate:) name:@"SOSReceived" object:nil];
+        
     [super viewWillAppear:animated];
 }
 
@@ -71,6 +73,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"messageReceived" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SOSReceived" object:nil];
     [super viewWillDisappear:animated];
 }
 
@@ -260,7 +263,21 @@
             }
 }
 
+-(void)SOSReceivedUpdate:(NSNotification *) notification{
+    SystemSoundID soundID;
+    NSString *soundFile = [[NSBundle mainBundle] pathForResource:@"glass_sms" ofType:@"mp3"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef) [NSURL fileURLWithPath:soundFile], &soundID);    
+    AudioServicesPlayAlertSound(soundID);
+}
+
 - (void)messageReceivedUpdate:(NSNotification *)notification{
+    
+    //play audio alert
+    SystemSoundID soundID;
+    NSString *soundFile = [[NSBundle mainBundle] pathForResource:@"ALARM" ofType:@"WAV"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef) [NSURL fileURLWithPath:soundFile], &soundID);    
+    AudioServicesPlayAlertSound(soundID);
+    
     [self.tableView reloadData];
     // Retrieve information about the document and update the panel
 }
@@ -842,10 +859,117 @@
 
                 }
 
+                /*SOS Message Received
+                    - create new (SOS) Contact
+                    - create new (SOS) Location for contact
+                    - after SOS cleared, up to user to delete the (SOS) Contact
+                */
                 
+                else if ([XbeeRxObj msgType] == 5){
+                    
+                    NSMutableString *rxMessage = [[NSMutableString alloc] initWithCapacity:[[XbeeRxObj receiveddata] count]];
+                    for (int i =0; i<[[XbeeRxObj receiveddata] count]; i++) {
+                        [rxMessage appendString:[NSString stringWithFormat:@"%c",[[[XbeeRxObj receiveddata] objectAtIndex:i] unsignedIntValue]]];
+                    }                   
+                    NSString *separator = @"*";
+                    NSArray *receivedstrings = [rxMessage componentsSeparatedByString:separator];
+                    NSString *username = [receivedstrings objectAtIndex:0];
+                    NSString *organisation = [receivedstrings objectAtIndex:1];
+                    NSString *location = [receivedstrings objectAtIndex:2];
+                    NSString *message = [receivedstrings objectAtIndex:3];
+                    
+                    
+                    NSString *oldusername = [[NSString alloc] init];
+                    Contacts *newContact = [Contacts alloc];
+                    /*----UPDATE COREDATA-----*/
+                    
+                    //update Contact and add new message
+                    if (!fetchedResult){
+                        //This method creates a new contact.
+                        newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
+                        newContact.address16 = [XbeeRxObj sourceAddr16HexString];
+                        newContact.address64 = [XbeeRxObj sourceAddr64HexString];
+                        newContact.username = username;
+                        newContact.isAvailable = [NSNumber numberWithBool:TRUE];
+                        newContact.userOrg = organisation;
+                        
+                        oldusername = @"Unknown";
+                        
+                        
+                        Messages *newMessage = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];
+                        newMessage.messageContents = message;
+                        newMessage.messageReceived = [NSNumber numberWithBool:TRUE];
+                        newMessage.messageDate = [NSDate date];
+                        newMessage.messageFromContacts = newContact;
+                         
+                    }
+                    else{
+                        fetchedResult.address16 = [XbeeRxObj sourceAddr16HexString];
+                        fetchedResult.isAvailable = [NSNumber numberWithBool:TRUE];
+                        oldusername = fetchedResult.username;
+                        fetchedResult.username = username;
+                        fetchedResult.userOrg = organisation;
+                        
+                        Messages *newMessage = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];
+                        [newMessage setMessageContents:[[NSString alloc] initWithString:message]];
+                        [newMessage setMessageReceived:[NSNumber numberWithBool:TRUE]];
+                        [newMessage setMessageFromContacts:fetchedResult];
+                        [newMessage setMessageDate:[NSDate date]];
+                    }
+                    NSError *error = nil;
+                    if (![managedObjectContext save:&error]) {
+                        // Handle the error.
+                    }
+
+                    
+                //Update location
+                    NSFetchRequest *fetchLocation = [[NSFetchRequest alloc] init];
+                    NSEntityDescription *locationEntity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+                    [fetchLocation setEntity:locationEntity];
+                    NSPredicate *predicateL = [NSPredicate predicateWithFormat:@"locationTitle == %@", oldusername];
+                    [fetchLocation setPredicate:predicateL];
+                    error = nil;
+                    Location *fetchedLocationResult = [[managedObjectContext executeFetchRequest:fetchLocation error:&error] lastObject];
+                    
+                    if (!fetchedLocationResult) {
+                        //create new Location
+                        Location *newLocation = (Location *) [NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:managedObjectContext];
+                        newLocation.locationTitle = username;
+                        newLocation.locationLatitude = location;
+                        if (!fetchedResult){
+                            newLocation.locationContact = newContact;
+                            newContact.contactLocation = newLocation;
+                        }
+                        else{
+                            newLocation.locationContact = fetchedResult;
+                            fetchedResult.contactLocation = newLocation;
+                        }
+                        
+                    }
+                    else{
+                        fetchedLocationResult.locationLatitude = location;
+                        fetchedLocationResult.locationTitle = username;
+                        if (!fetchedResult){
+                            fetchedLocationResult.locationContact = newContact;
+                            newContact.contactLocation =fetchedLocationResult;
+                        }
+                        else{
+                            fetchedLocationResult.locationContact = fetchedResult;
+                            fetchedResult.contactLocation = fetchedLocationResult;
+                        }
+                    }
+                    if (![managedObjectContext save:&error]) {
+                        // Handle the error.
+                    }
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"contactUpdated" object:self];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"messageReceived" object:self];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"SOSReceived" object:self];
                 
-                
-                
+                }  
+
                 
                 
                 /*

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MessageViewController.h"
 #import "hexConvert.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 #import "RscMgr.h"
 #define BUFFER_LEN 1024

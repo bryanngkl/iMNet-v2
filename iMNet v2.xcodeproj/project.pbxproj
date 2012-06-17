@@ -40,6 +40,13 @@
 		931A54FF1583717E0008C559 /* MBProgressHUD.h in Sources */ = {isa = PBXBuildFile; fileRef = 931A54F015836CF70008C559 /* MBProgressHUD.h */; };
 		931A55001583717E0008C559 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 931A54F115836CF70008C559 /* MBProgressHUD.m */; };
 		934A3B2F15869E3B004A5BFA /* ContactImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 934A3B2E15869E3B004A5BFA /* ContactImageViewController.m */; };
+		934A3B521587F08D004A5BFA /* Nothing.png in Resources */ = {isa = PBXBuildFile; fileRef = 934A3B4F1587F08D004A5BFA /* Nothing.png */; };
+		934A3B531587F08D004A5BFA /* SlideToStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 934A3B501587F08D004A5BFA /* SlideToStop.png */; };
+		934A3B541587F08D004A5BFA /* SlideToStopBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 934A3B511587F08D004A5BFA /* SlideToStopBar.png */; };
+		934A3B571587F0C6004A5BFA /* SOSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 934A3B561587F0C6004A5BFA /* SOSViewController.m */; };
+		934A3B6B15888A16004A5BFA /* 8737432-red-help-and-sos-button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 934A3B6A15888A16004A5BFA /* 8737432-red-help-and-sos-button.jpg */; };
+		934A3B6D15888BEF004A5BFA /* SOS.png in Resources */ = {isa = PBXBuildFile; fileRef = 934A3B6C15888BEF004A5BFA /* SOS.png */; };
+		934A3B6F15888CA2004A5BFA /* rsz_sos.png in Resources */ = {isa = PBXBuildFile; fileRef = 934A3B6E15888CA2004A5BFA /* rsz_sos.png */; };
 		9356A0AF1586434B00132AC3 /* Contacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356A0AE1586434B00132AC3 /* Contacts.m */; };
 		9356A0B2158643BF00132AC3 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356A0B1158643BF00132AC3 /* Location.m */; };
 		9356A0C51586443A00132AC3 /* Images.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356A0C41586443A00132AC3 /* Images.m */; };
@@ -47,6 +54,9 @@
 		9356E2D815792D9100756ED2 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 9356E2D615792D9100756ED2 /* grey.png */; };
 		9356E2E11579420700756ED2 /* MessageLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9356E2E01579420700756ED2 /* MessageLogViewController.m */; };
 		9356E2F8157ACE0F00756ED2 /* libRscMgrUniv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9356E2F5157ACE0F00756ED2 /* libRscMgrUniv.a */; };
+		9361BFAA158A25C1003F601D /* ALARM.WAV in Resources */ = {isa = PBXBuildFile; fileRef = 9361BFA8158A25C1003F601D /* ALARM.WAV */; };
+		9361BFAB158A25C1003F601D /* glass_sms.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9361BFA9158A25C1003F601D /* glass_sms.mp3 */; };
+		9361BFAD158A2626003F601D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9361BFAC158A2626003F601D /* AudioToolbox.framework */; };
 		938C43DD157F4569008508DB /* NetworkSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 938C43DC157F4569008508DB /* NetworkSettingsViewController.m */; };
 		938E8131157ACFEA00E7DCC7 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 938E8130157ACFEA00E7DCC7 /* ExternalAccessory.framework */; };
 		93B13B3A157AE4FE006F5BA4 /* hexConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B13B35157AE4FE006F5BA4 /* hexConvert.m */; };
@@ -173,6 +183,14 @@
 		931A54F815836D120008C559 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		934A3B2D15869E3A004A5BFA /* ContactImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactImageViewController.h; sourceTree = "<group>"; };
 		934A3B2E15869E3B004A5BFA /* ContactImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactImageViewController.m; sourceTree = "<group>"; };
+		934A3B4F1587F08D004A5BFA /* Nothing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Nothing.png; sourceTree = "<group>"; };
+		934A3B501587F08D004A5BFA /* SlideToStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SlideToStop.png; sourceTree = "<group>"; };
+		934A3B511587F08D004A5BFA /* SlideToStopBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SlideToStopBar.png; sourceTree = "<group>"; };
+		934A3B551587F0C5004A5BFA /* SOSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOSViewController.h; sourceTree = "<group>"; };
+		934A3B561587F0C6004A5BFA /* SOSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOSViewController.m; sourceTree = "<group>"; };
+		934A3B6A15888A16004A5BFA /* 8737432-red-help-and-sos-button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "8737432-red-help-and-sos-button.jpg"; sourceTree = "<group>"; };
+		934A3B6C15888BEF004A5BFA /* SOS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SOS.png; sourceTree = "<group>"; };
+		934A3B6E15888CA2004A5BFA /* rsz_sos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rsz_sos.png; sourceTree = "<group>"; };
 		9356A0AD1586434B00132AC3 /* Contacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contacts.h; sourceTree = "<group>"; };
 		9356A0AE1586434B00132AC3 /* Contacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contacts.m; sourceTree = "<group>"; };
 		9356A0B0158643BF00132AC3 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
@@ -186,6 +204,9 @@
 		9356E2F5157ACE0F00756ED2 /* libRscMgrUniv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libRscMgrUniv.a; sourceTree = "<group>"; };
 		9356E2F6157ACE0F00756ED2 /* redparkSerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = redparkSerial.h; sourceTree = "<group>"; };
 		9356E2F7157ACE0F00756ED2 /* RscMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RscMgr.h; sourceTree = "<group>"; };
+		9361BFA8158A25C1003F601D /* ALARM.WAV */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ALARM.WAV; sourceTree = "<group>"; };
+		9361BFA9158A25C1003F601D /* glass_sms.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = glass_sms.mp3; sourceTree = "<group>"; };
+		9361BFAC158A2626003F601D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		938C43DB157F4569008508DB /* NetworkSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkSettingsViewController.h; sourceTree = "<group>"; };
 		938C43DC157F4569008508DB /* NetworkSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkSettingsViewController.m; sourceTree = "<group>"; };
 		938E8130157ACFEA00E7DCC7 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
@@ -252,6 +273,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9361BFAD158A2626003F601D /* AudioToolbox.framework in Frameworks */,
 				938E8131157ACFEA00E7DCC7 /* ExternalAccessory.framework in Frameworks */,
 				9F100E421577E513008E3015 /* CoreData.framework in Frameworks */,
 				9F03C9FF1576161600554DCE /* libsqlite3.dylib in Frameworks */,
@@ -282,6 +304,8 @@
 			isa = PBXGroup;
 			children = (
 				931A54AF1582D3C60008C559 /* IphoneNavigationButton_Back.png */,
+				9361BFA8158A25C1003F601D /* ALARM.WAV */,
+				9361BFA9158A25C1003F601D /* glass_sms.mp3 */,
 				9F02491D15765B27008DDD6B /* loading.png */,
 				9F02491E15765B27008DDD6B /* marker-X.png */,
 				9F02491F15765B27008DDD6B /* marker-blue.png */,
@@ -304,6 +328,12 @@
 				9F02493D157666FC008DDD6B /* information_24.png */,
 				9356E2D515792D9100756ED2 /* green.png */,
 				9356E2D615792D9100756ED2 /* grey.png */,
+				934A3B4F1587F08D004A5BFA /* Nothing.png */,
+				934A3B501587F08D004A5BFA /* SlideToStop.png */,
+				934A3B511587F08D004A5BFA /* SlideToStopBar.png */,
+				934A3B6C15888BEF004A5BFA /* SOS.png */,
+				934A3B6E15888CA2004A5BFA /* rsz_sos.png */,
+				934A3B6A15888A16004A5BFA /* 8737432-red-help-and-sos-button.jpg */,
 			);
 			name = icons;
 			path = "iMNet v2/icons";
@@ -330,6 +360,7 @@
 		930F07221575962100F39890 = {
 			isa = PBXGroup;
 			children = (
+				9361BFAC158A2626003F601D /* AudioToolbox.framework */,
 				93B13B3D157AE504006F5BA4 /* xbee classes */,
 				938E8130157ACFEA00E7DCC7 /* ExternalAccessory.framework */,
 				9356E2F4157ACE0F00756ED2 /* redpark */,
@@ -485,6 +516,8 @@
 				9356E2E01579420700756ED2 /* MessageLogViewController.m */,
 				93BD91921580EC2F00CC8F75 /* SendLocationContactsViewController.h */,
 				93BD91931580EC3000CC8F75 /* SendLocationContactsViewController.m */,
+				934A3B551587F0C5004A5BFA /* SOSViewController.h */,
+				934A3B561587F0C6004A5BFA /* SOSViewController.m */,
 			);
 			name = "View Controllers";
 			path = "iMNet v2";
@@ -648,6 +681,14 @@
 				9356E2D715792D9100756ED2 /* green.png in Resources */,
 				9356E2D815792D9100756ED2 /* grey.png in Resources */,
 				931A54B01582D3C60008C559 /* IphoneNavigationButton_Back.png in Resources */,
+				934A3B521587F08D004A5BFA /* Nothing.png in Resources */,
+				934A3B531587F08D004A5BFA /* SlideToStop.png in Resources */,
+				934A3B541587F08D004A5BFA /* SlideToStopBar.png in Resources */,
+				934A3B6B15888A16004A5BFA /* 8737432-red-help-and-sos-button.jpg in Resources */,
+				934A3B6D15888BEF004A5BFA /* SOS.png in Resources */,
+				934A3B6F15888CA2004A5BFA /* rsz_sos.png in Resources */,
+				9361BFAA158A25C1003F601D /* ALARM.WAV in Resources */,
+				9361BFAB158A25C1003F601D /* glass_sms.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,6 +759,7 @@
 				9356A0AF1586434B00132AC3 /* Contacts.m in Sources */,
 				9356A0B2158643BF00132AC3 /* Location.m in Sources */,
 				934A3B2F15869E3B004A5BFA /* ContactImageViewController.m in Sources */,
+				934A3B571587F0C6004A5BFA /* SOSViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

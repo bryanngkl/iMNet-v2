@@ -20,7 +20,7 @@
 #import "MBProgressHUD.h"
 
 
-@interface ContactDetailsViewController : UITableViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, MBProgressHUDDelegate>{
+@interface ContactDetailsViewController : UITableViewController<UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MBProgressHUDDelegate>{
     NSManagedObjectContext *managedObjectContext;   
     Contacts *currentContact;
     IBOutlet UILabel *userName;
@@ -37,13 +37,18 @@
     
     MBProgressHUD *HUD;
     
+    UIPopoverController *popovercontroller;
 }
+
+
 - (void)contactDetailUpdate:(NSNotification *)notification;
 - (void)myTask;
 
 - (IBAction)choosePhoto:(id)sender;
 - (IBAction)takePhoto:(id)sender;
 - (IBAction)requestUserInfo:(id)sender;
+
+@property (nonatomic, retain) UIPopoverController *popovercontroller;
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) Contacts *currentContact;  

@@ -11,10 +11,11 @@
 #import "MessageViewController.h"
 #import "SettingsViewController.h"
 #import "MapViewController.h"
+#import "SOSViewController.h"
 #import "Contacts.h"
 #import "Messages.h"
 #import "RscMgr.h"
-
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
 

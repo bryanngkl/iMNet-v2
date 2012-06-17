@@ -22,6 +22,7 @@
                         <segue destination="HQV-bJ-WBy" kind="relationship" relationship="viewControllers" id="pvT-NQ-7RQ"/>
                         <segue destination="0Vi-gF-aRU" kind="relationship" relationship="viewControllers" id="RZb-i4-8hr"/>
                         <segue destination="XLx-SY-cgD" kind="relationship" relationship="viewControllers" id="Sg9-Gl-ubv"/>
+                        <segue destination="IAd-o3-Faf" kind="relationship" relationship="viewControllers" id="RDK-kB-qdf"/>
                     </connections>
                 </tabBarController>
             </objects>
@@ -1080,6 +1081,95 @@
             </objects>
             <point key="canvasLocation" x="656" y="1665"/>
         </scene>
+        <!--Navigation Controller - SOS-->
+        <scene sceneID="gAk-eg-Scu">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pYa-nC-OuO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="IAd-o3-Faf" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="SOS" image="rsz_sos.png" id="6BR-4J-U72"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Xie-Aw-7fk">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="MV8-DA-gj9" kind="relationship" relationship="rootViewController" id="MSp-5E-E3X"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-723" y="987"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Gzh-i3-9M3">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fje-hz-xt7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="MV8-DA-gj9" customClass="SOSViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IgL-aQ-HzE">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="ir5-ff-lpA">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="SlideToStopBar.png" id="rXP-gK-xlV">
+                                        <rect key="frame" x="20" y="12" width="281" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="7Gi-yx-iSo">
+                                        <rect key="frame" x="29" y="29" width="263" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="UnLockIt" destination="MV8-DA-gj9" eventType="touchUpInside" id="jKb-O4-RRf"/>
+                                            <action selector="fadeLabel" destination="MV8-DA-gj9" eventType="valueChanged" id="U65-lv-lnE"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Slide to send SOS" lineBreakMode="tailTruncation" minimumFontSize="10" id="PKB-uT-WZr">
+                                        <rect key="frame" x="107" y="16" width="189" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="35"/>
+                                        <color key="textColor" red="1" green="0.022132844628822146" blue="0.054693862829259476" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="HELP!" id="MvF-R6-D1s">
+                                <rect key="frame" x="20" y="121" width="280" height="76"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SOS Message" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="V5t-zC-lXB">
+                                <rect key="frame" x="58" y="87" width="192" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="rsz_sos.png" id="jDb-WC-dR9">
+                                <rect key="frame" x="20" y="83" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hwB-re-bGx">
+                        <barButtonItem key="rightBarButtonItem" title="Clear SOS" id="Ceq-sZ-kal">
+                            <connections>
+                                <action selector="clearSOS:" destination="MV8-DA-gj9" id="xYk-Ht-QfZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="Container" destination="rXP-gK-xlV" id="Fa0-Xu-XOd"/>
+                        <outlet property="field" destination="MvF-R6-D1s" id="Y7G-2R-GKR"/>
+                        <outlet property="myLabel" destination="PKB-uT-WZr" id="6N7-8S-4TT"/>
+                        <outlet property="slideToUnlock" destination="7Gi-yx-iSo" id="A0E-J2-cnQ"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-349" y="1307"/>
+        </scene>
         <!--Navigation Controller - Settings-->
         <scene sceneID="Tv3-9w-3dK">
             <objects>
@@ -1118,7 +1208,7 @@
                                             <rect key="frame" x="10" y="1" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="control-room-0.2.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RlF-bx-qSc">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="london_hyde_park_72f42f" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RlF-bx-qSc">
                                                     <rect key="frame" x="10" y="0.0" width="260" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -1156,7 +1246,7 @@
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="london_hyde_park_72f42f" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iTs-73-PHu">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="control-room-0.2.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iTs-73-PHu">
                                                     <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -1544,148 +1634,17 @@
         <image name="MapViewIcon.png" width="32" height="32"/>
         <image name="MessageIcon.png" width="32" height="32"/>
         <image name="SettingsIcon.png" width="22" height="22"/>
+        <image name="SlideToStopBar.png" width="280" height="52"/>
         <image name="delete_24.png" width="24" height="24"/>
         <image name="information_24.png" width="24" height="24"/>
+        <image name="rsz_sos.png" width="24" height="24"/>
     </resources>
-    <classes>
-        <class className="AddPinInfoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddPinInfoViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="Back:"/>
-                <relationship kind="action" name="choosePhoto:"/>
-                <relationship kind="action" name="takePhoto:"/>
-                <relationship kind="outlet" name="coordinates" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="description" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="locationPicture" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="orglabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="title" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="ContactDetailsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactDetailsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="choosePhoto:"/>
-                <relationship kind="action" name="locateMe:"/>
-                <relationship kind="action" name="requestUserInfo:"/>
-                <relationship kind="action" name="takePhoto:"/>
-                <relationship kind="outlet" name="contactPicture" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="userData" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="userName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userOrganisation" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userlatitude" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userlongitude" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="ContactImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactImageViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="image" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="ContactsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="contactDiscovery:"/>
-            </relationships>
-        </class>
-        <class className="ManualConfigViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ManualConfigViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="sendHex:"/>
-                <relationship kind="outlet" name="bytesToSend" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="displayBytes" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="MapChoseTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapChoseTableViewController.h"/>
-        </class>
-        <class className="MapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="deleteCurrentPin:"/>
-                <relationship kind="action" name="dropPin:"/>
-                <relationship kind="action" name="getNearbyInfo:"/>
-                <relationship kind="action" name="locateMe:"/>
-                <relationship kind="outlet" name="addInfo" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="deletePin" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="mapView" candidateClass="RMMapView"/>
-                <relationship kind="outlet" name="mytoolbar" candidateClass="UIToolbar"/>
-            </relationships>
-        </class>
-        <class className="MessageLogViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MessageLogViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="add:"/>
-                <relationship kind="action" name="goBack:"/>
-                <relationship kind="outlet" name="field" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="sendbutton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="tbl" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
-            </relationships>
-        </class>
-        <class className="MessageViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MessageViewController.h"/>
-        </class>
-        <class className="NetworkSettingsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NetworkSettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backButton:"/>
-                <relationship kind="action" name="retryATSC:"/>
-                <relationship kind="action" name="updateNetworkDetails:"/>
-                <relationship kind="outlet" name="ChannelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="DeviceTypeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="MACAddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="NetworkAddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="NetworkIDLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="UsernameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="NewMsgContactsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewMsgContactsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="contactDiscovery:"/>
-            </relationships>
-        </class>
-        <class className="PersonalInfoViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PersonalInfoViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backButton:"/>
-                <relationship kind="action" name="saveData:"/>
-                <relationship kind="outlet" name="organisationField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="userDataField" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="usernameField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="RMMapView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RMMapView.h"/>
-        </class>
-        <class className="RadioSettingsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RadioSettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backButton:"/>
-                <relationship kind="action" name="updatePowerSettings:"/>
-                <relationship kind="outlet" name="PowerLevelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="RSSILabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="SupplyVoltageLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SendLocationContactsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SendLocationContactsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="contactDiscovery:"/>
-            </relationships>
-        </class>
-        <class className="SettingsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3PG-y9-DQc"/>
+        <segue reference="K3W-KA-op3"/>
     </inferredMetricsTieBreakers>
 </document>

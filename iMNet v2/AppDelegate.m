@@ -32,38 +32,46 @@
     UINavigationController *naviController1 = [[tabBarController viewControllers] objectAtIndex:1];
     UINavigationController *naviController2 = [[tabBarController viewControllers] objectAtIndex:2];
     UINavigationController *naviController3 = [[tabBarController viewControllers] objectAtIndex:3];
+    UINavigationController *naviController4 = [[tabBarController viewControllers] objectAtIndex:4];
     
     MessageViewController *messageViewController = [[naviController0 viewControllers] objectAtIndex:0];
     ContactsViewController *contactsViewController = [[naviController1 viewControllers] objectAtIndex:0];
     SettingsViewController *settingsViewController = [[naviController2 viewControllers] objectAtIndex:0];
     MapViewController *mapViewController = [[naviController3 viewControllers] objectAtIndex:0];
+    SOSViewController *sosViewController = [[naviController4 viewControllers]objectAtIndex:0];
     
     messageViewController.managedObjectContext = context;
     contactsViewController.managedObjectContext = context;
     settingsViewController.managedObjectContext = context;
     mapViewController.managedObjectContext = context;
+    sosViewController.managedObjectContext = context;
+    
     
     messageViewController.rscMgr = rscMgr;
     contactsViewController.rscMgr = rscMgr;
     settingsViewController.rscMgr = rscMgr;
     mapViewController.rscMgr = rscMgr;
+    sosViewController.rscMgr = rscMgr;
+    
   
-  /*
+    DataClass *obj = [DataClass getInstance];
+    obj.map = @"london_hyde_park_72f42f";
+  
     //create new sample contact
     Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
     
     [newContact setAddress16:@"1234"];
     [newContact setAddress64:@"1234567890"];
-    [newContact setUsername:@"John"];
+    [newContact setUsername:@"Zhang Sheng"];
     [newContact setUserData:@"Head of Logistics Red Cross"];
-    [newContact setUserOrg:@"Oxfam"];
-    [newContact setIsAvailable:[NSNumber numberWithBool:TRUE]];
+    [newContact setUserOrg:@"Red Cross"];
+    [newContact setIsAvailable:[NSNumber numberWithBool:FALSE]];
     NSError *error = nil;
     if (![managedObjectContext save:&error]) {
         // Handle the error.
     }
     //end of sample contact
-   
+  
       
     //create new sample contact2
     Contacts *newContact2 = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
@@ -81,7 +89,7 @@
         newlocation.locationLatitude = @"000.761708,103.359387";
         [newlocation setLocationContact:newContact2];
     
-    [newContact2 setIsAvailable:[NSNumber numberWithBool:TRUE]];
+    [newContact2 setIsAvailable:[NSNumber numberWithBool:FALSE]];
     [newContact2 setContactLocation:newlocation];
     
     NSError *error1 = nil;
@@ -89,12 +97,12 @@
         // Handle the error.
     }
     //end of sample contact2
-    
+    /*
     
     
     //create new sample message
     Messages *newMessage = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
-    newMessage.messageContents = [NSString stringWithFormat:@"%@", @"We need a situational report on your clinic"];
+    newMessage.messageContents = [NSString stringWithFormat:@"%@", @"Another 10 casualties will be heading your"];
     newMessage.messageReceived = [NSNumber numberWithBool:TRUE];
     newMessage.messageDate = [NSDate date];
     newMessage.messageFromContacts = newContact2;
@@ -107,7 +115,7 @@
 
     //create new sample message
     Messages *newMessage2 = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
-    newMessage2.messageContents = [NSString stringWithFormat:@"%@", @"Do you have enough water?"];
+    newMessage2.messageContents = [NSString stringWithFormat:@"%@", @"We need a situational report on your clinic"];
     newMessage2.messageReceived = [NSNumber numberWithBool:TRUE];
     newMessage2.messageDate = [NSDate date];
     newMessage2.messageFromContacts = newContact;
@@ -119,7 +127,7 @@
     
     //create new sample message
     Messages *newMessage3 = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
-    newMessage3.messageContents = [NSString stringWithFormat:@"%@", @"Roger that. I will dispatch the antibiotics to you within an hour."];
+    newMessage3.messageContents = [NSString stringWithFormat:@"%@", @"sdfa"];
     newMessage3.messageReceived = [NSNumber numberWithBool:TRUE];
     newMessage3.messageDate = [NSDate date];
     newMessage3.messageFromContacts = newContact;

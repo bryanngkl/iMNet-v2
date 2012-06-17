@@ -17,6 +17,7 @@
 @synthesize userName,userData,userOrganisation,userlatitude,userlongitude;
 @synthesize rscMgr;
 @synthesize contactPicture;
+@synthesize popovercontroller;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -295,12 +296,45 @@ else {
 }
 
 - (IBAction)choosePhoto:(id)sender {
-    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-	picker.delegate = self;
-    
-    picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-	
-	[self presentModalViewController:picker animated:YES];
+    if ([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"] || [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] ) {
+        UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        [self presentModalViewController:picker animated:YES];
+    }
+    else {
+        if ([self.popovercontroller isPopoverVisible]) {
+            [self.popovercontroller dismissPopoverAnimated:YES];
+        } 
+        else {
+            if ([UIImagePickerController isSourceTypeAvailable:
+                 UIImagePickerControllerSourceTypeSavedPhotosAlbum])
+            {
+                UIImagePickerController *imagePicker =
+                [[UIImagePickerController alloc] init];
+                imagePicker.delegate = self;
+                imagePicker.sourceType =
+                UIImagePickerControllerSourceTypePhotoLibrary;
+                //imagePicker.mediaTypes = [NSArray arrayWithObjects:
+                //                          (NSString *) kUTTypeImage,
+                //                          nil];
+                imagePicker.allowsEditing = NO;
+                
+                self.popovercontroller = [[UIPopoverController alloc]
+                                          initWithContentViewController:imagePicker];
+                
+                popovercontroller.delegate = self;
+                
+                //[self.popovercontroller presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+                
+                [self.popovercontroller presentPopoverFromRect:CGRectMake(50,635,10,10) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+                
+                // newMedia = NO;
+            }
+        }
+        
+    }
+
 }
 
 - (IBAction)takePhoto:(id)sender {
@@ -313,7 +347,12 @@ else {
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	[picker dismissModalViewControllerAnimated:YES];
+	if ([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"] || [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] ) {
+        [picker dismissModalViewControllerAnimated:YES];
+    }
+    else {
+        [self.popovercontroller dismissPopoverAnimated:true];
+    }
 	contactPicture.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     
     NSFetchRequest *fetchContacts = [[NSFetchRequest alloc] init];

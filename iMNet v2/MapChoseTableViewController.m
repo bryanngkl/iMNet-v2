@@ -178,8 +178,7 @@
         mapChosen = cell.textLabel.text;
         DataClass *obj = [DataClass getInstance];
         obj.map = mapChosen;
-        NSLog(@"HII");
-        NSLog(obj.map);
+        NSLog(@"This is the map chosen %@",obj.map);
 }
     
 /*

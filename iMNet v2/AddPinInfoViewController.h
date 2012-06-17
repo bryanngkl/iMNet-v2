@@ -18,13 +18,16 @@
 #import "Location.h"
 #import "Images.h"
 
+//#import <MobileCoreServices/MobileCoreServices.h>
+
 @protocol AddPinInfoViewControllerDelegate;
 
-@interface AddPinInfoViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextViewDelegate> {
+@interface AddPinInfoViewController : UIViewController<UIPopoverControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextViewDelegate> {
     
     id<AddPinInfoViewControllerDelegate>delegate;
     UITextField *title;
     UITextView *description;
+    
     
     IBOutlet UIImageView *locationPicture;
     
@@ -36,15 +39,21 @@
     NSString * macAddress;
     NSString *organisation;
     
+    UIPopoverController *popovercontroller;
+    
 }
 - (IBAction)Back:(id)sender;
 - (IBAction)choosePhoto:(id)sender;
 - (IBAction)takePhoto:(id)sender;
 
+
+@property (nonatomic, retain) UIPopoverController *popovercontroller;
+
 @property (nonatomic,retain) IBOutlet UITextField *title;
 @property (nonatomic,retain) IBOutlet UITextView *description;
 @property (nonatomic, retain) IBOutlet UILabel *coordinates;
 @property (strong, nonatomic) IBOutlet UILabel *orglabel;
+
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext; 
 @property (nonatomic,retain) RscMgr *rscMgr;

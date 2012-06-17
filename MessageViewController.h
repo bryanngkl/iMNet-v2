@@ -20,6 +20,9 @@
 #import "XbeeTx.h"
 #import "hexConvert.h"
 
+
+#import <AudioToolbox/AudioToolbox.h>
+
 #define BUFFER_LEN 1024
 
 
@@ -44,7 +47,7 @@
 }
 
 - (void)messageReceivedUpdate:(NSNotification *)notification;
-
+- (void)SOSReceivedUpdate:(NSNotification *) notification;
 
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;  
 @property (nonatomic,retain) RscMgr *rscMgr;

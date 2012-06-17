@@ -121,7 +121,15 @@
     [toolbar setFrame:rectArea];
     
     //Create a textfield
-    UITextField *myTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 240, 30)];
+    UITextField *myTextField = [[UITextField alloc] init];
+    if ([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"] || [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] ) {
+        [myTextField setFrame:CGRectMake(0, 0, 240, 30)];
+    }
+    else {
+        [myTextField setFrame:CGRectMake(0, 0, 680, 30)];
+        //UITextField *myTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 600, 30)];
+    }
+
     myTextField.borderStyle = UITextBorderStyleRoundedRect;
     myTextField.font= [UIFont systemFontOfSize:15.0];
     myTextField.placeholder = @"enter text";
@@ -144,7 +152,15 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button addTarget:self action:@selector(info_clicked:) forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:@"Send" forState:UIControlStateNormal];
-    button.frame = CGRectMake(0, 0, 50, 30);
+    
+    if ([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"] || [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] ) {
+            button.frame = CGRectMake(0, 0, 50, 30);
+    }
+    else {
+        button.frame = CGRectMake(0, 0, 60, 30);
+    }
+    
+
     //[button setEnabled:NO];
     
     
@@ -416,27 +432,59 @@
 		balloonView = [[UIImageView alloc] initWithFrame:CGRectZero];
 		balloonView.tag = 1;
 		
+        //Label
 		label = [[UILabel alloc] initWithFrame:CGRectZero];
-		label.backgroundColor = [UIColor clearColor];
-		label.tag = 2;
-		label.numberOfLines = 0;
-		label.lineBreakMode = UILineBreakModeWordWrap;
-		label.font = [UIFont systemFontOfSize:14.0];
         
         //Sender and Time Label
-        senderandTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 20)];
-        senderandTimeLabel.tag = 3;
-        senderandTimeLabel.backgroundColor =[UIColor clearColor];
-        senderandTimeLabel.textAlignment = UITextAlignmentCenter;
-        senderandTimeLabel.font = [UIFont boldSystemFontOfSize:11.0];
-        senderandTimeLabel.textColor = [UIColor lightGrayColor];
+        senderandTimeLabel = [[UILabel alloc] init];
         
-		UIView *message = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, cell.frame.size.width, cell.frame.size.height)];
+        
+		UIView *message = [[UIView alloc] init];
 		message.tag = 0;
         [message addSubview:senderandTimeLabel];
 		[message addSubview:balloonView];
 		[message addSubview:label];
 		[cell.contentView addSubview:message];
+  
+        //SET the font and stuff based on whether device is iphone or ipad
+        if ([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"] || [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] ) {
+            
+            //label
+            label.backgroundColor = [UIColor clearColor];
+            label.tag = 2;
+            label.numberOfLines = 0;
+            label.lineBreakMode = UILineBreakModeWordWrap;
+            label.font = [UIFont systemFontOfSize:14.0];
+            
+            //Sender and Time Label
+            senderandTimeLabel.tag = 3;
+            senderandTimeLabel.backgroundColor =[UIColor clearColor];
+            senderandTimeLabel.textAlignment = UITextAlignmentCenter;
+            senderandTimeLabel.font = [UIFont boldSystemFontOfSize:11.0];
+            senderandTimeLabel.textColor = [UIColor lightGrayColor];
+            
+            [senderandTimeLabel setFrame:CGRectMake(10, 5, 300, 20)];
+            [message setFrame:CGRectMake(0.0, 0.0, cell.frame.size.width, cell.frame.size.height)];
+        }
+        else {
+            
+            //label
+            label.backgroundColor = [UIColor clearColor];
+            label.tag = 2;
+            label.numberOfLines = 0;
+            label.lineBreakMode = UILineBreakModeWordWrap;
+            label.font = [UIFont systemFontOfSize:14.0];
+            
+            //Sender and Time Label
+            senderandTimeLabel.tag = 3;
+            senderandTimeLabel.backgroundColor =[UIColor clearColor];
+            senderandTimeLabel.textAlignment = UITextAlignmentCenter;
+            senderandTimeLabel.font = [UIFont boldSystemFontOfSize:14.0];
+            senderandTimeLabel.textColor = [UIColor lightGrayColor];
+            
+            [senderandTimeLabel setFrame:CGRectMake(25, 0, 700, 20)];
+            [message setFrame:CGRectMake(0.0, 0.0, cell.frame.size.width, cell.frame.size.height)];        
+        }
 		
 	}
 	else
@@ -453,15 +501,36 @@
 	
 	if ([[sortedMessages objectAtIndex:indexPath.row] messageReceived] == [NSNumber numberWithInt:1]) //if(indexPath.row % 2 == 0)
 	{
-		balloonView.frame = CGRectMake(320.0f - (size.width + 28.0f), 27.0f, size.width + 28.0f, size.height + 15.0f);
-		balloon = [[UIImage imageNamed:@"green.png"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
-		label.frame = CGRectMake(307.0f - (size.width + 5.0f), 35.0f, size.width + 5.0f, size.height);
+        
+        if ([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"] || [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] ) {
+            balloonView.frame = CGRectMake(320.0f - (size.width + 28.0f), 27.0f, size.width + 28.0f, size.height + 15.0f);
+            balloon = [[UIImage imageNamed:@"green.png"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
+            label.frame = CGRectMake(307.0f - (size.width + 5.0f), 35.0f, size.width + 5.0f, size.height);
+        }
+        else {
+            balloonView.frame = CGRectMake(763.0f - (size.width + 28.0f), 27.0f, size.width + 28.0f, size.height + 15.0f);
+            balloon = [[UIImage imageNamed:@"green.png"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
+            label.frame = CGRectMake(750.0f - (size.width + 5.0f), 35.0f, size.width + 5.0f, size.height); 
+        }
+        
+
 	}
 	else
 	{
-		balloonView.frame = CGRectMake(0.0, 24.0, size.width + 28, size.height + 15);
-		balloon = [[UIImage imageNamed:@"grey.png"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
-		label.frame = CGRectMake(16, 31, size.width + 5, size.height);
+        
+        if ([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"] || [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] ) {
+            balloonView.frame = CGRectMake(0.0, 24.0, size.width + 28, size.height + 15);
+            balloon = [[UIImage imageNamed:@"grey.png"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
+            label.frame = CGRectMake(16, 31, size.width + 5, size.height);
+        }
+        else {
+            balloonView.frame = CGRectMake(5.0, 24.0, size.width + 28, size.height + 15);
+            balloon = [[UIImage imageNamed:@"grey.png"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
+            label.frame = CGRectMake(21, 31, size.width + 5, size.height);     
+        }
+        
+        
+
 	}
 	
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -471,8 +540,19 @@
 	label.text = text;
     
     if (startup == TRUE) {
-        tbl.frame = CGRectMake(0, 0, 320, 325);	
+        
+        if ([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"] || [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] ) {
+            tbl.frame = CGRectMake(0, 0, 320, 325);	
+        }
+        else {
+            tbl.frame = CGRectMake(0, 0, 768, 873);	  
+        }
+
     }
+    
+    NSUInteger index = [messages count]-1;
+    [tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
 	
     //tbl.frame = CGRectMake(0, 0, 320, 325);	
     return cell;
@@ -596,7 +676,7 @@
     [toolbar setFrame:rectArea];
     
 	//toolbar.frame = CGRectMake(0, 372, 320, 44);
-	tbl.frame = CGRectMake(0, 0, 320, 325);	
+	tbl.frame = CGRectMake(0, 0, rootViewWidth, rootViewHeight - toolbarHeight);	
 	[UIView commitAnimations];
 	
 	return YES;
@@ -623,10 +703,26 @@
     CGFloat rootViewWidth = CGRectGetWidth(rootViewBounds);
     //Create a rectangle for the toolbar
     CGRect rectArea = CGRectMake(0, rootViewHeight -kbSize.height+5, rootViewWidth, toolbarHeight);
+    
     [toolbar setFrame:rectArea];
     
 	//toolbar.frame = CGRectMake(0, 156, 320, 44);
-	tbl.frame = CGRectMake(0, -40, 320, 320);	
+    
+    //Get the keyboard size
+    NSDictionary *userInfo = [aNotification userInfo];
+    CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    NSLog(@"Height: %f Width: %f", keyboardSize.height, keyboardSize.width);
+    
+    if ([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"] || [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] ) {
+        tbl.frame = CGRectMake(0, 0, rootViewWidth, rootViewHeight - keyboardSize.height - toolbarHeight+100);
+    }
+    else {
+         tbl.frame = CGRectMake(0, 0, rootViewWidth, rootViewHeight - keyboardSize.height - toolbarHeight+100);
+    }
+    
+    
+	
 	[UIView commitAnimations];
 	
     startup = FALSE;
@@ -666,10 +762,41 @@
     [toolbar setFrame:rectArea];
     
 	//toolbar.frame = CGRectMake(0, 372, 320, 44);
-	tbl.frame = CGRectMake(0, 0, 320, 325);	
+	tbl.frame = CGRectMake(0, 0, rootViewWidth , rootViewHeight - toolbarHeight - 62);	
 	[UIView commitAnimations];
 
 }
+
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];	
+    //Caclulate the height of the toolbar
+    CGFloat toolbarHeight = [toolbar frame].size.height;
+    
+    //Get the bounds of the parent view
+    CGRect rootViewBounds = self.parentViewController.view.bounds;
+    
+    //Get the height of the parent view.
+    CGFloat rootViewHeight = CGRectGetHeight(rootViewBounds);
+    
+    //Get the width of the parent view,
+    CGFloat rootViewWidth = CGRectGetWidth(rootViewBounds);
+    
+    //Create a rectangle for the toolbar
+    CGRect rectArea = CGRectMake(0, rootViewHeight - toolbarHeight, rootViewWidth, toolbarHeight);
+    
+    //Reposition and resize the receiver
+    [toolbar setFrame:rectArea];
+    
+	//toolbar.frame = CGRectMake(0, 372, 320, 44);
+	tbl.frame = CGRectMake(0, 0, rootViewWidth , rootViewHeight - toolbarHeight);	
+	[UIView commitAnimations];
+}
+
 
 /*
  // Called when the UIKeyboardDidShowNotification is sent.
@@ -705,6 +832,13 @@
  */
 
 - (void)messageReceivedUpdate:(NSNotification *)notification{
+    
+    //play audio alert
+    SystemSoundID soundID;
+    NSString *soundFile = [[NSBundle mainBundle] pathForResource:@"ALARM" ofType:@"WAV"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef) [NSURL fileURLWithPath:soundFile], &soundID);    
+    AudioServicesPlayAlertSound(soundID);
+    
     [tbl reloadData];
     NSUInteger index = [messages count] - 1;
     [tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];

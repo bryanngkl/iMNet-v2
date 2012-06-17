@@ -17,6 +17,7 @@
 @synthesize rscMgr;
 @synthesize ownpintapped, macAddress,organisation;
 @synthesize locationPicture;
+@synthesize popovercontroller;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -236,13 +237,67 @@
 }
 
 - (IBAction)choosePhoto:(id)sender {
-    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-	picker.delegate = self;
+
+    if ([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"] || [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] ) {
+        UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        [self presentModalViewController:picker animated:YES];
+    }
+    else {
+        if ([self.popovercontroller isPopoverVisible]) {
+            [self.popovercontroller dismissPopoverAnimated:YES];
+        } 
+        else {
+            if ([UIImagePickerController isSourceTypeAvailable:
+                 UIImagePickerControllerSourceTypeSavedPhotosAlbum])
+            {
+                UIImagePickerController *imagePicker =
+                [[UIImagePickerController alloc] init];
+                imagePicker.delegate = self;
+                imagePicker.sourceType =
+                UIImagePickerControllerSourceTypePhotoLibrary;
+                //imagePicker.mediaTypes = [NSArray arrayWithObjects:
+                //                          (NSString *) kUTTypeImage,
+                //                          nil];
+                imagePicker.allowsEditing = NO;
+                
+                self.popovercontroller = [[UIPopoverController alloc]
+                                          initWithContentViewController:imagePicker];
+                
+                popovercontroller.delegate = self;
+                
+                //[self.popovercontroller presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+                
+                [self.popovercontroller presentPopoverFromRect:CGRectMake(20,370,10,10) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+                
+               // newMedia = NO;
+            }
+        }
+
+    }
     
-    picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-	
-	[self presentModalViewController:picker animated:YES];
+
 }
+
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+	[picker dismissModalViewControllerAnimated:YES];
+	[picker.view removeFromSuperview];
+	picker = nil;
+	//[popover dismissPopoverAnimated:YES];
+
+}
+
+//for Ipad UIPopoverController if there is a cancel when the user click outside the popover
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+	//[popoverController dismissModalViewControllerAnimated:YES];
+	//[popoverController.view removeFromSuperview];
+
+}
+
 
 - (IBAction)takePhoto:(id)sender {
     UIImagePickerController * picker = [[UIImagePickerController alloc] init];
@@ -255,7 +310,12 @@
 
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	[picker dismissModalViewControllerAnimated:YES];
+	if ([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"] || [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] ) {
+        [picker dismissModalViewControllerAnimated:YES];
+    }
+    else {
+        [self.popovercontroller dismissPopoverAnimated:true];
+    }
 	locationPicture.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     DataClass *obj = [DataClass getInstance];
     

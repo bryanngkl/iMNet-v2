@@ -12,6 +12,7 @@
 #import "ConvertLocationData.h"
 #import "RMMapView.h"
 #import "AddPinInfoViewController.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 
 #import "RscMgr.h"
