@@ -790,7 +790,7 @@
     
     NSURL *tilesURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:obj.map ofType:@"mbtiles"]];
     
-    //NSURL *tilesURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"geography-class_f9f8b8" ofType:@"mbtiles"]];
+    //NSURL *tilesURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"london_hyde_park_72f42ffdasfs" ofType:@"mbtiles"]];
     
     RMMBTilesTileSource *source = [[RMMBTilesTileSource alloc] initWithTileSetURL:tilesURL];
     

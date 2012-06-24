@@ -39,6 +39,12 @@
 		931A54FE15836D120008C559 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931A54F815836D120008C559 /* Icon@2x.png */; };
 		931A54FF1583717E0008C559 /* MBProgressHUD.h in Sources */ = {isa = PBXBuildFile; fileRef = 931A54F015836CF70008C559 /* MBProgressHUD.h */; };
 		931A55001583717E0008C559 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 931A54F115836CF70008C559 /* MBProgressHUD.m */; };
+		933613EC1590D0E400CCEEF0 /* london_hyde_park_72f42f.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = 933613EB1590D0E400CCEEF0 /* london_hyde_park_72f42f.mbtiles */; };
+		933613F21590D7C800CCEEF0 /* hyde_park.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = 933613F11590D7C800CCEEF0 /* hyde_park.mbtiles */; };
+		933613F31590D7C800CCEEF0 /* hyde_park.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = 933613F11590D7C800CCEEF0 /* hyde_park.mbtiles */; };
+		933613F51595FEF500CCEEF0 /* 97093a2f4b5310c79142e7c6b72de9ed.png in Resources */ = {isa = PBXBuildFile; fileRef = 933613F41595FEF500CCEEF0 /* 97093a2f4b5310c79142e7c6b72de9ed.png */; };
+		933613F71595FF8800CCEEF0 /* iPhoneIcon_Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 933613F61595FF8800CCEEF0 /* iPhoneIcon_Small.png */; };
+		933613F91595FF9500CCEEF0 /* iPhoneIcon_Big.png in Resources */ = {isa = PBXBuildFile; fileRef = 933613F81595FF9400CCEEF0 /* iPhoneIcon_Big.png */; };
 		934A3B2F15869E3B004A5BFA /* ContactImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 934A3B2E15869E3B004A5BFA /* ContactImageViewController.m */; };
 		934A3B521587F08D004A5BFA /* Nothing.png in Resources */ = {isa = PBXBuildFile; fileRef = 934A3B4F1587F08D004A5BFA /* Nothing.png */; };
 		934A3B531587F08D004A5BFA /* SlideToStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 934A3B501587F08D004A5BFA /* SlideToStop.png */; };
@@ -97,8 +103,6 @@
 		9F4F7D4315761A780040496D /* DataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3D15761A780040496D /* DataClass.m */; };
 		9F4F7D4415761A780040496D /* MyCLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F7D3F15761A780040496D /* MyCLController.m */; };
 		9F4F7D4715761B0E0040496D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F7D4615761B0E0040496D /* MapViewController.m */; };
-		9F4F7D4D15762EF50040496D /* iMNet icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F7D4C15762EF50040496D /* iMNet icon.png */; };
-		9F68F1A51577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = 9F68F1A41577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles */; };
 		9FBA7AC51577E6A6003C3F14 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 930F07431575962100F39890 /* MainStoryboard_iPhone.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -181,6 +185,11 @@
 		931A54F615836D120008C559 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		931A54F715836D120008C559 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		931A54F815836D120008C559 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		933613EB1590D0E400CCEEF0 /* london_hyde_park_72f42f.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; name = london_hyde_park_72f42f.mbtiles; path = "iMNet v2/london_hyde_park_72f42f.mbtiles"; sourceTree = "<group>"; };
+		933613F11590D7C800CCEEF0 /* hyde_park.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = hyde_park.mbtiles; sourceTree = "<group>"; };
+		933613F41595FEF500CCEEF0 /* 97093a2f4b5310c79142e7c6b72de9ed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 97093a2f4b5310c79142e7c6b72de9ed.png; sourceTree = "<group>"; };
+		933613F61595FF8800CCEEF0 /* iPhoneIcon_Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneIcon_Small.png; sourceTree = "<group>"; };
+		933613F81595FF9400CCEEF0 /* iPhoneIcon_Big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneIcon_Big.png; sourceTree = "<group>"; };
 		934A3B2D15869E3A004A5BFA /* ContactImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactImageViewController.h; sourceTree = "<group>"; };
 		934A3B2E15869E3B004A5BFA /* ContactImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactImageViewController.m; sourceTree = "<group>"; };
 		934A3B4F1587F08D004A5BFA /* Nothing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Nothing.png; sourceTree = "<group>"; };
@@ -265,7 +274,6 @@
 		9F4F7D4515761B0E0040496D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		9F4F7D4615761B0E0040496D /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		9F4F7D4C15762EF50040496D /* iMNet icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iMNet icon.png"; path = "../../iMNet icon.png"; sourceTree = "<group>"; };
-		9F68F1A41577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = london_hyde_park_72f42f.mbtiles; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,6 +368,11 @@
 		930F07221575962100F39890 = {
 			isa = PBXGroup;
 			children = (
+				933613F81595FF9400CCEEF0 /* iPhoneIcon_Big.png */,
+				933613F61595FF8800CCEEF0 /* iPhoneIcon_Small.png */,
+				933613F41595FEF500CCEEF0 /* 97093a2f4b5310c79142e7c6b72de9ed.png */,
+				933613EB1590D0E400CCEEF0 /* london_hyde_park_72f42f.mbtiles */,
+				933613F11590D7C800CCEEF0 /* hyde_park.mbtiles */,
 				9361BFAC158A2626003F601D /* AudioToolbox.framework */,
 				93B13B3D157AE504006F5BA4 /* xbee classes */,
 				938E8130157ACFEA00E7DCC7 /* ExternalAccessory.framework */,
@@ -537,7 +550,6 @@
 			isa = PBXGroup;
 			children = (
 				9F4F7D3815761A780040496D /* control-room-0.2.0.mbtiles */,
-				9F68F1A41577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles */,
 				9F4F7D3915761A780040496D /* geography-class_f9f8b8.mbtiles */,
 				9F4F7D3A15761A780040496D /* ConvertLocationData.h */,
 				9F4F7D3B15761A780040496D /* ConvertLocationData.m */,
@@ -660,7 +672,6 @@
 				9301FB501575BA6000D20688 /* SettingsIcon.png in Resources */,
 				9F4F7D4015761A780040496D /* control-room-0.2.0.mbtiles in Resources */,
 				9F4F7D4115761A780040496D /* geography-class_f9f8b8.mbtiles in Resources */,
-				9F4F7D4D15762EF50040496D /* iMNet icon.png in Resources */,
 				9F02492315765B28008DDD6B /* loading.png in Resources */,
 				9F02492415765B28008DDD6B /* marker-X.png in Resources */,
 				9F02492515765B28008DDD6B /* marker-blue.png in Resources */,
@@ -676,7 +687,6 @@
 				9F02493615765C9C008DDD6B /* 193-location-arrow.png in Resources */,
 				9F02493C1576669C008DDD6B /* delete_24.png in Resources */,
 				9F02493E157666FC008DDD6B /* information_24.png in Resources */,
-				9F68F1A51577BFE90087B5C2 /* london_hyde_park_72f42f.mbtiles in Resources */,
 				9FBA7AC51577E6A6003C3F14 /* MainStoryboard_iPhone.storyboard in Resources */,
 				9356E2D715792D9100756ED2 /* green.png in Resources */,
 				9356E2D815792D9100756ED2 /* grey.png in Resources */,
@@ -689,6 +699,10 @@
 				934A3B6F15888CA2004A5BFA /* rsz_sos.png in Resources */,
 				9361BFAA158A25C1003F601D /* ALARM.WAV in Resources */,
 				9361BFAB158A25C1003F601D /* glass_sms.mp3 in Resources */,
+				933613F21590D7C800CCEEF0 /* hyde_park.mbtiles in Resources */,
+				933613F51595FEF500CCEEF0 /* 97093a2f4b5310c79142e7c6b72de9ed.png in Resources */,
+				933613F71595FF8800CCEEF0 /* iPhoneIcon_Small.png in Resources */,
+				933613F91595FF9500CCEEF0 /* iPhoneIcon_Big.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,6 +717,8 @@
 				931A54FC15836D120008C559 /* Default@2x.png in Resources */,
 				931A54FD15836D120008C559 /* Icon.png in Resources */,
 				931A54FE15836D120008C559 /* Icon@2x.png in Resources */,
+				933613EC1590D0E400CCEEF0 /* london_hyde_park_72f42f.mbtiles in Resources */,
+				933613F31590D7C800CCEEF0 /* hyde_park.mbtiles in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

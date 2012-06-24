@@ -137,7 +137,8 @@
     myTextField.keyboardType = UIKeyboardTypeDefault;
     myTextField.returnKeyType = UIReturnKeyDone;
     myTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    myTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;    
+    myTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    myTextField.autocorrectionType = UITextAutocorrectionTypeYes;
     //when textfield is changed
     [myTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     myTextField.delegate = self;
@@ -365,6 +366,13 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+  /*  
+    NSUInteger index = [messages count]-1;
+    if (index >3) {
+        [tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+   */
+
     [super viewDidAppear:animated];
 }
 
@@ -499,7 +507,7 @@
 	
 	UIImage *balloon;
 	
-	if ([[sortedMessages objectAtIndex:indexPath.row] messageReceived] == [NSNumber numberWithInt:1]) //if(indexPath.row % 2 == 0)
+	if ([[sortedMessages objectAtIndex:indexPath.row] messageReceived] == [NSNumber numberWithInt:0]) //if(indexPath.row % 2 == 0)
 	{
         
         if ([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"] || [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] ) {
@@ -550,8 +558,8 @@
 
     }
     
-    NSUInteger index = [messages count]-1;
-    [tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    //NSUInteger index = [messages count]-1;
+    //[tbl scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     
 	
     //tbl.frame = CGRectMake(0, 0, 320, 325);	

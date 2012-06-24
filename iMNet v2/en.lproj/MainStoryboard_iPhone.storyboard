@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
@@ -299,7 +298,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" text="Username" lineBreakMode="tailTruncation" minimumFontSize="10" id="W89-kw-6kT">
-                                            <rect key="frame" x="13" y="6" width="88" height="22"/>
+                                            <rect key="frame" x="13" y="6" width="153" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1208,7 +1207,7 @@
                                             <rect key="frame" x="10" y="1" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="london_hyde_park_72f42f" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RlF-bx-qSc">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="hyde_park" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RlF-bx-qSc">
                                                     <rect key="frame" x="10" y="0.0" width="260" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -1240,13 +1239,31 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" textLabel="iTs-73-PHu" style="IBUITableViewCellStyleDefault" id="bjH-J0-K45">
-                                        <rect key="frame" x="0.0" y="99" width="320" height="45"/>
+                                        <rect key="frame" x="0.0" y="99" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="control-room-0.2.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iTs-73-PHu">
+                                                    <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" textLabel="x9o-Yn-BWr" style="IBUITableViewCellStyleDefault" id="YOT-1R-0mj">
+                                        <rect key="frame" x="0.0" y="143" width="320" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="london_hyde_park_72f42f" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="x9o-Yn-BWr">
                                                     <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -1552,8 +1569,8 @@
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="RSSI Indicator" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="7fN-yX-3pk">
-                                                    <rect key="frame" x="10" y="11" width="110" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Signal Strength" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="7fN-yX-3pk">
+                                                    <rect key="frame" x="10" y="11" width="117" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1639,12 +1656,159 @@
         <image name="information_24.png" width="24" height="24"/>
         <image name="rsz_sos.png" width="24" height="24"/>
     </resources>
+    <classes>
+        <class className="AddPinInfoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddPinInfoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="Back:"/>
+                <relationship kind="action" name="choosePhoto:"/>
+                <relationship kind="action" name="takePhoto:"/>
+                <relationship kind="outlet" name="coordinates" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="description" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="locationPicture" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="orglabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="title" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ContactDetailsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="choosePhoto:"/>
+                <relationship kind="action" name="locateMe:"/>
+                <relationship kind="action" name="requestUserInfo:"/>
+                <relationship kind="action" name="takePhoto:"/>
+                <relationship kind="outlet" name="contactPicture" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="userData" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="userName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userOrganisation" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userlatitude" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userlongitude" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ContactImageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactImageViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="image" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="ContactsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="contactDiscovery:"/>
+            </relationships>
+        </class>
+        <class className="ManualConfigViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ManualConfigViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="sendHex:"/>
+                <relationship kind="outlet" name="bytesToSend" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="displayBytes" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="MapChoseTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapChoseTableViewController.h"/>
+        </class>
+        <class className="MapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteCurrentPin:"/>
+                <relationship kind="action" name="dropPin:"/>
+                <relationship kind="action" name="getNearbyInfo:"/>
+                <relationship kind="action" name="locateMe:"/>
+                <relationship kind="outlet" name="addInfo" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="deletePin" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapView" candidateClass="RMMapView"/>
+                <relationship kind="outlet" name="mytoolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="MessageLogViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MessageLogViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="add:"/>
+                <relationship kind="action" name="goBack:"/>
+                <relationship kind="outlet" name="field" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="sendbutton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tbl" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="MessageViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MessageViewController.h"/>
+        </class>
+        <class className="NetworkSettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NetworkSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButton:"/>
+                <relationship kind="action" name="retryATSC:"/>
+                <relationship kind="action" name="updateNetworkDetails:"/>
+                <relationship kind="outlet" name="ChannelLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="DeviceTypeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="MACAddressLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="NetworkAddressLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="NetworkIDLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="UsernameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NewMsgContactsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewMsgContactsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="contactDiscovery:"/>
+            </relationships>
+        </class>
+        <class className="PersonalInfoViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PersonalInfoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButton:"/>
+                <relationship kind="action" name="saveData:"/>
+                <relationship kind="outlet" name="organisationField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="userDataField" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="usernameField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="RMMapView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RMMapView.h"/>
+        </class>
+        <class className="RadioSettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RadioSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButton:"/>
+                <relationship kind="action" name="updatePowerSettings:"/>
+                <relationship kind="outlet" name="PowerLevelLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="RSSILabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="SupplyVoltageLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SOSViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SOSViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="LockIt"/>
+                <relationship kind="action" name="UnLockIt"/>
+                <relationship kind="action" name="clearSOS:"/>
+                <relationship kind="action" name="fadeLabel"/>
+                <relationship kind="outlet" name="Container" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="field" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="lockButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="myLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="slideToUnlock" candidateClass="UISlider"/>
+            </relationships>
+        </class>
+        <class className="SendLocationContactsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SendLocationContactsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="contactDiscovery:"/>
+            </relationships>
+        </class>
+        <class className="SettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="K3W-KA-op3"/>
+        <segue reference="667-6m-lxe"/>
     </inferredMetricsTieBreakers>
 </document>

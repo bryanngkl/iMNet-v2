@@ -55,30 +55,32 @@
     
   
     DataClass *obj = [DataClass getInstance];
-    obj.map = @"london_hyde_park_72f42f";
-  
+    obj.map = @"hyde_park";
+  /*
     //create new sample contact
     Contacts *newContact = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
     
     [newContact setAddress16:@"1234"];
     [newContact setAddress64:@"1234567890"];
-    [newContact setUsername:@"Zhang Sheng"];
-    [newContact setUserData:@"Head of Logistics Red Cross"];
-    [newContact setUserOrg:@"Red Cross"];
-    [newContact setIsAvailable:[NSNumber numberWithBool:FALSE]];
+    [newContact setUsername:@"Xing"];
+    [newContact setUserData:@"Head of Logistics Oxfam"];
+    [newContact setUserOrg:@"Red Cross"];    
+    [newContact setIsAvailable:[NSNumber numberWithBool:TRUE]];
+    
     NSError *error = nil;
     if (![managedObjectContext save:&error]) {
         // Handle the error.
     }
     //end of sample contact
   
-      
+    */
+      /*
     //create new sample contact2
     Contacts *newContact2 = (Contacts *)[NSEntityDescription insertNewObjectForEntityForName:@"Contacts" inManagedObjectContext:managedObjectContext];
     
     [newContact2 setAddress16:@"1234"];
     [newContact2 setAddress64:@"1234567890"];
-    [newContact2 setUsername:@"Xing"];
+    [newContact2 setUsername:@"W5BCS"];
     [newContact2 setUserData:@"Head of Logistics, Oxfam"];
     [newContact2 setUserOrg:@"Oxfam"];
     
@@ -86,10 +88,10 @@
         Location *newlocation = (Location *)[NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:managedObjectContext];
         newlocation.locationTitle = newContact2.username;
         newlocation.locationDescription = newContact2.userData;
-        newlocation.locationLatitude = @"000.761708,103.359387";
+        newlocation.locationLatitude = @"051.505501,-00.181594";
         [newlocation setLocationContact:newContact2];
     
-    [newContact2 setIsAvailable:[NSNumber numberWithBool:FALSE]];
+    [newContact2 setIsAvailable:[NSNumber numberWithBool:TRUE]];
     [newContact2 setContactLocation:newlocation];
     
     NSError *error1 = nil;
@@ -97,12 +99,12 @@
         // Handle the error.
     }
     //end of sample contact2
-    /*
+    
     
     
     //create new sample message
     Messages *newMessage = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
-    newMessage.messageContents = [NSString stringWithFormat:@"%@", @"Another 10 casualties will be heading your"];
+    newMessage.messageContents = [NSString stringWithFormat:@"%@", @"2AST"];
     newMessage.messageReceived = [NSNumber numberWithBool:TRUE];
     newMessage.messageDate = [NSDate date];
     newMessage.messageFromContacts = newContact2;
@@ -111,14 +113,14 @@
         // Handle the error.
     }
     //end of sample message 1
-    
+
 
     //create new sample message
     Messages *newMessage2 = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
-    newMessage2.messageContents = [NSString stringWithFormat:@"%@", @"We need a situational report on your clinic"];
-    newMessage2.messageReceived = [NSNumber numberWithBool:TRUE];
+    newMessage2.messageContents = [NSString stringWithFormat:@"%@", @"AA10N1AT"];
+    newMessage2.messageReceived = [NSNumber numberWithBool:FALSE];
     newMessage2.messageDate = [NSDate date];
-    newMessage2.messageFromContacts = newContact;
+    newMessage2.messageFromContacts = newContact2;
     NSError *error3 = nil;
     if (![managedObjectContext save:&error3]) {
         // Handle the error.
@@ -127,18 +129,27 @@
     
     //create new sample message
     Messages *newMessage3 = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
-    newMessage3.messageContents = [NSString stringWithFormat:@"%@", @"sdfa"];
+    newMessage3.messageContents = [NSString stringWithFormat:@"%@", @"(SOS)--I'm in danger! Send help down to my location now."];
     newMessage3.messageReceived = [NSNumber numberWithBool:TRUE];
     newMessage3.messageDate = [NSDate date];
-    newMessage3.messageFromContacts = newContact;
+    newMessage3.messageFromContacts = newContact2;
     NSError *error4 = nil;
     if (![managedObjectContext save:&error4]) {
         // Handle the error.
     }
     //end of sample message 2
-    */
-
     
+    //create new sample message
+    Messages *newMessage4 = (Messages *)[NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:managedObjectContext];    
+    newMessage4.messageContents = [NSString stringWithFormat:@"%@", @"sending help over now"];
+    newMessage4.messageReceived = [NSNumber numberWithBool:FALSE];
+    newMessage4.messageDate = [NSDate date];
+    newMessage4.messageFromContacts = newContact2;
+    NSError *error5 = nil;
+    if (![managedObjectContext save:&error5]) {
+        // Handle the error.
+    }
+    */
     
     return YES;
 }
